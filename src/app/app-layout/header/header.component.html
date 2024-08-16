@@ -1,0 +1,63 @@
+<header>
+  <div class="crypt-header">
+      <div class="container-fluid crypt-container">
+          <div class="row">
+              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12">
+                  <div class="row">
+                      <div class="crypt-logo"><a routerLink="/"><img src="../../../assets/images/logo.png"  style="height: 72px; top: -7px;"></a></div>
+                  </div>
+              </div>
+              <i class="menu-toggle fas fa-bars d-xs-block d-sm-block d-md-none"></i>
+              <div class="mobile-menu col-xl-11 col-lg-11 col-md-11 d-none d-md-block d-lg-block">
+                  <ul class="crypt-heading-menu float-left" *ngIf="isLogin">
+
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              markets
+                          </a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="markets.html">Markets</a>
+                              <a class="dropdown-item" href="markets-line.html">Markets Line</a>
+                          </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              finance
+                          </a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" href="technical-analysis.html">Technical Analysis</a>
+                              <a class="dropdown-item" href="economic-calendar.html">Economic Calendar</a>
+                              <a class="dropdown-item" href="screener.html">Screener</a>
+                          </div>
+                      </li>
+                      <li><a routerLink="/message">Message</a></li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              trade
+                          </a>
+                          <div class="dropdown-menu">
+                              <a class="dropdown-item" routerLink="/trade/account-info">Account Info</a>
+                              <a class="dropdown-item" routerLink="/trade/trading">Trade Basic</a>
+                              <a class="dropdown-item" routerLink="/trade/setting-trade">Setting Trade</a>
+                          </div>
+                      </li>
+                  </ul>
+                  <ul class="crypt-heading-menu float-right">
+                      <li><a href="contact-us.html">contact us</a></li>
+                      <li *ngIf="!isLogin"class="crypt-box-menu"><a  routerLink="auth/login">login</a></li>
+                      <li  *ngIf="isLogin" class="crypt-box-menu"><a  (click)="logOut()">logout</a></li>
+                      <li class="crypt-box-menu">
+                       <a routerLink="/trade/connect" *ngIf="isLogin && !isConnect">
+                          <button >connect api key</button>
+                       </a>
+                       <a routerLink="/trade/connect" *ngIf="isConnect">
+                        <button  style="background-color: #007BA7;" >Connect API MEXC Susscess</button>
+                       </a>
+                    </li>
+                  </ul>
+                  <p></p>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>

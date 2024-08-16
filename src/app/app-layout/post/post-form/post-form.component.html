@@ -1,0 +1,59 @@
+<input type="hidden" id="yearr" />
+<input type="hidden" id="monthh" />
+<input type="hidden" id="dayy" />
+<input type="hidden" id="genderr" />
+
+<section class="col-12">
+	<!-- Step -->
+
+
+	<!-- Form -->
+	<div class="row form">
+		<div class="col-xl-10 mx-lg-auto">
+			<div class="bg-white row rounded-4">
+				<div class="col-lg-10 offset-lg-1 mt-6">
+					<h2 class="mb-5">Register Form</h2>
+					<div class="row g-4">
+						<div class="col-lg-12 col-xl-4">
+							<ng-container [ngTemplateOutlet]="label" [ngTemplateOutletContext]="{
+									label: 'PIN',
+									required: true
+								}"></ng-container>
+
+							<div class="row">
+								<div class="col">
+									<input class="form-control" type="pinNo" id="pinNo" />
+								</div>
+								<span class="form-text">Pin No</span>
+							</div>
+						</div>
+						<hr />
+						<!-- Buttons -->
+						<div class="col-12 mb-3 mb-lg-5">
+							<div class="row justify-content-between">
+
+								<div class="col col-lg-5">
+									<button type="submit"
+										class="btn btn-primary d-flex align-items-center justify-content-center w-100">
+
+										<i class="bi bi-arrow-right ms-3 fs-3"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Popup -->
+
+
+<!-- Label template -->
+<ng-template #label let-label="label" let-required="required">
+	<label class="form-label">{{ label }}
+		<span class="text-danger" *ngIf="required">*</span>
+	</label>
+</ng-template>

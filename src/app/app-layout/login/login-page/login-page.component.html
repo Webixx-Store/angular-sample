@@ -1,0 +1,63 @@
+<div class="container pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <div class="text-center pt-5 pb-5">
+        <div class="crypt-form shadow-lg rounded p-5 mt-3">
+          <!-- Logo section inside the login form -->
+          <div class="mb-4 d-flex flex-column align-items-center">
+            <img src="../../../../assets/images/logo.png" alt="Company Logo" class="img-fluid" style="max-width: 150px;">
+            <div class="mt-3">
+              <div class="d-inline-block">
+                <span>https:</span><span>//auth.Webixx.com</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="crypt-form-top text-center">
+            <div>
+              <h3 class="p-5">Welcome to Webixx</h3>
+              <h5>Log in</h5>
+              <div class="info-text">
+                <p>Please check that you are visiting the correct URL</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-group">
+              <label class="form-label" for="login1-email">Email or AccountID</label>
+              <a class="right-text" href="#">Need Help?</a>
+            </div>
+            <input type="text" class="form-control" [(ngModel)]="email" name="email" id="login1-email">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-group">
+              <label class="form-label" for="login1-password">Password</label>
+              <a class="right-text" href="forgot.html">Forgot Password?</a>
+            </div>
+            <div class="form-control-wrap">
+              <input type="password" [(ngModel)]="password" class="form-control" id="login1-password">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-lg btn-green btn-block mt-2" (click)="loginPage()">Sign in</button>
+          </div>
+
+          <div class="float-right form-itext">
+            <span class="pr-1">Not on our platform yet?</span><a routerLink="/auth/register">Register</a>
+          </div>
+
+          <div class="align-center col-12">
+            <div class="row justify-content-center">
+              <div class="col-12" id="googleID">
+                <!-- Google ID content here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
