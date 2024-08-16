@@ -29,26 +29,26 @@ export class ConnectApiComponent implements OnInit {
 
   }
 
-  
+
   ngOnDestroy():void{
     if (this.sub$) {
       this.sub$.unsubscribe();
     }
-  } 
+  }
 
   ngOnInit(): void {
 
    this.sub$ =  this.result$.subscribe(res=>{
       if(ValidationUtil.isNotNullAndNotEmpty(res)){
-        if(res.retCode == 'OK'){
+        if(res.code == 'OK'){
           this.toastr.success("API SAVE AND CONNECTED SUSCESS");
-        }else if(res.retCode == 'BAD'){
+        }else if(res.code == 'BAD'){
           this.toastr.error("API SAVE BUT CONNECTED FAIL");
         }
       }
     })
 
-    
+
 
 
   }
@@ -57,12 +57,12 @@ export class ConnectApiComponent implements OnInit {
     const params = {
       publicKey : this.publicKey,
       privateKey: this.privateKey
-      
+
     }
 
     this.coinStore.dispatch(addKeyAction({params:params}));
   }
 
-  
+
 
 }

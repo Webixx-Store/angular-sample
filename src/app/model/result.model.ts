@@ -1,4 +1,5 @@
 export interface ResultModel{
-    retStr:String;
-    retCode:String;
+    code:String;
+    msg:String;
+    data: any;
 }

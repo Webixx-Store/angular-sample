@@ -14,7 +14,7 @@ export class AuthService{
     constructor(private _http: HttpClient) { }
 
   auth(params:any): Observable<MemberModel> {
-    let url = `${environment.apiUrl}/api/authenticate`;
+    let url = `${environment.apiUrl}/api/user/authenticate`;
     return this._http.post<MemberModel>(url,params);
   }
 
@@ -34,11 +34,11 @@ export class AuthService{
      }
 
      addUser(params:any): Observable<ResultModel> {
-      let url = `${environment.apiUrl}/api/addUser`;
+      let url = `${environment.apiUrl}/api/user/save`;
       return this._http.post<ResultModel>(url,params);
      }
   }
 
-  
-  
+
+
 

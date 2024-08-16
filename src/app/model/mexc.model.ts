@@ -18,6 +18,6 @@ export  interface MexcModel{
   count                   :string ;
   privateKey              :string ;
   publicKey               :string ;
-  userid                  :string ;
+  id                  :string ;
 
 }

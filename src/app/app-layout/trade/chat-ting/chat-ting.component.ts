@@ -12,7 +12,7 @@ import { WebSocketService } from 'src/app/service/web-socket-service.service';
 export class ChatTingComponent implements OnInit {
 
   messageInput: string = '';
-  userId: string="";
+  id: string="";
   messageList: any[] = [];
 
   constructor(private chatService: WebSocketService,
@@ -22,7 +22,7 @@ export class ChatTingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userId = String(AuthDetail.getLoginedInfo()?.userId);
+    this.id = String(AuthDetail.getLoginedInfo()?.id);
     this.chatService.joinRoom("ABC");
     this.lisenerMessage();
   }
@@ -30,7 +30,7 @@ export class ChatTingComponent implements OnInit {
   sendMessage() {
     const chatMessage = {
       message: this.messageInput,
-      user: this.userId
+      user: this.id
     }as ChatMessage
     this.chatService.sendMessage("ABC", chatMessage);
     this.messageInput = '';
@@ -40,7 +40,7 @@ export class ChatTingComponent implements OnInit {
     this.chatService.getMessageSubject().subscribe((messages: any) => {
       this.messageList = messages.map((item: any)=> ({
         ...item,
-        message_side: item.user === this.userId ? 'sender': 'receiver'
+        message_side: item.user === this.id ? 'sender': 'receiver'
       }))
     });
   }

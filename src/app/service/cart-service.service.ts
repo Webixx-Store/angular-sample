@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 interface Cart {
-  userId: string;
+  id: string;
   items: { [productId: string]: number }; // Map<ProductId, Quantity>
 }
 
@@ -23,11 +23,11 @@ export class CartService {
     localStorage.setItem(this.cartKey, JSON.stringify(cart));
   }
 
-  addToCart(userId: string, productId: string, quantity: number): void {
+  addToCart(id: string, productId: string, quantity: number): void {
     let cart = this.getCart();
 
     if (!cart) {
-      cart = { userId, items: {} };
+      cart = { id, items: {} };
     }
 
     if (!cart.items[productId]) {

@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
 
     this.resultConnect$.subscribe(res =>{
       if(ValidationUtil.isNotNullAndNotEmpty(res)){
-        if(res.retCode == 'OK'){
+        if(res.code == 'OK'){
           this.isConnect = true;
         }else{
           this.isConnect = false;

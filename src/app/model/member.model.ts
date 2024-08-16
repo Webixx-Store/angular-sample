@@ -1,5 +1,5 @@
 export interface MemberModel{
-    userId:String ;
+    id:String ;
     password:String ;
     userName: String ;
     address:String;

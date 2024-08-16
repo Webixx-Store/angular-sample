@@ -20,11 +20,13 @@ export class RegisterMemberComponent implements OnInit {
   googleUser:any =  JSON.parse(localStorage.getItem(Common.GOOGLE_USER) || '{}');
   result$ = new Observable<ResultModel>();
   result: ResultModel = {} as ResultModel;
+
   userForm = this.fb.group({
 		username: [''],
 		email: [''],
 		password: [''],
 		rePassword: [''],
+    isTermsAccepted:   false
 	});
   constructor(private fb: FormBuilder ,
               private authState : Store<AuthState> ,private toastr: ToastrService) {
@@ -42,8 +44,8 @@ export class RegisterMemberComponent implements OnInit {
     }
 
     this.result$.subscribe(res=>{
-      if(ValidationUtil.isNotNullAndNotEmpty(res.retCode)){
-          this.toastr.success(String(res.retStr))
+      if(ValidationUtil.isNotNullAndNotEmpty(res.code)){
+          this.toastr.success(String(res.msg))
 
       }
     })
@@ -65,11 +67,17 @@ export class RegisterMemberComponent implements OnInit {
       this.toastr.error("Passwords do not match, please enter correctly")
       return;
     }
+
+    if(!this.userForm.get('isTermsAccepted')?.value){
+      this.toastr.error("Please agree to the Terms of Service.")
+      return;
+    }
     let params = {
       username : this.userForm.get('username')?.value,
       password : this.userForm.get('password')?.value,
       email : this.userForm.get('email')?.value,
-      googleID:this.googleUser.sub
+      token:this.googleUser.sub,
+      role:'guess'
     }
 
     this.authState.dispatch(addUser({params:params}));
