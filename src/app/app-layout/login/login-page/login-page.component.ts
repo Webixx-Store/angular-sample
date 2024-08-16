@@ -121,7 +121,7 @@ export class LoginPageComponent implements OnInit {
   initGoogle(): void {
 		google.accounts.id.initialize({
 			client_id:
-				'187341364191-dij5tbuu3pp211pf7j4glr60m13vr96f.apps.googleusercontent.com',
+				'486224866301-dkdhc49gkdkono32dcbgtgf0ts5s6t79.apps.googleusercontent.com',
 			prompt_parent_id: 'popup-container',
 			auto_select: false,
 			callback: this.handleCredentialResponse.bind(this),
