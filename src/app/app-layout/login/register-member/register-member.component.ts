@@ -43,7 +43,7 @@ export class RegisterMemberComponent implements OnInit {
 
     this.result$.subscribe(res=>{
       if(ValidationUtil.isNotNullAndNotEmpty(res.retCode)){
-          alert(res.retStr);
+          this.toastr.success(String(res.retStr))
 
       }
     })
@@ -52,11 +52,11 @@ export class RegisterMemberComponent implements OnInit {
 
   addUser(){
     if(!ValidationUtil.isNotNullAndNotEmpty(this.userForm.get('username')?.value)){
-      alert('please enter username')
+      this.toastr.error("Please enter username")
       return;
     }
     if(!ValidationUtil.isNotNullAndNotEmpty(this.userForm.get('password')?.value)){
-      alert('please enter password')
+      this.toastr.error("Please enter password")
       return;
     }
     console.log(this.userForm.get('password')?.value)
