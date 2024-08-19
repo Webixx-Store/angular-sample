@@ -23,7 +23,9 @@ import { ComponentsModule } from './components/components.module';
     ComponentsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right', // Thay đổi vị trí ở đây
+    }), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

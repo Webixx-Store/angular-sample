@@ -99,11 +99,8 @@
 
 
 
-  <app-popup  [isOpen]="isPopupOpen"  [kind]="'shop'" >
+  <app-popup  [isOpen]="isPopupOpen"  (close)="closePopup()">
     <div class="promo-content">
-      <button type="button" class="close" aria-label="Close" onclick="closePopup()">
-        <span aria-hidden="true">&times;</span>
-      </button>
       <h4>Special Promotion!</h4>
       <p>Get 20% off on your first purchase. Use code: <strong>WELCOME20</strong></p>
     </div>

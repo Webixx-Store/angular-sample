@@ -16,8 +16,8 @@
                               markets
                           </a>
                           <div class="dropdown-menu">
-                              <a class="dropdown-item" routerLink="/shopping">Markets</a>
-                              <a class="dropdown-item" href="markets-line.html">Markets Line</a>
+                              <a class="dropdown-item" routerLink="/shopping">Shopping</a>
+                              <a class="dropdown-item" routerLink="/shopping/checkout">Checkout</a>
                           </div>
                       </li>
                       <li class="nav-item dropdown">
@@ -43,19 +43,30 @@
                       </li>
                   </ul>
                   <ul class="crypt-heading-menu float-right">
-                      <li><a href="contact-us.html">contact us</a></li>
-                      <li *ngIf="!isLogin"class="crypt-box-menu"><a  routerLink="auth/login">login</a></li>
-                      <li  *ngIf="isLogin" class="crypt-box-menu"><a  (click)="logOut()">logout</a></li>
-                      <li class="crypt-box-menu">
-                       <a routerLink="/trade/connect" *ngIf="isLogin && !isConnect">
-                          <button >connect api key</button>
-                       </a>
-                       <a routerLink="/trade/connect" *ngIf="isConnect">
-                        <button  style="background-color: #007BA7;" >Connect API MEXC Susscess</button>
-                       </a>
+                    <!-- Nút cart shopping với biểu tượng và số lượng -->
+                    <li class="crypt-box-menu">
+                        <a routerLink="/shopping/checkout" class="cart-icon">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span *ngIf="quantityCart > 0" class="cart-count">{{ quantityCart }}</span>
+                        </a>
                     </li>
-                  </ul>
-                  <p></p>
+                    
+                    <!-- Nút login -->
+                    <li *ngIf="!isLogin" class="crypt-box-menu">
+                        <a routerLink="auth/login" class="login-icon">
+                            <i class="fa fa-sign-in-alt"></i>
+                        </a>
+                    </li>
+                    
+                    <!-- Nút logout -->
+                    <li *ngIf="isLogin" class="crypt-box-menu">
+                        <a (click)="logOut()" class="logout-icon">
+                            <i class="fa fa-sign-out-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+                
+                
               </div>
           </div>
       </div>

@@ -9,5 +9,9 @@ export interface ProductModel
   img:string;
   id:string;
   createdAt:string;
+  rate:number;
+  best:boolean;
+  new:boolean;
+  sale:boolean;
   rating:number;
 }

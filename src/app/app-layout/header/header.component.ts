@@ -7,8 +7,10 @@ import { AuthDetail } from 'src/app/common/util/auth-detail';
 import { DateUtils } from 'src/app/common/util/date.util';
 import { ValidationUtil } from 'src/app/common/util/validation.util';
 import { ResultModel } from 'src/app/model/result.model';
+import { AuthState, getCartNumber } from 'src/app/selectors/auth.selector';
 import { CoinState, getTestConnect } from 'src/app/selectors/coin.selector';
 import { HeaderState, getIsHeader } from 'src/app/selectors/header.selector';
+import { CartService } from 'src/app/service/cart-service.service';
 
 @Component({
   selector: 'app-header',
@@ -23,14 +25,17 @@ export class HeaderComponent implements OnInit {
   wellcome: string = ''
   isConnect:boolean = false;
   resultConnect$ =  new Observable<ResultModel>();
+  quantityCart$ = new Observable<number>();
+  quantityCart :number = 0;
 
 
 
-  constructor(private headerStore: Store<HeaderState>,
-    private router: Router,
+  constructor(private headerStore: Store<HeaderState>,private authStore: Store<AuthState>,
+    private router: Router, private cartService: CartService,
     private coinStore: Store<CoinState>) {
     this.isHeader$ = this.headerStore.select(getIsHeader);
     this.resultConnect$ = this.coinStore.select(getTestConnect);
+    this.quantityCart$ = this.authStore.select(getCartNumber)
   }
   ngOnInit(): void {
 
@@ -59,6 +64,12 @@ export class HeaderComponent implements OnInit {
         }else{
           this.isConnect = false;
         }
+      }
+    })
+    this.quantityCart = this.cartService.getCart(String(AuthDetail.getLoginedInfo()?.id)).length;
+    this.quantityCart$.subscribe(res => {
+      if(res > 0){
+        this.quantityCart = res;
       }
     })
   }

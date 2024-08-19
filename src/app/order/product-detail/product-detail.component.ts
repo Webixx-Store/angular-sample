@@ -12,4 +12,8 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  closePopup():void{
+    this.isPopupOpen = false;
+  }
+
 }

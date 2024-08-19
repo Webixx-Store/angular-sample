@@ -12,6 +12,7 @@ import { ProductEffect } from '../effects/product.effect';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { PipeModule } from '../pipe/pipe.module';
 @NgModule({
   declarations: [
     CheckoutComponent,
@@ -24,6 +25,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     ComponentsModule,
     FormsModule,
     ReactiveFormsModule,
+    PipeModule,
     StoreModule.forFeature(productFeatureKey,productReducer),
     EffectsModule.forFeature([ProductEffect]),
   ]

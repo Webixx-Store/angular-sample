@@ -9,7 +9,8 @@ export interface AuthState {
   user: MemberModel;
   date: String;
   err:String;
-  resultSaveUser:ResultModel
+  resultSaveUser:ResultModel;
+  getCartNumber:number;
 }
 
 export const getAuthState = createFeatureSelector<AuthState>(authFeatureKey);
@@ -27,6 +28,11 @@ export const getErr = createSelector(
 export const getResultSaveUser = createSelector(
   getAuthState,
 (state: AuthState) => state.resultSaveUser
+);
+
+export const getCartNumber = createSelector(
+  getAuthState,
+(state: AuthState) => state.getCartNumber
 );
 
 

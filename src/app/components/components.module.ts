@@ -7,6 +7,7 @@ import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PopupComponent } from './popup/popup.component';
 import { ProductComponent } from './product/product.component';
+import { PipeModule } from '../pipe/pipe.module';
 @NgModule({
   declarations: [
     TableTemplateComponent,
@@ -20,7 +21,8 @@ import { ProductComponent } from './product/product.component';
   ],
   imports: [
     CommonModule,
-    MeterialModule
+    MeterialModule,
+    PipeModule
 
   ]
   ,

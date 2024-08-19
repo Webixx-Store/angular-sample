@@ -1,9 +1,9 @@
 <div class="card product-card">
   <!-- Badge for Best/New/Sale -->
   <div class="badge-container">
-    <span *ngIf="true" class="badge badge-success">Best</span>
-    <span *ngIf="true" class="badge badge-primary">New</span>
-    <span *ngIf="true" class="badge badge-danger">Sale</span>
+    <span *ngIf="product.best" class="badge badge-success">Best</span>
+    <span *ngIf="product.new" class="badge badge-primary">New</span>
+    <span *ngIf="product.sale" class="badge badge-danger">Sale</span>
   </div>
 
   <!-- Product Image -->
@@ -17,10 +17,10 @@
     <!-- Price and Discount -->
     <div class="price-container">
       <p class="product-price">
-        <span *ngIf="true" class="original-price">${{product.price * 0.9}}</span>
-        ${{ product.price }}
+        <span *ngIf="true" class="original-price"> ${{ product.price }}</span>
+          ${{product.price * (1 - product.rate) | round}} 
       </p>
-      <p *ngIf="true" class="discount-percent">-{{ 10 }}%</p>
+      <p *ngIf="true" class="discount-percent">-{{ product.rate * 100 | round }}%</p>
     </div>
 
     <!-- Rating -->

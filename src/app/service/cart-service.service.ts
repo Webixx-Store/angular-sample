@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { OrderItemModel } from '../model/order-request.model';
 import { ProductModel } from '../model/product.model';
+import { AuthState } from '../selectors/auth.selector';
+import { Store } from '@ngrx/store';
+import { AuthDetail } from '../common/util/auth-detail';
+import { setCart } from '../actions/auth.action';
 
 interface Cart {
   id: string;
@@ -16,7 +20,7 @@ export class CartService {
     return `cart_${cartId}`;
   }
 
-  constructor() { }
+  constructor(private authStore: Store<AuthState>) { }
 
   getCart(cartId: string): OrderItemModel[] {
     const cartJson = localStorage.getItem(this.getCartKey(cartId));
@@ -64,6 +68,7 @@ export class CartService {
     cart.items[temp.id].price = temp.price;  // Update to the latest price
 
     this.saveCart(cart);
+    this.setQuantityCart();
   }
 
   removeProductFromCart(cartId: string, productId: string): void {
@@ -77,5 +82,13 @@ export class CartService {
         this.saveCart(cart);
       }
     }
+    this.setQuantityCart();
   }
+
+  setQuantityCart(){
+   let cartNumber = this.getCart(String(AuthDetail.getLoginedInfo()?.id)).length;
+   this.authStore.dispatch(setCart({quantity:cartNumber}))
+  }
+
+ 
 }

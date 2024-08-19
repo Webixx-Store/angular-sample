@@ -208,9 +208,9 @@
   </div>
 </div>
 
-<app-popup [isOpen]="isPopupOpen" (close)="closePopup()" [title]="'Product Popup'">
+<app-popup [isOpen]="isPopupOpen" (close)="closePopup()" [title]="'Product Popup'" >
   <h6>Product search</h6>
-  <app-table-template [isPaging]="true" [tableConfig]="config" [data]="items"
+  <app-table-template [isPaging]="true" [tableConfig]="config" [data]="items" 
   (handelChangePage)="handlePageEvent($event)" [len]="len" [total]="total" (clickRow)="clickRow($event)"
   ></app-table-template>
 </app-popup>

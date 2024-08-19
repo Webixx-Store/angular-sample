@@ -49,3 +49,9 @@ export const addUserFail = createAction(
     "[AUTH API] login addUser fail ",
     props<{ msg: any }>()
 );
+
+
+export const setCart  = createAction(
+  "[AUTH API] set cart ",
+  props<{ quantity: number }>()
+);
