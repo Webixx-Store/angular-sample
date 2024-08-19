@@ -18,15 +18,15 @@ export class AccountInfoComponent implements OnInit {
   accountInfo = [] as AccountInfoModel [];
 
 
-  constructor(private coinStore : Store<CoinState> 
+  constructor(private coinStore : Store<CoinState>
     , private _overloading : Store<OverlayLoadingState> ){
     this.accountInfo$ = this.coinStore.select(getAccountInfo);
 
   }
 
-  
 
-  
+
+
   ngOnInit(): void {
 
     this._overloading.dispatch(setShowOverlayLoading({loading:true}));
@@ -40,8 +40,8 @@ export class AccountInfoComponent implements OnInit {
     })
   }
 
-  
 
- 
+
+
 
 }

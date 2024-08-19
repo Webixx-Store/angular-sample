@@ -1,7 +1,7 @@
 <div class="container">
   <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-    <h2>Checkout Form</h2>
+    <img class="d-block mx-auto mb-4" src="../../../assets/images/logo.png" alt="" width="72" height="72">
+    <h2>Checkout</h2>
   </div>
   <div class="row">
     <div class="col-md-4 order-md-2 mb-4">
@@ -10,13 +10,24 @@
         <span class="badge badge-secondary badge-pill">{{ orderRequest.items.length }}</span>
       </h4>
       <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let item of orderRequest.items">
-          <div>
-            <h6 class="my-0">{{ item.productId }}</h6>
-            <small class="text-muted">Price: ${{ item.price }}</small>
+        <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let item of orderRequest.items; let i = index">
+          <div class="d-flex align-items-center">
+            <!-- Product Name -->
+            <h6 class="my-0 mr-3">{{ item.name }}</h6>
+            <!-- Product Price -->
+            <small class="text-muted mr-3">Price: ${{ item.price }}</small>
+            <!-- Product Quantity -->
+            <small class="text-muted mr-3">Qty: {{ item.quantity }}</small>
           </div>
-          <span class="text-muted">${{ item.price * item.quantity }}</span>
+          <!-- Total Price -->
+          <span class="text-muted mr-3">${{ item.price * item.quantity }}</span>
+          <!-- Remove Button with Icon -->
+          <button class="btn btn-link p-0" (click)="removeFromCart(item.productId)">
+            <i class="bi bi-trash text-danger"></i>
+          </button>
         </li>
+
+
         <li class="list-group-item d-flex justify-content-between bg-light">
           <div class="text-success">
             <h6 class="my-0">Promo code</h6>
@@ -199,5 +210,7 @@
 
 <app-popup [isOpen]="isPopupOpen" (close)="closePopup()" [title]="'Product Popup'">
   <h6>Product search</h6>
-  <app-table-template [isPaging]="true" [tableConfig]="config" ></app-table-template>
+  <app-table-template [isPaging]="true" [tableConfig]="config" [data]="items"
+  (handelChangePage)="handlePageEvent($event)" [len]="len" [total]="total" (clickRow)="clickRow($event)"
+  ></app-table-template>
 </app-popup>

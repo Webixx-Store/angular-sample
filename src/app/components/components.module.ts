@@ -6,13 +6,15 @@ import { MeterialModule } from '../meterial/meterial.module';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PopupComponent } from './popup/popup.component';
+import { ProductComponent } from './product/product.component';
 @NgModule({
   declarations: [
     TableTemplateComponent,
     PagingComponent,
     ImageUploadComponent,
     PageNotFoundComponent,
-    PopupComponent
+    PopupComponent,
+    ProductComponent
 
 
   ],
@@ -26,7 +28,8 @@ import { PopupComponent } from './popup/popup.component';
     TableTemplateComponent,
     ImageUploadComponent,
     PagingComponent,
-    PopupComponent
+    PopupComponent,
+    ProductComponent
   ]
 })
 export class ComponentsModule { }

@@ -6,6 +6,11 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { ShoesProductListComponent } from './shoes-product-list/shoes-product-list.component';
+
+import { productFeatureKey, productReducer } from '../reducers/product.reducer';
+import { ProductEffect } from '../effects/product.effect';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 @NgModule({
   declarations: [
     CheckoutComponent,
@@ -16,7 +21,9 @@ import { ShoesProductListComponent } from './shoes-product-list/shoes-product-li
     OrderRoutingModule,
     ComponentsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forFeature(productFeatureKey,productReducer),
+    EffectsModule.forFeature([ProductEffect]),
   ]
 })
 export class OrderModule { }

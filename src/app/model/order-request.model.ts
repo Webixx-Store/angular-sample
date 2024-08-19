@@ -14,6 +14,7 @@ export interface OrderItemModel {
   productId: string;
   quantity: number;
   price: number;
+  name: string;
 }
 
 export interface PaymentMethodModel {

@@ -5,7 +5,7 @@ import { ShoesProductListComponent } from './shoes-product-list/shoes-product-li
 
 const routes: Routes = [
   {path:'checkout' , component:CheckoutComponent},
-  {path:'shoes' , component:ShoesProductListComponent}
+  {path:'' , component:ShoesProductListComponent}
 ];
 
 @NgModule({

@@ -15,7 +15,7 @@ export class PagingComponent implements OnInit {
   @Input() pageIndex = 0;
 
   @Output() handelChangePage = new EventEmitter<PageEvent>();
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [5, 8 , 10, 25];
 
   hidePageSize = false;
   showPageSizeOptions = true;

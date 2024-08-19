@@ -15,7 +15,7 @@ const routes: Routes = [
        { path: '', component: HomePageComponent },
        { path: 'message', component: ChatTingComponent },
        { path: 'auth', loadChildren: authModule },
-       { path: 'order', loadChildren: orderModule },
+       { path: 'shopping',canActivate : [AuthGuardService]  , loadChildren: orderModule },
        { path: 'post', loadChildren: postModule },
        { path: 'trade',canActivate : [AuthGuardService]  , loadChildren: trade },
     ]

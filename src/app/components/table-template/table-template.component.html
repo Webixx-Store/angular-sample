@@ -13,6 +13,6 @@
   </table>
 
   <ng-container *ngIf="isPaging">
-    <app-paging></app-paging>
+    <app-paging  (handelChangePage)="handlePageEvent($event)"  [pageSize]="len" [length]="total"></app-paging>
   </ng-container>
 </div>
