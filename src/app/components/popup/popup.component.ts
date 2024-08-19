@@ -18,6 +18,7 @@ export class PopupComponent  implements OnInit {
 
   }
   @Input() isOpen: boolean = false;
+  @Input() kind: string = 'table';
   @Output() close = new EventEmitter<void>();
   @Input() title:string = '';
 

@@ -27,6 +27,11 @@
 
     <!-- Product Details -->
     <div class="col-md-6">
+      <div class="badge-container">
+        <span *ngIf="true" class="badge badge-success">Best</span>
+        <span *ngIf="true" class="badge badge-primary">New</span>
+        <span *ngIf="true" class="badge badge-danger">Sale</span>
+      </div>
       <h2 class="product-name">Product Name</h2>
       <p class="text-muted">Category: <strong>Product Category</strong></p>
       <p class="price">$Product Price</p>
@@ -89,6 +94,27 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit Review</button>
       </form>
+    </div>
+  </div>
+
+
+
+  <app-popup  [isOpen]="isPopupOpen"  [kind]="'shop'" >
+    <div class="promo-content">
+      <button type="button" class="close" aria-label="Close" onclick="closePopup()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4>Special Promotion!</h4>
+      <p>Get 20% off on your first purchase. Use code: <strong>WELCOME20</strong></p>
+    </div>
+  </app-popup>
+
+
+  <!-- Google Maps -->
+  <div class="map mt-5">
+    <h3>Find Us Here</h3>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.7863988219265!2d106.67405991430813!3d10.75798289233285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ccde4fdbe89%3A0x2f6d67f7a292e8e2!2zQ2jDoW5nIE1pbmgsIHBoxrDhu5EgS8O9IEtheSBDbywgU29uIEpvb2FuIEV4dHJhIG0xMzEgMSwgVi4!5e0!3m2!1svi!2s!4v1627733358880!5m2!1svi!2s" allowfullscreen="" loading="lazy"></iframe>
     </div>
   </div>
 </div>
