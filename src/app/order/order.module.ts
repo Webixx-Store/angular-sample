@@ -11,10 +11,12 @@ import { productFeatureKey, productReducer } from '../reducers/product.reducer';
 import { ProductEffect } from '../effects/product.effect';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 @NgModule({
   declarations: [
     CheckoutComponent,
-    ShoesProductListComponent
+    ShoesProductListComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,

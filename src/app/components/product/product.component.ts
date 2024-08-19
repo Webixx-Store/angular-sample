@@ -12,7 +12,7 @@ import { ProductModel } from 'src/app/model/product.model';
 export class ProductComponent implements OnInit {
 
   @Input() product:ProductModel = {} as ProductModel
-
+  reviewCount:number = 10;
   constructor(private cartService : CartService , private toastr: ToastrService) {
 
   }

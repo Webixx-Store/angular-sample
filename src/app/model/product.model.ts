@@ -8,5 +8,6 @@ export interface ProductModel
   stock:string;
   img:string;
   id:string;
-  createdAt:string
+  createdAt:string;
+  rating:number;
 }

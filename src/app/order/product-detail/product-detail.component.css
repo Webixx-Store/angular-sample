@@ -1,0 +1,41 @@
+.product-slider .carousel-inner img {
+  width: 100%;
+  height: auto;
+}
+.product-name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.price {
+  font-size: 1.5rem;
+  color: #28a745;
+  font-weight: bold;
+}
+.rating .fa-star,
+.rating .fa-star-half-alt {
+  color: #ffc107;
+}
+.related-products .card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.reviews .media-body {
+  margin-left: 1rem;
+}
+.review-card {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 0.5rem;
+}
+.review-card .card-body {
+  padding: 1.5rem;
+}
+.review-card .card-img-top {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+}
+.rating-stars .fa-star {
+  cursor: pointer;
+}

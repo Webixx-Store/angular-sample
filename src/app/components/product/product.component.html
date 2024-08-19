@@ -1,13 +1,39 @@
-
-  <div class="card product-card">
-      <img src="https://images.pexels.com/photos/2618813/pexels-photo-2618813.jpeg" class="card-img-top product-image" alt="New Balance 990v5">
-      <div class="card-body">
-          <h5 class="card-title">
-            {{product.name}}
-          </h5>
-          <p class="card-text"> {{product.description}}</p>
-          <p class="product-price">${{product.price}}</p>
-          <a (click)="clickBuy(product)" class="btn btn-primary">Buy Now</a>
-      </div>
+<div class="card product-card">
+  <!-- Badge for Best/New/Sale -->
+  <div class="badge-container">
+    <span *ngIf="true" class="badge badge-success">Best</span>
+    <span *ngIf="true" class="badge badge-primary">New</span>
+    <span *ngIf="true" class="badge badge-danger">Sale</span>
   </div>
 
+  <!-- Product Image -->
+  <img src="https://images.pexels.com/photos/2618813/pexels-photo-2618813.jpeg" class="card-img-top product-image" alt="New Balance 990v5">
+
+  <!-- Product Details -->
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text">{{ product.description }}</p>
+
+    <!-- Price and Discount -->
+    <div class="price-container">
+      <p class="product-price">
+        <span *ngIf="true" class="original-price">${{product.price * 0.9}}</span>
+        ${{ product.price }}
+      </p>
+      <p *ngIf="true" class="discount-percent">-{{ 10 }}%</p>
+    </div>
+
+    <!-- Rating -->
+    <div class="rating mb-3">
+      <span class="fa fa-star" [ngClass]="{'text-warning': product.rating >= 1}"></span>
+      <span class="fa fa-star" [ngClass]="{'text-warning': product.rating >= 2}"></span>
+      <span class="fa fa-star" [ngClass]="{'text-warning': product.rating >= 3}"></span>
+      <span class="fa fa-star" [ngClass]="{'text-warning': product.rating >= 4}"></span>
+      <span class="fa fa-star" [ngClass]="{'text-warning': product.rating >= 5}"></span>
+      <span class="text-muted">({{reviewCount }} reviews)</span>
+    </div>
+
+    <!-- Buy Now Button -->
+    <a (click)="clickBuy(product)" class="btn btn-primary">Buy Now</a>
+  </div>
+</div>
