@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    if(Number(AuthDetail.getLoginedInfo()?.logoutDate) <= Number(DateUtils.getCurrFullDateTimeStrBlank())){
+    if(Number(AuthDetail.getLoginedInfo()?.logoutDate) <= Number(DateUtils.getCurrFullDateTimeStrBlank(new Date()))){
       AuthDetail.actionLogOut();
       window.location.href = '/';
     }

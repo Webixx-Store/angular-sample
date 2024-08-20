@@ -24,7 +24,7 @@ export class PopupComponent  implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isOpen']) {
-     if(!this.isOpen){
+     if(this.isOpen){
       this.overlayLoadingStore.dispatch(setShowOverlayLoading({loading:true}));
 
 

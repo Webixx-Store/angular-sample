@@ -15,6 +15,7 @@ import jwt_decode from 'jwt-decode';
 import { Common } from 'src/app/common/constant/common';
 import { ToastrService } from 'ngx-toastr';
 import { NgIf } from '@angular/common';
+import { DateUtils } from 'src/app/common/util/date.util';
 declare const google: any;
 @Component({
   selector: 'app-login-page',
@@ -93,6 +94,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginProcess(res: MemberModel) {
+
+    const currentDate = new Date(); // Lấy thời gian hiện tại
+    currentDate.setMinutes(currentDate.getMinutes() + 30); // Cộng thêm 30 phút
+
+    // Sử dụng hàm định dạng đã tạo để chuyển thành chuỗi mong muốn
+    const logOutDate = DateUtils.getCurrFullDateTimeStrBlank(currentDate);
+
+    res.logoutDate = logOutDate;
+
     localStorage.setItem('member', JSON.stringify(res));
     sessionStorage.setItem('username', JSON.stringify(res.email));
 

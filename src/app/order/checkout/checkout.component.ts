@@ -26,7 +26,7 @@ export class CheckoutComponent implements OnInit {
   promoCode: string = '';
 
   page = 0;
-  len = 10;
+  len = 5;
   total = 0;
   promotionCode = -5;
 

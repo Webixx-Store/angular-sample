@@ -7,7 +7,7 @@ import { DateUtils } from "../common/util/date.util";
 @Injectable({
     providedIn: 'root'
   })
-export class AutologoutService { 
+export class AutologoutService {
     constructor(
         private _router: Router,
         private ngZone: NgZone
@@ -22,8 +22,7 @@ export class AutologoutService {
   initInterval() {
     this.ngZone.runOutsideAngular(() => {
       setInterval(() => {
-          console.log(DateUtils.getCurrFullDateTimeStrBlank());
-          if(Number(AuthDetail.getLoginedInfo()?.logoutDate) <= Number(DateUtils.getCurrFullDateTimeStrBlank())){
+          if(Number(AuthDetail.getLoginedInfo()?.logoutDate) <= Number(DateUtils.getCurrFullDateTimeStrBlank(new Date()))){
             AuthDetail.actionLogOut();
             window.location.href = '/';
           }

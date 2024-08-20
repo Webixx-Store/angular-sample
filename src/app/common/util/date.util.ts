@@ -30,33 +30,31 @@ export class DateUtils {
     return `${yyyy}-${mm}-${dd} ${hh}:${min}:${ss}`
   }
 
-  static getCurrFullDateTimeStrBlank(){
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = ('0' + (today.getMonth()+1)).slice(-2);
-    let dd = ('0' + (today.getDate())).slice(-2);
+  static getCurrFullDateTimeStrBlank(date: Date): string {
+    const yyyy = date.getFullYear();
+    const mm = ('0' + (date.getMonth() + 1)).slice(-2);
+    const dd = ('0' + date.getDate()).slice(-2);
 
-    let hh = today.getHours();
+    let hh = date.getHours();
     let h = '';
 
-    h = '0'+ ''+  hh;
-    
-    let min = ('0' + (today.getMinutes())).slice(-2);
-    let ss = ('0' + (today.getSeconds())).slice(-2);
+    h = '0' + '' + hh;
 
-    if(Number(hh)<10){
-      return `${yyyy}${mm}${dd}${h}${min}${ss}`
-    }else{
-      return `${yyyy}${mm}${dd}${hh}${min}${ss}`
+    const min = ('0' + date.getMinutes()).slice(-2);
+    const ss = ('0' + date.getSeconds()).slice(-2);
+
+    if (Number(hh) < 10) {
+        return `${yyyy}${mm}${dd}${h}${min}${ss}`;
+    } else {
+        return `${yyyy}${mm}${dd}${hh}${min}${ss}`;
     }
+   }
 
-   
-  }
 
   static getDateGlobal(date: Date, lang: string): string {
     if (lang.toUpperCase() === "KR") {
       return date.getFullYear() + "-" + ConvertUtil.convertToZeroDecimal(date.getMonth() + 1) + "-" + ConvertUtil.convertToZeroDecimal(date.getDate());
     }
     return "";
-  } 
+  }
 }

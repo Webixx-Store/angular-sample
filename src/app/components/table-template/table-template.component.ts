@@ -13,6 +13,7 @@ export class TableTemplateComponent implements OnInit {
   @Input() data: any = [];
   @Input() isPaging:boolean = false;
   @Input() total :number = 0;
+  @Input() isChangePageSize = true;
 
   @Input() page:number = 0;
   @Input() len:number = 10;
