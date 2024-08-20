@@ -5,6 +5,7 @@ import { addUserSuscess, authActionFail, authActionSuscess, setCart } from '../a
 import { DateUtils } from '../common/util/date.util';
 import { ConvertUtil } from '../common/util/convert.util';
 import { ResultModel } from '../model/result.model';
+import { CommonUtils } from '../common/util/common-utils';
 
 
 export const authFeatureKey = 'authKey';
@@ -20,7 +21,7 @@ export const initialState: AuthState = {
 export const authReducer = createReducer(
   initialState,
   on(authActionSuscess, (state, { item }) => ({...state, user: item})),
-  on(authActionFail, (state, { msg }) => ({...state, err:msg})),
+  on(authActionFail, (state, { msg }) => ({...state, err:msg + String(CommonUtils.generateRandomString(20))})),
   on(authActionSuscess, (state, { item }) => ({...state, date: ConvertUtil.convertToSring(DateUtils.getCurrFullDateTimeStr) })),
   on(addUserSuscess, (state, { result }) => ({...state, resultSaveUser: result})),
   on(setCart, (state, { quantity }) => ({...state, getCartNumber: quantity})),

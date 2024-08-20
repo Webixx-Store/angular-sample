@@ -37,4 +37,5 @@ export class TableTemplateComponent implements OnInit {
     this.handelChangePage.emit(page);
   }
 
+
 }

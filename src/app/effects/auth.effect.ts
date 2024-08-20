@@ -10,7 +10,7 @@ import { addUser, addUserFail, addUserSuscess, authAction , authActionFail , aut
 
 @Injectable()
 export class AuthEffect {
-  
+
   constructor(
     private _actions$: Actions,
     private auth: AuthService
@@ -31,7 +31,7 @@ export class AuthEffect {
       catchError(msg => of(addUserFail({ msg: msg.message })))
     ))
   ));
-  
 
-  
+
+
 }

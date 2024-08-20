@@ -53,19 +53,20 @@ export class CartService {
 
   addToCart(cartId: string, temp:ProductModel , quantity:number): void {
     let cart = this.getFullCart(cartId);
+    const price = (1-temp.rate)*temp.price
 
     if (!cart) {
       cart = { id: cartId, items: {} };
     }
 
     if (!cart.items[temp.id]) {
-      const price = temp.price
+
       cart.items[temp.id] = { quantity: 0, price , name:temp.name };
     }
 
     // Update quantity and ensure price is consistent
     cart.items[temp.id].quantity += quantity;
-    cart.items[temp.id].price = temp.price;  // Update to the latest price
+    cart.items[temp.id].price = price;  // Update to the latest price
 
     this.saveCart(cart);
     this.setQuantityCart();
@@ -90,5 +91,5 @@ export class CartService {
    this.authStore.dispatch(setCart({quantity:cartNumber}))
   }
 
- 
+
 }

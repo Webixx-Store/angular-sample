@@ -37,8 +37,9 @@ export class CheckoutComponent implements OnInit {
   config: TableConfig = {
     columns: [
       { header: "Product Name", field: "name" },
-      { header: "Product ID", field: "id" },
       { header: "Price", field: "price" },
+      { header: "Rate Sale", field: "rateShow" },
+      { header: "Price Sale", field: "priceSaleShow" },
       { header: "Stock", field: "stock" },
 
     ]
@@ -80,6 +81,12 @@ export class CheckoutComponent implements OnInit {
       if (ValidationUtil.isNotNullAndNotEmpty(res)) {
         this.items = res.products;
         this.total = res.totalCount;
+
+        this.items = this.items.map(item => ({
+          ...item,
+          rateShow: String((item.rate * 100).toFixed(2) ) + "%"
+          , priceSaleShow : String(  ((1-item.rate)*item.price).toFixed(2)     )  // Thực hiện phép tính và lưu vào đối tượng
+        }));
 
       }
     })

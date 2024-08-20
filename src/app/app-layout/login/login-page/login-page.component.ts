@@ -34,6 +34,7 @@ export class LoginPageComponent implements OnInit {
   clearAuth$ = {} as Subscription;
   clearErr$ = {} as Subscription;
   err$ =  new Observable<String>();
+  countSub = 0;
 
   googleUser: any;
 
@@ -77,7 +78,14 @@ export class LoginPageComponent implements OnInit {
           JSON.stringify(this.googleUser)
         );
         location.href = "/auth/register"
+      }else{
+
+        if(this.countSub != 0){
+          this.toastr.error("Email or password not correct")
+        }
+
       }
+      this.overlayLoadingStore.dispatch(setShowOverlayLoading({loading:false}));
     })
   }
 
@@ -89,6 +97,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   loginPage():void{
+    this.countSub = 1;
     this._auth_state.dispatch(authAction({params:this.getParams()}))
     this.overlayLoadingStore.dispatch(setShowOverlayLoading({loading:true}));
   }
