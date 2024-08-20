@@ -13,6 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { PipeModule } from '../pipe/pipe.module';
+import { orderFeatureKey, orderReducer } from '../reducers/order.reducer';
+import { OrderEffect } from '../effects/order.effect';
 @NgModule({
   declarations: [
     CheckoutComponent,
@@ -28,6 +30,9 @@ import { PipeModule } from '../pipe/pipe.module';
     PipeModule,
     StoreModule.forFeature(productFeatureKey,productReducer),
     EffectsModule.forFeature([ProductEffect]),
+
+    StoreModule.forFeature(orderFeatureKey, orderReducer),
+    EffectsModule.forFeature([OrderEffect]),
   ]
 })
 export class OrderModule { }

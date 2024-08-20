@@ -66,6 +66,10 @@ export class CheckoutComponent implements OnInit {
       swiftCode: '',
       billingAddress: '',
       createdAt: new Date().toISOString() // Initial date value
+    },
+    orderDeliId:'',
+    orderDeli: {
+      
     }
   };
 

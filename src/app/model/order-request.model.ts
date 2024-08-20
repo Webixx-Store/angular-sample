@@ -7,6 +7,8 @@ export interface OrderRequestModel {
   shippingAddress: string;
   paymentMethodId: string;
   paymentMethod: PaymentMethodModel;
+  orderDeliId:string;
+  orderDeli:OrderDeli;
 }
 
 
@@ -27,3 +29,9 @@ export interface PaymentMethodModel {
   billingAddress: string;
   createdAt: string;
 }
+
+
+export interface OrderDeli {
+
+}
+
