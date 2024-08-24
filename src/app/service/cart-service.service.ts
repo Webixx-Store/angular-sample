@@ -91,5 +91,27 @@ export class CartService {
    this.authStore.dispatch(setCart({quantity:cartNumber}))
   }
 
+  removeAllProductsFromCart(cartId: string): void {
+    // Lấy giỏ hàng đầy đủ từ localStorage
+    let cart = this.getFullCart(cartId);
+  
+    if (cart) {
+      // Xóa tất cả các sản phẩm khỏi giỏ hàng
+      cart.items = {};
+  
+      // Kiểm tra nếu giỏ hàng rỗng, xóa nó khỏi localStorage
+      if (Object.keys(cart.items).length === 0) {
+        localStorage.removeItem(this.getCartKey(cartId));
+      } else {
+        // Lưu giỏ hàng đã được cập nhật
+        this.saveCart(cart);
+      }
+    }
+  
+    // Cập nhật số lượng giỏ hàng
+    this.setQuantityCart();
+  }
+  
+
 
 }

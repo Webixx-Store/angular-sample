@@ -1,6 +1,6 @@
 export interface OrderRequestModel {
   id?: string;
-  userId: string;
+  userid: string;
   items: OrderItemModel[];
   totalAmount: number;
   status: string;
@@ -24,14 +24,23 @@ export interface PaymentMethodModel {
   cardNumber?: string;
   expiryDate?: string;
   bankName?: string;
-  accountNumber?: string;
   swiftCode?: string;
   billingAddress: string;
   createdAt: string;
+  kind:string;
 }
 
 
 export interface OrderDeli {
+  firstName: string;  // Note: Corrected typo from 'fristName' to 'firstName'
+  lastName: string;
+  email: string;
+  addr1: string;
+  addr2: string;
+  country: string;
+  state: string;
+  city: string;
+  post: string;
 
 }
 

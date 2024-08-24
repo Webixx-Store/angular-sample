@@ -1,6 +1,6 @@
 <div class="container">
   <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="../../../assets/images/logo.png" alt="" width="72" height="72">
+    <img class="d-block mx-auto mb-4" src="../../../assets/images/logo.png" alt="Logo" width="72" height="72">
     <h2>Checkout</h2>
   </div>
   <div class="row">
@@ -12,22 +12,15 @@
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let item of orderRequest.items; let i = index">
           <div class="d-flex align-items-center">
-            <!-- Product Name -->
             <h6 class="my-0 mr-3">{{ item.name }}</h6>
-            <!-- Product Price -->
             <small class="text-muted mr-3">Price: ${{ item.price }}</small>
-            <!-- Product Quantity -->
             <small class="text-muted mr-3">Qty: {{ item.quantity }}</small>
           </div>
-          <!-- Total Price -->
-          <span class="text-muted mr-3">${{ item.price * item.quantity }}</span>
-          <!-- Remove Button with Icon -->
+          <span class="text-muted">${{ item.price * item.quantity }}</span>
           <button class="btn btn-link p-0" (click)="removeFromCart(item.productId)">
             <i class="bi bi-trash text-danger"></i>
           </button>
         </li>
-
-
         <li class="list-group-item d-flex justify-content-between bg-light">
           <div class="text-success">
             <h6 class="my-0">Promo code</h6>
@@ -41,75 +34,87 @@
         </li>
       </ul>
 
-      <form class="card p-2">
+      <!-- Product Search -->
+      <div class="card p-2 mb-3">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Add Product" [(ngModel)]="newProduct">
           <div class="input-group-append">
             <button type="button" class="btn btn-secondary" (click)="openPopup()">Search Product</button>
           </div>
         </div>
-      </form>
+      </div>
 
-      <form class="card p-2">
+      <!-- Promo Code -->
+      <div class="card p-2">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Promo code" [(ngModel)]="promoCode">
           <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
+            <button type="button" class="btn btn-secondary">Redeem</button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
 
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing Address</h4>
-      <form class="needs-validation" novalidate="">
+      <form class="needs-validation" novalidate>
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" [(ngModel)]="orderRequest.id" placeholder="" required="">
+            <input type="text" class="form-control" id="firstName" [(ngModel)]="orderRequest.orderDeli.firstName" placeholder="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" required="">
+            <input type="text" class="form-control" id="lastName" [(ngModel)]="orderRequest.orderDeli.lastName" placeholder="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
           </div>
         </div>
 
+        <!-- Username -->
         <div class="mb-3">
           <label for="username">Username</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="username" placeholder="Username" [(ngModel)]="orderRequest.id" required="">
+            <input type="text" class="form-control" id="username" placeholder="Username" [(ngModel)]="orderRequest.userid" required>
             <div class="invalid-feedback" style="width: 100%;">
               Your username is required.
             </div>
           </div>
         </div>
 
+        <!-- Email -->
         <div class="mb-3">
           <label for="email">Email <span class="text-muted">(Optional)</span></label>
-          <input type="email" class="form-control" id="email" placeholder="you@example.com" [(ngModel)]="orderRequest.paymentMethod.billingAddress">
+          <input type="email" class="form-control" id="email" placeholder="you@example.com" [(ngModel)]="orderRequest.orderDeli.email">
           <div class="invalid-feedback">
             Please enter a valid email address for shipping updates.
           </div>
         </div>
 
+        <!-- Address Line 1 -->
         <div class="mb-3">
-          <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" [(ngModel)]="orderRequest.shippingAddress" required="">
+          <label for="addr1">Address Line 1</label>
+          <input type="text" class="form-control" id="addr1" placeholder="1234 Main St" [(ngModel)]="orderRequest.orderDeli.addr1" required>
           <div class="invalid-feedback">
             Please enter your shipping address.
           </div>
         </div>
 
+        <!-- Address Line 2 -->
+        <div class="mb-3">
+          <label for="addr2">Address Line 2 <span class="text-muted">(Optional)</span></label>
+          <input type="text" class="form-control" id="addr2" placeholder="Apartment or suite" [(ngModel)]="orderRequest.orderDeli.addr2">
+        </div>
+
+        <!-- Country, State, and Zip -->
         <div class="row">
           <div class="col-md-5 mb-3">
             <label for="country">Country</label>
-            <select class="custom-select d-block w-100" id="country" required="">
+            <select class="custom-select d-block w-100" id="country" [(ngModel)]="orderRequest.orderDeli.country" required>
               <option value="">Choose...</option>
               <option>United States</option>
             </select>
@@ -119,7 +124,7 @@
           </div>
           <div class="col-md-4 mb-3">
             <label for="state">State</label>
-            <select class="custom-select d-block w-100" id="state" required="">
+            <select class="custom-select d-block w-100" id="state" [(ngModel)]="orderRequest.orderDeli.state" required>
               <option value="">Choose...</option>
               <option>California</option>
             </select>
@@ -128,81 +133,81 @@
             </div>
           </div>
           <div class="col-md-3 mb-3">
-            <label for="zip">Zip</label>
-            <input type="text" class="form-control" id="zip" placeholder="" required="">
+            <label for="post">Zip</label>
+            <input type="text" class="form-control" id="post" [(ngModel)]="orderRequest.orderDeli.post" placeholder="" required>
             <div class="invalid-feedback">
               Zip code required.
             </div>
           </div>
         </div>
 
-        <hr class="mb-4">
-
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="same-address">
-          <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="save-info">
-          <label class="custom-control-label" for="save-info">Save this information for next time</label>
+        <!-- City -->
+        <div class="mb-3">
+          <label for="city">City</label>
+          <input type="text" class="form-control" id="city" placeholder="City" [(ngModel)]="orderRequest.orderDeli.city" required>
+          <div class="invalid-feedback">
+            Please enter your city.
+          </div>
         </div>
 
         <hr class="mb-4">
 
+        <!-- Payment Method -->
         <h4 class="mb-3">Payment</h4>
-
         <div class="d-block my-3">
           <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" [(ngModel)]="orderRequest.paymentMethod.kind" value="credit" required>
             <label class="custom-control-label" for="credit">Credit card</label>
           </div>
           <div class="custom-control custom-radio">
-            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
+            <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" [(ngModel)]="orderRequest.paymentMethod.kind" value="debit" required>
             <label class="custom-control-label" for="debit">Debit card</label>
           </div>
           <div class="custom-control custom-radio">
-            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-            <label class="custom-control-label" for="paypal">PayPal</label>
+            <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" [(ngModel)]="orderRequest.paymentMethod.kind" value="paypal" required>
+            <label class="custom-control-label" for="paypal">Paypal</label>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="cc-name">Name on card</label>
-            <input type="text" class="form-control" id="cc-name" placeholder="" [(ngModel)]="orderRequest.paymentMethod.cardNumber" required="">
-            <small class="text-muted">Full name as displayed on card</small>
-            <div class="invalid-feedback">
-              Name on card is required
+        <!-- Credit Card Details -->
+        <div *ngIf="orderRequest.paymentMethod.kind === 'credit' || orderRequest.paymentMethod.kind === 'debit'">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="cc-name">Name on card</label>
+              <input type="text" class="form-control" id="cc-name" placeholder="" [(ngModel)]="orderRequest.paymentMethod.provider" required>
+              <small class="text-muted">Full name as displayed on card</small>
+              <div class="invalid-feedback">
+                Name on card is required.
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="cc-number">Credit card number</label>
+              <input type="text" class="form-control" id="cc-number" placeholder="" [(ngModel)]="orderRequest.paymentMethod.cardNumber" required>
+              <div class="invalid-feedback">
+                Credit card number is required.
+              </div>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
-            <label for="cc-number">Credit card number</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" [(ngModel)]="orderRequest.paymentMethod.cardNumber" required="">
-            <div class="invalid-feedback">
-              Credit card number is required
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label for="cc-expiration">Expiration</label>
+              <input type="text" class="form-control" id="cc-expiration" placeholder="" [(ngModel)]="orderRequest.paymentMethod.expiryDate" required>
+              <div class="invalid-feedback">
+                Expiration date required.
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-3 mb-3">
-            <label for="cc-expiration">Expiration</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" [(ngModel)]="orderRequest.paymentMethod.expiryDate" required="">
-            <div class="invalid-feedback">
-              Expiration date required
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="cc-cvv">CVV</label>
-            <input type="text" class="form-control" id="cc-cvv" placeholder="" [(ngModel)]="orderRequest.paymentMethod.swiftCode" required="">
-            <div class="invalid-feedback">
-              Security code required
+            <div class="col-md-3 mb-3">
+              <label for="cc-cvv">CVV</label>
+              <input type="text" class="form-control" id="cc-cvv" placeholder="" [(ngModel)]="orderRequest.paymentMethod.swiftCode" required>
+              <div class="invalid-feedback">
+                Security code required.
+              </div>
             </div>
           </div>
         </div>
 
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="button" (click)="onSumit()">Continue to Checkout</button>
+        <button class="btn btn-primary btn-lg btn-block" type="submit" (click)="submit()">Continue to checkout</button>
       </form>
     </div>
   </div>
@@ -214,3 +219,4 @@
   (handelChangePage)="handlePageEvent($event)" [len]="len" [total]="total" (clickRow)="clickRow($event)"
   ></app-table-template>
 </app-popup>
+

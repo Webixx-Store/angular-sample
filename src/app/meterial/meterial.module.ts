@@ -7,6 +7,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatToolbarModule,
     MatPaginatorModule,
     MatIconModule,
+    MatDialogModule,
   ],
 
   exports: [
@@ -26,7 +28,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ]
+
+  
 })
 export class MeterialModule { }

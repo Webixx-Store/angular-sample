@@ -8,6 +8,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { PopupComponent } from './popup/popup.component';
 import { ProductComponent } from './product/product.component';
 import { PipeModule } from '../pipe/pipe.module';
+import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
+
 @NgModule({
   declarations: [
     TableTemplateComponent,
@@ -15,7 +17,7 @@ import { PipeModule } from '../pipe/pipe.module';
     ImageUploadComponent,
     PageNotFoundComponent,
     PopupComponent,
-    ProductComponent
+    ProductComponent,
 
 
   ],
@@ -32,6 +34,7 @@ import { PipeModule } from '../pipe/pipe.module';
     PagingComponent,
     PopupComponent,
     ProductComponent
-  ]
+  ],
+//  / entryComponents: [CustomDialogComponent],
 })
 export class ComponentsModule { }
