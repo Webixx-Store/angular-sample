@@ -4,6 +4,7 @@ import { AuthDetail } from '../common/util/auth-detail';
 import { Observable } from 'rxjs';
 import { ResultModel } from '../model/result.model';
 import { environment } from 'src/environments/environment';
+import { OrderDetail } from '../model/order-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,14 @@ export class OrderService {
     params,  
     {
         headers: headers
+    });
+  }
+
+  getOrderDetails(orderId: string, userId: string): Observable<OrderDetail> {
+    const headers: HttpHeaders = AuthDetail.getHeaderJwt();
+
+    return this._http.get<OrderDetail>(`${environment.apiUrl}/api/orders/${orderId}?userId=${userId}`,  {
+      headers: headers
     });
   }
 }

@@ -8,7 +8,7 @@ import { setCart } from '../actions/auth.action';
 
 interface Cart {
   id: string;
-  items: { [productId: string]: { quantity: number, price: number , name:string } }; // Map<ProductId, {quantity, price}>
+  items: { [productId: string]: { quantity: number, price: number , productName:string } }; // Map<ProductId, {quantity, price}>
 }
 
 @Injectable({
@@ -34,8 +34,8 @@ export class CartService {
 
     for (const productId in cart.items) {
       if (cart.items.hasOwnProperty(productId)) {
-        const { quantity, price , name  } = cart.items[productId];
-        orderItems.push({ productId, quantity, price , name});
+        const { quantity, price , productName  } = cart.items[productId];
+        orderItems.push({ productId, quantity, price , productName});
       }
     }
 
@@ -61,7 +61,7 @@ export class CartService {
 
     if (!cart.items[temp.id]) {
 
-      cart.items[temp.id] = { quantity: 0, price , name:temp.name };
+      cart.items[temp.id] = { quantity: 0, price , productName:temp.name };
     }
 
     // Update quantity and ensure price is consistent

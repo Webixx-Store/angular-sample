@@ -12,7 +12,7 @@
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let item of orderRequest.items; let i = index">
           <div class="d-flex align-items-center">
-            <h6 class="my-0 mr-3">{{ item.name }}</h6>
+            <h6 class="my-0 mr-3">{{ item.productName }}</h6>
             <small class="text-muted mr-3">Price: ${{ item.price }}</small>
             <small class="text-muted mr-3">Qty: {{ item.quantity }}</small>
           </div>

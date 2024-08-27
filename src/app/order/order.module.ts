@@ -15,11 +15,13 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { PipeModule } from '../pipe/pipe.module';
 import { orderFeatureKey, orderReducer } from '../reducers/order.reducer';
 import { OrderEffect } from '../effects/order.effect';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 @NgModule({
   declarations: [
     CheckoutComponent,
     ShoesProductListComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    OrderDetailComponent
   ],
   imports: [
     CommonModule,

@@ -16,7 +16,7 @@ export interface OrderItemModel {
   productId: string;
   quantity: number;
   price: number;
-  name: string;
+  productName: string;
 }
 
 export interface PaymentMethodModel {
@@ -43,4 +43,15 @@ export interface OrderDeli {
   post: string;
 
 }
+
+
+export interface OrderDetail{
+  order:any;
+  orderDeli:any;
+  paymentMethod:any;
+}
+
+
+
+
 
