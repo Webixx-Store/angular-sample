@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CartService } from './../../service/cart-service.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +14,9 @@ export class ProductComponent implements OnInit {
 
   @Input() product:ProductModel = {} as ProductModel
   reviewCount:number = 10;
-  constructor(private cartService : CartService , private toastr: ToastrService) {
+  constructor(private cartService : CartService 
+    , private toastr: ToastrService
+    , private router: Router) {
 
   }
 
@@ -29,6 +32,10 @@ export class ProductComponent implements OnInit {
     this.toastr.success("Add Cart suscess")
 
 
+  }
+
+  handleLink(){
+    this.router.navigateByUrl("/shopping/detail/" +this.product.id);
   }
 
 

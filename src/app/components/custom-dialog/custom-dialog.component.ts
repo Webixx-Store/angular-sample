@@ -1,5 +1,5 @@
 // custom-dialog.component.ts
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ResultModel } from 'src/app/model/result.model';
 
@@ -9,6 +9,8 @@ import { ResultModel } from 'src/app/model/result.model';
   styleUrls: ['./custom-dialog.component.css']
 })
 export class CustomDialogComponent {
+  @Input()
+  isOpen:boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<CustomDialogComponent>,
@@ -16,6 +18,7 @@ export class CustomDialogComponent {
   ) {}
 
   onClose(): void {
+    this.isOpen = false;
     this.dialogRef.close();
   }
 

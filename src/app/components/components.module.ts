@@ -18,6 +18,7 @@ import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
     PageNotFoundComponent,
     PopupComponent,
     ProductComponent,
+    CustomDialogComponent
 
 
   ],
@@ -35,6 +36,5 @@ import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
     PopupComponent,
     ProductComponent
   ],
-//  / entryComponents: [CustomDialogComponent],
 })
 export class ComponentsModule { }
