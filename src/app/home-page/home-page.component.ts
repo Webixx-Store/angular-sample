@@ -24,23 +24,7 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.searchSymBol();
-    this.items$.subscribe(res =>{
-      if(ValidationUtil.isNotNullAndNotEmpty(res)){
-        this.items = res;
-        this.itemChoose = res[0]
-     //   this._overloading.dispatch(setShowOverlayLoading({loading:false}));
-      }
-    })
-  }
-
-  handelCoin(item:MexcModel){
-    this.itemChoose = item;
-  }
-
-  searchSymBol(){
-   // this._overloading.dispatch(setShowOverlayLoading({loading:true}));
-    this.coinStore.dispatch(getListCoin({symbol:this.symbol== "" ? "*" : this.symbol}));
+   
   }
 
 

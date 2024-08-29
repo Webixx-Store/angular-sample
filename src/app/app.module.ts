@@ -7,9 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ComponentsModule } from './components/components.module';
+import { Interceptors } from './service/interceptors.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,13 @@ import { ComponentsModule } from './components/components.module';
       positionClass: 'toast-bottom-right', // Thay đổi vị trí ở đây
     }), // ToastrModule added
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptors,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     }
 
     if (this.isLogin) {
-      this.coinStore.dispatch(getTestConnectAction());
+     // this.coinStore.dispatch(getTestConnectAction());
       this.wellcome = "Wellcome to " + String(AuthDetail.getLoginedInfo()?.email)
     }
 
