@@ -17,10 +17,13 @@ export class ProductService{
     constructor(private _http: HttpClient) { }
 
   allProduct(params:any): Observable<ProductResponseModel> {
-    const url = `${environment.apiUrl}/api/products`;
+    let url = `${environment.apiUrl}/api/products`;
     const headers: HttpHeaders = AuthDetail.getHeaderJwt();
     const page = params.page;
     const len = params.len;
+    if(ValidationUtil.isNotNullAndNotEmpty(params.id)){
+      url = `${environment.apiUrl}/api/products/` + params.id;
+    }
     // Add page and len as query parameters
     const queryParams = `?page=${page}&len=${len}`;
     return this._http.get<ProductResponseModel>(`${url}${queryParams}`, {

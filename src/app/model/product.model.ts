@@ -16,4 +16,6 @@ export interface ProductModel
   new:boolean;
   sale:boolean;
   rating:number;
+  rewiewId:string;
+  sliders:string[];
 }

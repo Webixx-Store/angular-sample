@@ -4,14 +4,17 @@
     <div class="col-md-6">
       <div id="productSlider" class="carousel slide product-slider" data-ride="carousel">
         <div class="carousel-inner">
-          <!-- Slide 1 -->
-          <div class="carousel-item active">
-            <img src="https://via.placeholder.com/800x600" class="d-block w-100" alt="Product Image 1">
-          </div>
-          <!-- Slide 2 -->
-          <div class="carousel-item">
-            <img src="https://via.placeholder.com/800x600" class="d-block w-100" alt="Product Image 2">
-          </div>
+          <ng-container *ngFor="let item of product.sliders; let i = index">
+            <div class="carousel-item" [class.active]="i === 0">
+              <img [src]="item" class="d-block w-100" alt="Product Image {{ i + 1 }}">
+            </div>
+          </ng-container>
+          <ng-container *ngIf="product.sliders == null">
+            <div class="carousel-item active">
+              <img src="https://via.placeholder.com/800x600" class="d-block w-100" alt="Product Image 1">
+            </div>
+
+          </ng-container>
           <!-- Add more slides as needed -->
         </div>
         <a class="carousel-control-prev" href="#productSlider" role="button" data-slide="prev">
@@ -28,16 +31,34 @@
     <!-- Product Details -->
     <div class="col-md-6">
       <div class="badge-container">
-        <span *ngIf="true" class="badge badge-success">Best</span>
-        <span *ngIf="true" class="badge badge-primary">New</span>
-        <span *ngIf="true" class="badge badge-danger">Sale</span>
+        <span *ngIf="product.best" class="badge badge-success">Best</span>
+        <span *ngIf="product.new" class="badge badge-primary">New</span>
+        <span *ngIf="product.sale" class="badge badge-danger">Sale</span>
       </div>
-      <h2 class="product-name">Product Name</h2>
-      <p class="text-muted">Category: <strong>Product Category</strong></p>
-      <p class="price">$Product Price</p>
-      <p class="description">Product Description</p>
-      <p class="text-muted">Stock: <strong>Product Stock</strong></p>
-      <p class="text-muted">Added On: <strong>Product Created Date</strong></p>
+      <h2 class="product-name">{{product.name}}</h2>
+      <p class="text-muted">Category: <strong>{{product.category}}</strong></p>
+      <div class="d-flex align-items-center">
+        <!-- Discounted price in a different color -->
+        <p class="text-danger fw-bold me-5 mb-0" style="margin-right: 40px;">
+          ${{product.price}}
+        </p>
+
+        <!-- Original price with a strikethrough style -->
+        <p class="text-muted text-decoration-line-through me-5 mb-0" style="margin-right: 40px;">
+          ${{product.price * (1 - product.rate) | round}}
+        </p>
+
+        <!-- Discount percentage displayed next to the prices -->
+        <p class="text-success fw-bold mb-0">
+          -{{product.rate * 100 | round}}%
+        </p>
+      </div>
+
+
+
+      <p class="description">{{product.description}}</p>
+      <p class="text-muted">Stock: <strong>{{product.stock}}</strong></p>
+      <p class="text-muted">Added On: <strong>{{product.createdAt}}</strong></p>
 
       <!-- Product Rating -->
       <div class="rating my-3">
@@ -50,7 +71,7 @@
       </div>
 
       <!-- Add to Cart Button -->
-      <button class="btn btn-primary btn-lg">Add to Cart</button>
+      <button class="btn btn-primary btn-lg" (click)="clickBuy(product)">Add to Cart</button>
     </div>
   </div>
 
@@ -99,12 +120,17 @@
 
 
 
-  <app-popup  [isOpen]="isPopupOpen"  (close)="closePopup()">
-    <div class="promo-content">
-      <h4>Special Promotion!</h4>
-      <p>Get 20% off on your first purchase. Use code: <strong>WELCOME20</strong></p>
+  <app-popup [isOpen]="isPopupOpen" (close)="closePopup()">
+    <div class="promo-content p-4">
+      <h4 class="text-center">Special Promotion!</h4>
+      <div class="text-center my-3">
+        <!-- Make the image responsive and center it -->
+        <img [src]="product.img" class="img-fluid rounded" alt="Product Image">
+      </div>
+      <p class="text-center"><strong>The product is on sale for up to {{product.price * (1 - product.rate) | round}}</strong></p>
     </div>
   </app-popup>
+
 
 
   <!-- Google Maps -->

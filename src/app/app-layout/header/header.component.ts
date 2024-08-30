@@ -70,6 +70,8 @@ export class HeaderComponent implements OnInit {
     this.quantityCart$.subscribe(res => {
       if(res > 0){
         this.quantityCart = res;
+      }else{
+        this.quantityCart = 0;
       }
     })
   }

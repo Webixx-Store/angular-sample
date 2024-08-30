@@ -7,8 +7,7 @@
   </div>
 
   <!-- Product Image -->
-  <img  (click)="handleLink()"
-   src="https://images.pexels.com/photos/2618813/pexels-photo-2618813.jpeg" class="card-img-top product-image" alt="New Balance 990v5">
+  <img  (click)="handleLink()" [src]="product.img" class="card-img-top product-image" alt="New Balance 990v5">
 
   <!-- Product Details -->
   <div class="card-body">
@@ -19,7 +18,7 @@
     <div class="price-container">
       <p class="product-price">
         <span *ngIf="true" class="original-price"> ${{ product.price }}</span>
-          ${{product.price * (1 - product.rate) | round}} 
+          ${{product.price * (1 - product.rate) | round}}
       </p>
       <p *ngIf="true" class="discount-percent">-{{ product.rate * 100 | round }}%</p>
     </div>
