@@ -39,6 +39,7 @@ export class CheckoutComponent implements OnInit {
 
   items$ = new Observable<ProductResponseModel>();
   items: ProductModel[] = [];
+  isSubmitCoinPayment : boolean = false;
 
 
   config: TableConfig = {
@@ -85,12 +86,12 @@ export class CheckoutComponent implements OnInit {
     state: '',
     city: '',
     post: '',
-      
+
     }
   };
 
 
-  constructor(private cartService : CartService, private productStore: Store<ProductState> 
+  constructor(private cartService : CartService, private productStore: Store<ProductState>
     , private toastr: ToastrService , private orderStore: Store<OrderState> , private dialog: MatDialog) {
     this.items$ = this.productStore.select(getProducts);
 
@@ -114,7 +115,7 @@ export class CheckoutComponent implements OnInit {
       }
     })
 
-    
+
 
     this.result$.subscribe(res =>{
       if (ValidationUtil.isNotNullAndNotEmpty(res.code)) {
@@ -239,87 +240,93 @@ export class CheckoutComponent implements OnInit {
 
   submit(){
     if(!this.validateForm()) return;
-    this.orderStore.dispatch(orderCheckoutAction({params : this.createOrderRequestPayload()}));
+
+    if(this.orderRequest.paymentMethod.kind == "coin"){
+      this.paymentCoin();
+    }else{
+      this.orderStore.dispatch(orderCheckoutAction({params : this.createOrderRequestPayload()}));
+    }
+
   }
 
 
   validateForm() {
     let isValid = true;
-  
+
     if (!this.orderRequest.orderDeli.firstName) {
       this.toastr.error('First Name is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.orderDeli.lastName) {
       this.toastr.error('Last Name is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.userid) {
       this.toastr.error('Username is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.orderDeli.addr1) {
       this.toastr.error('Address Line 1 is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.orderDeli.country) {
       this.toastr.error('Country is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.orderDeli.state) {
       this.toastr.error('State is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.orderDeli.post) {
       this.toastr.error('Zip Code is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.orderDeli.city) {
       this.toastr.error('City is required.');
       isValid = false;
     }
-  
+
     if (!this.orderRequest.paymentMethod.kind) {
       this.toastr.error('Payment method is required.');
       isValid = false;
     }
 
-    if(this.orderRequest.paymentMethod.kind != 'paypal'){
+    if(this.orderRequest.paymentMethod.kind != 'paypal' && this.orderRequest.paymentMethod.kind != 'coin'){
 
       if (!this.orderRequest.paymentMethod.provider) {
         this.toastr.error('Name on card is required.');
         isValid = false;
       }
-    
+
       if (!this.orderRequest.paymentMethod.cardNumber) {
         this.toastr.error('Credit card number is required.');
         isValid = false;
       }
-    
+
       if (!this.orderRequest.paymentMethod.expiryDate) {
         this.toastr.error('Expiration date is required.');
         isValid = false;
       }
-    
+
       if (!this.orderRequest.paymentMethod.swiftCode) {
         this.toastr.error('CVV is required.');
         isValid = false;
       }
     }
-  
+
 
     // if (this.orderRequest.items.length  == 0) {
     //   this.toastr.error('Items is required.');
     //   isValid = false;
     // }
-  
+
     return isValid;
   }
 
@@ -329,6 +336,9 @@ export class CheckoutComponent implements OnInit {
     this.cartService.removeAllProductsFromCart(String(id))
     window.location.reload();
   }
-  
+  paymentCoin(){
+    this.isSubmitCoinPayment = true;
+  }
+
 
 }

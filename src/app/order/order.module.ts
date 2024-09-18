@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { OrderRoutingModule } from './order-routing.module';
-import { CheckoutComponent } from './checkout/checkout.component';
 import { ComponentsModule } from '../components/components.module';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { ShoesProductListComponent } from './shoes-product-list/shoes-product-list.component';
@@ -17,9 +16,9 @@ import { orderFeatureKey, orderReducer } from '../reducers/order.reducer';
 import { OrderEffect } from '../effects/order.effect';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { ProductDetailModule } from './product-detail/product-detail.module';
+import { CheckoutModule } from './checkout/checkout.module';
 @NgModule({
   declarations: [
-    CheckoutComponent,
     ShoesProductListComponent,
     OrderDetailComponent
   ],
@@ -31,6 +30,7 @@ import { ProductDetailModule } from './product-detail/product-detail.module';
     FormsModule,
     ReactiveFormsModule,
     PipeModule,
+    CheckoutModule,
     StoreModule.forFeature(productFeatureKey,productReducer),
     EffectsModule.forFeature([ProductEffect]),
 

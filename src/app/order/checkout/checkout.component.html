@@ -167,6 +167,12 @@
             <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" [(ngModel)]="orderRequest.paymentMethod.kind" value="paypal" required>
             <label class="custom-control-label" for="paypal">Paypal</label>
           </div>
+          <div class="custom-control custom-radio">
+            <input id="coin" name="paymentMethod" type="radio" class="custom-control-input" [(ngModel)]="orderRequest.paymentMethod.kind" value="coin" required>
+            <label class="custom-control-label" for="coin">Coin Payment</label>
+          </div>
+
+
         </div>
 
         <!-- Credit Card Details -->
@@ -212,6 +218,7 @@
     </div>
   </div>
 </div>
+<app-coin-payment [isSubmit]="isSubmitCoinPayment" [params]="orderRequest"></app-coin-payment>
 
 <app-popup [isOpen]="isPopupOpen" (close)="closePopup()" [title]="'Product Popup'" >
   <h6>Product search</h6>
