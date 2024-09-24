@@ -57,22 +57,18 @@ export class HeaderComponent implements OnInit {
       }
     })
 
-    this.resultConnect$.subscribe(res =>{
-      if(ValidationUtil.isNotNullAndNotEmpty(res)){
-        if(res.code == 'OK'){
-          this.isConnect = true;
-        }else{
-          this.isConnect = false;
-        }
-      }
-    })
+    // this.resultConnect$.subscribe(res =>{
+    //   if(ValidationUtil.isNotNullAndNotEmpty(res)){
+    //     if(res.code == 'OK'){
+    //       this.isConnect = true;
+    //     }else{
+    //       this.isConnect = false;
+    //     }
+    //   }
+    // })
     this.quantityCart = this.cartService.getCart(String(AuthDetail.getLoginedInfo()?.id)).length;
     this.quantityCart$.subscribe(res => {
-      if(res > 0){
         this.quantityCart = res;
-      }else{
-        this.quantityCart = 0;
-      }
     })
   }
 

@@ -37,7 +37,9 @@ export class ShoesProductListComponent implements OnInit {
         this.total = res.totalCount;
 
       }
-      this.overlayLoadingStore.dispatch(setShowOverlayLoading({loading:false}));
+      setTimeout(() => {
+        this.overlayLoadingStore.dispatch(setShowOverlayLoading({loading:false}));
+      }, 1000);
     })
   }
 

@@ -42,3 +42,7 @@
 .login-icon .fa, .logout-icon .fa {
   font-size: 20px;
 }
+
+a{
+  cursor: pointer;
+}
