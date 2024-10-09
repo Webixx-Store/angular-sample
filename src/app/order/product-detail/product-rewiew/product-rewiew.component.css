@@ -39,3 +39,9 @@
   width: 64px;
   height: 64px;
 }
+
+.custom-img {
+  width: 100px; /* Điều chỉnh kích thước hình ảnh, ví dụ: 100px */
+  height: auto; /* Giữ tỷ lệ của hình ảnh */
+  margin-right: 15px; /* Khoảng cách giữa hình ảnh và nội dung khác */
+}

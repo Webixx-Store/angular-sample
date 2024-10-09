@@ -45,7 +45,11 @@ export class RegisterMemberComponent implements OnInit {
 
     this.result$.subscribe(res=>{
       if(ValidationUtil.isNotNullAndNotEmpty(res.code)){
+         if(Number(res.code )== 200){
           this.toastr.success(String(res.msg))
+         }else{
+          this.toastr.error(String(res.data))
+         }
 
       }
     })

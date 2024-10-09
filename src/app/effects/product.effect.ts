@@ -26,7 +26,7 @@ export class ProductEffect {
 
   saveProductRewiew$ = createEffect(() => this._actions$.pipe(
     ofType(saveProductRewiewAction),
-    mergeMap(({params}) => this.productService.saveProductRewiew(params).pipe(
+    mergeMap(({params ,  file}) => this.productService.saveProductRewiew(params , file).pipe(
       map(res => saveProductRewiewActionSuscess({result:res})),
       catchError(msg => of(saveProductRewiewActionFail({ msg: msg.message })))
     ))

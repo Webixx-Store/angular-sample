@@ -132,7 +132,7 @@ export class CheckoutComponent implements OnInit {
         } else {
           this.dialog.open(CustomDialogComponent, {
             data: {
-              message: String(res.msg)
+              message: String(res.data)
             }
           });
         }

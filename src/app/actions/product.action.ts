@@ -25,7 +25,7 @@ export const productActionFail = createAction(
 // save rewiew
 export const saveProductRewiewAction = createAction(
   "[PRODUCT] saveProductRewiew",
-  props<{ params: any }>()
+  props<{ params: any , file:any}>()
 );
 
 export const saveProductRewiewActionSuscess = createAction(

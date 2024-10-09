@@ -22,7 +22,7 @@
     </ul>
     <div class="bottom_wrapper clearfix">
       <div class="message_input_wrapper">
-        <input class="message_input" placeholder="Message..." [(ngModel)]="messageInput" 
+        <input class="message_input" placeholder="Message..." [(ngModel)]="messageInput"
         (keyup.enter)="sendMessage()"/>
       </div>
       <div class="send_message" (click)="sendMessage()">
@@ -31,3 +31,17 @@
       </div>
     </div>
   </div>
+
+  <app-popup [isOpen]="isPopupOpen" (close)="closePopup()">
+      <h4 class="text-center">Please enter the room ID</h4>
+      <button type="button" class="close" (click)="closePopup()">
+        <span>&times;</span>
+      </button>
+
+      <div class="form-group">
+        <label for="roomId">Room ID:</label>
+        <input type="text" id="roomId" class="form-control" [(ngModel)]="romId" placeholder="Enter Room ID">
+      </div>
+      <button type="button" class="btn btn-primary" (click)="closePopup()">Submit</button>
+  </app-popup>
+

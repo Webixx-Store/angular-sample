@@ -12,6 +12,7 @@ import { ProductRewiewModel } from 'src/app/model/product-rewiew.model';
 import { ResultModel } from 'src/app/model/result.model';
 import { OverlayLoadingState } from 'src/app/selectors/overlay-loading.selector';
 import { getResultSaveRewiew, getRewiews, ProductState } from 'src/app/selectors/product.selector';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-rewiew',
@@ -34,6 +35,10 @@ export class ProductRewiewComponent implements OnInit {
   len  = 6;
   total = 0;
   result$ =  new Observable <ResultModel>();
+  imageName:string = '';
+  fileImage  : any;
+  isPopupOpen: boolean = false;
+  productClick:string = ''
 
 
   constructor(private toastr: ToastrService ,
@@ -59,7 +64,7 @@ export class ProductRewiewComponent implements OnInit {
       if(ValidationUtil.isNotNullAndNotEmpty(res)){
         if(String(res.code) == "200"){
           this.toastr.success(String(res.msg));
-          this.loadRewiews();
+          //this.loadRewiews();
         }
       }
     })
@@ -94,7 +99,8 @@ export class ProductRewiewComponent implements OnInit {
         cmt:this.reviewText,
         rating:this.rating,
         userid:String(AuthDetail.getLoginedInfo()?.email)
-      }
+      } ,
+      file :this.fileImage
     }))
   }
 
@@ -116,5 +122,28 @@ export class ProductRewiewComponent implements OnInit {
     this.len = page.pageSize;
     this.loadRewiews();
   }
+
+  changeFileName(file:File){
+    this.imageName = file.name
+    this.fileImage = file;
+  }
+
+  getImageUrl(imageName: string): string {
+    // Giả sử hình ảnh của bạn được lưu trữ trên server và bạn có một đường dẫn cố định cho chúng
+    const baseUrl = environment.apiUrl + '/';
+    return `${baseUrl}${imageName}`;
+  }
+
+  closePopup():void{
+    this.isPopupOpen = false;
+  }
+
+  clickProduct(item:ProductRewiewModel){
+    this.isPopupOpen = true;
+    const baseUrl = environment.apiUrl + '/';
+    const imgName = `${baseUrl}${item.imageName}`;
+    this.productClick = imgName;
+  }
+
 
 }

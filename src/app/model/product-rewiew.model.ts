@@ -4,4 +4,5 @@ export interface ProductRewiewModel{
   userid:string;
   cmt:string;
   rating:number;
+  imageName:string;
 }
