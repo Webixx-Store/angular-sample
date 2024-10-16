@@ -6,7 +6,7 @@
         <div class="carousel-inner">
           <ng-container *ngFor="let item of product.sliders; let i = index">
             <div class="carousel-item" [class.active]="i === 0">
-              <img [src]="item" class="d-block w-100" alt="Product Image {{ i + 1 }}">
+              <img [src]=" apiUrl + '/' + item" class="d-block w-100" alt="Product Image {{ i + 1 }}">
             </div>
           </ng-container>
           <ng-container *ngIf="product.sliders == null">

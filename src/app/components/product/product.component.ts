@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { CartService } from './../../service/cart-service.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -14,7 +15,8 @@ export class ProductComponent implements OnInit {
 
   @Input() product:ProductModel = {} as ProductModel
   reviewCount:number = 10;
-  constructor(private cartService : CartService 
+  apiUrl = environment.apiUrl;
+  constructor(private cartService : CartService
     , private toastr: ToastrService
     , private router: Router) {
 

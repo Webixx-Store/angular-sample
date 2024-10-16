@@ -1,75 +1,53 @@
 <header>
   <div class="crypt-header">
-      <div class="container-fluid crypt-container">
+    <div class="container-fluid crypt-container">
+      <div class="row">
+        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12">
           <div class="row">
-              <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12">
-                  <div class="row">
-                      <div class="crypt-logo"><a routerLink="/"><img src="../../../assets/images/logo.png"  style="height: 72px; top: -7px;"></a></div>
-                  </div>
-              </div>
-              <i class="menu-toggle fas fa-bars d-xs-block d-sm-block d-md-none"></i>
-              <div class="mobile-menu col-xl-11 col-lg-11 col-md-11 d-none d-md-block d-lg-block">
-                  <ul class="crypt-heading-menu float-left" *ngIf="isLogin">
-
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              markets
-                          </a>
-                          <div class="dropdown-menu">
-                              <a class="dropdown-item" routerLink="/shopping">Shopping</a>
-                              <a class="dropdown-item" routerLink="/shopping/checkout">Checkout</a>
-                              <a class="dropdown-item" routerLink="/shopping/order-detail">Ordered Detail</a>
-                          </div>
-                      </li>
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              finance
-                          </a>
-                          <div class="dropdown-menu">
-                              <a class="dropdown-item" href="technical-analysis.html">Technical Analysis</a>
-                              <a class="dropdown-item" href="economic-calendar.html">Economic Calendar</a>
-                              <a class="dropdown-item" href="screener.html">Screener</a>
-                          </div>
-                      </li>
-                      <li><a routerLink="/message">Message</a></li>
-                      <li class="nav-item dropdown">
-                          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              trade
-                          </a>
-                          <div class="dropdown-menu">
-                              <a class="dropdown-item" routerLink="/trade/account-info">Account Info</a>
-                              <a class="dropdown-item" routerLink="/trade/trading">Trade Basic</a>
-                              <a class="dropdown-item" routerLink="/trade/setting-trade">Setting Trade</a>
-                          </div>
-                      </li>
-                  </ul>
-                  <ul class="crypt-heading-menu float-right">
-                    <!-- Nút cart shopping với biểu tượng và số lượng -->
-                    <li class="crypt-box-menu">
-                        <a routerLink="/shopping/checkout" class="cart-icon">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span *ngIf="quantityCart > 0" class="cart-count">{{ quantityCart }}</span>
-                        </a>
-                    </li>
-
-                    <!-- Nút login -->
-                    <li *ngIf="!isLogin" class="crypt-box-menu">
-                        <a routerLink="auth/login" class="login-icon">
-                            <i class="fa fa-sign-in-alt"></i>
-                        </a>
-                    </li>
-
-                    <!-- Nút logout -->
-                    <li *ngIf="isLogin" class="crypt-box-menu">
-                        <a (click)="logOut()" class="logout-icon">
-                            <i class="fa fa-sign-out-alt"></i>
-                        </a>
-                    </li>
-                </ul>
-
-
-              </div>
+            <div class="crypt-logo">
+              <a routerLink="/"><img src="../../../assets/images/logo.png" style="height: 72px; top: -7px;"></a>
+            </div>
           </div>
+        </div>
+        <i class="menu-toggle fas fa-bars d-xs-block d-sm-block d-md-none"></i>
+        <div class="mobile-menu col-xl-11 col-lg-11 col-md-11 d-none d-md-block d-lg-block">
+          <ul class="crypt-heading-menu float-left" *ngIf="isLogin">
+            <li class="nav-item dropdown" *ngFor="let menu of menus">
+              <a class="nav-link" [ngClass]="menu.route == null ? 'dropdown-toggle'  : 'dropdown'"
+                [routerLink]="menu.route || null"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                {{ menu.label }}
+              </a>
+              <div class="dropdown-menu" *ngIf="menu.items && menu.items.length > 0">
+                  <a *ngFor="let item of menu.items" class="dropdown-item" [routerLink]="item.route" [href]="item.route" style="color: white;">
+                    {{ item.label }}
+                  </a>
+              </div>
+            </li>
+          </ul>
+          <ul class="crypt-heading-menu float-right">
+            <li class="crypt-box-menu">
+              <a routerLink="/shopping/checkout" class="cart-icon">
+                <i class="fa fa-shopping-cart"></i>
+                <span *ngIf="quantityCart > 0" class="cart-count">{{ quantityCart }}</span>
+              </a>
+            </li>
+            <li *ngIf="!isLogin" class="crypt-box-menu">
+              <a routerLink="auth/login" class="login-icon">
+                <i class="fa fa-sign-in-alt"></i>
+              </a>
+            </li>
+            <li *ngIf="isLogin" class="crypt-box-menu">
+              <a (click)="logOut()" class="logout-icon">
+                <i class="fa fa-sign-out-alt"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
   </div>
 </header>

@@ -11,6 +11,7 @@ import { ProductModel } from 'src/app/model/product.model';
 import { getProducts, ProductState } from 'src/app/selectors/product.selector';
 import { CartService } from 'src/app/service/cart-service.service';
 import { ProductService } from 'src/app/service/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,6 +30,7 @@ export class ProductDetailComponent implements OnInit {
     this.product$ = this.productStore.select(getProducts);
   }
   productId:string = "";
+  apiUrl:string = environment.apiUrl;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {

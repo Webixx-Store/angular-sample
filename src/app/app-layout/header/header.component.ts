@@ -6,6 +6,7 @@ import { getTestConnectAction } from 'src/app/actions/coin.action';
 import { AuthDetail } from 'src/app/common/util/auth-detail';
 import { DateUtils } from 'src/app/common/util/date.util';
 import { ValidationUtil } from 'src/app/common/util/validation.util';
+import { Menu } from 'src/app/model/menu.model';
 import { ResultModel } from 'src/app/model/result.model';
 import { AuthState, getCartNumber } from 'src/app/selectors/auth.selector';
 import { CoinState, getTestConnect } from 'src/app/selectors/coin.selector';
@@ -28,6 +29,21 @@ export class HeaderComponent implements OnInit {
   quantityCart$ = new Observable<number>();
   quantityCart :number = 0;
 
+  menus: Menu[] = [
+    {
+      label: 'Markets',
+      items: [
+        { label: 'Shopping', route: '/shopping' },
+        { label: 'Checkout', route: '/shopping/checkout' },
+        { label: 'Ordered Detail', route: '/shopping/order-detail' }
+      ]
+    },
+    {
+      label:"Message" , route: '/message',
+    }
+
+  ];
+
 
 
   constructor(private headerStore: Store<HeaderState>,private authStore: Store<AuthState>,
@@ -38,6 +54,17 @@ export class HeaderComponent implements OnInit {
     this.quantityCart$ = this.authStore.select(getCartNumber)
   }
   ngOnInit(): void {
+
+
+    let role  = String(AuthDetail.getLoginedInfo()?.role);
+    if(role == 'admin'){
+      this.menus.push({
+        label: 'Administrator',
+        items: [
+          { label: 'Add Product', route: '/shopping/addProduct' },
+        ]
+      })
+    }
 
     if(Number(AuthDetail.getLoginedInfo()?.logoutDate) <= Number(DateUtils.getCurrFullDateTimeStrBlank(new Date()))){
       AuthDetail.actionLogOut();
@@ -56,16 +83,6 @@ export class HeaderComponent implements OnInit {
         this.isHeader = true;
       }
     })
-
-    // this.resultConnect$.subscribe(res =>{
-    //   if(ValidationUtil.isNotNullAndNotEmpty(res)){
-    //     if(res.code == 'OK'){
-    //       this.isConnect = true;
-    //     }else{
-    //       this.isConnect = false;
-    //     }
-    //   }
-    // })
     this.quantityCart = this.cartService.getCart(String(AuthDetail.getLoginedInfo()?.id)).length;
     this.quantityCart$.subscribe(res => {
         this.quantityCart = res;
@@ -95,5 +112,7 @@ export class HeaderComponent implements OnInit {
     AuthDetail.actionLogOut();
     window.location.href = "/"
   }
+
+
 
 }

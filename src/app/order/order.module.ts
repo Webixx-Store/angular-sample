@@ -17,10 +17,12 @@ import { OrderEffect } from '../effects/order.effect';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { ProductDetailModule } from './product-detail/product-detail.module';
 import { CheckoutModule } from './checkout/checkout.module';
+import { AddProductComponent } from './add-product/add-product.component';
 @NgModule({
   declarations: [
     ShoesProductListComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    AddProductComponent
   ],
   imports: [
     CommonModule,
