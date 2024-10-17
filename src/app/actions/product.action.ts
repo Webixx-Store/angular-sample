@@ -53,3 +53,20 @@ export const getRewiewsActionFail = createAction(
     "[PRODUCT] rewiews search fail",
     props<{ msg: any }>()
 );
+
+
+// save product
+export const saveProductAction = createAction(
+  "[PRODUCT] saveProductAction",
+  props<{ params: any , img:any , sliders : any []}>()
+);
+
+export const saveProductActionSuscess = createAction(
+    "[PRODUCT] saveProductAction suscess",
+    props<{ result: ResultModel}>()
+);
+
+export const saveProductActionFail = createAction(
+    "[PRODUCT] saveProductAction fail",
+    props<{ msg: any }>()
+);

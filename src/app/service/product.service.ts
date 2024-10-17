@@ -60,7 +60,25 @@ export class ProductService{
     });
   }
 
-
+  saveProduct(params: any, img: any, sliders: any[]): Observable<ResultModel> {
+    let url = `${environment.apiUrl}/api/products/saveProduct`;
+    const formData = new FormData();
+    if (img) {
+      formData.append('img', img);
+    }
+    if (sliders && sliders.length > 0) {
+      sliders.forEach((slider, index) => {
+        formData.append('sliders', slider);
+      });
+    }
+    formData.append('productRequest', new Blob([JSON.stringify(params)], { type: 'application/json' }));
+    const headers: HttpHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${AuthDetail.getLoginedInfo()?.jwt}`
+    });
+    return this._http.post<ResultModel>(url, formData, {
+      headers: headers,
+    });
+  }
 }
 
 

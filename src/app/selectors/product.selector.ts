@@ -10,6 +10,7 @@ export interface ProductState {
   products:  ProductResponseModel;
   resultSaveRewiew:ResultModel;
   rewiews:ProductRewiewResponseModel;
+  resultSaveProduct : ResultModel;
 }
 
 export const getProductState = createFeatureSelector<ProductState>(productFeatureKey);
@@ -28,6 +29,11 @@ export const getResultSaveRewiew = createSelector(
 export const getRewiews = createSelector(
   getProductState,
  (state: ProductState) => state.rewiews
+);
+
+export const getResultSaveProduct = createSelector(
+  getProductState,
+ (state: ProductState) => state.resultSaveProduct
 );
 
 

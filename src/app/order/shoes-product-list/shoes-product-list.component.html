@@ -2,7 +2,7 @@
   <div class="row">
     <ng-container *ngIf="items.length > 0; else noData">
       <ng-container *ngFor="let product of items">
-        <div [product]="product" class="col-md-4"></div>
+        <div [product]="product" class="col-md-4 mb-4"></div>
       </ng-container>
     </ng-container>
     <ng-template #noData>

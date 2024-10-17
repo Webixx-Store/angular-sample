@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ProductService } from '../service/product.service';
-import { getRewiewsAction, getRewiewsActionFail, getRewiewsActionSuscess, productAction, productActionFail, productActionSuscess, saveProductRewiewAction, saveProductRewiewActionFail, saveProductRewiewActionSuscess } from '../actions/product.action';
+import { getRewiewsAction, getRewiewsActionFail, getRewiewsActionSuscess, productAction, productActionFail, productActionSuscess, saveProductAction, saveProductActionFail, saveProductActionSuscess, saveProductRewiewAction, saveProductRewiewActionFail, saveProductRewiewActionSuscess } from '../actions/product.action';
 
 
 
@@ -37,6 +37,14 @@ export class ProductEffect {
     mergeMap(({params}) => this.productService.getProductRewiew(params).pipe(
       map(res => getRewiewsActionSuscess({items:res})),
       catchError(msg => of(getRewiewsActionFail({ msg: msg.message })))
+    ))
+  ));
+
+  saveProduct$ = createEffect(() => this._actions$.pipe(
+    ofType(saveProductAction),
+    mergeMap(({params ,  img , sliders }) => this.productService.saveProduct(params ,  img , sliders).pipe(
+      map(res => saveProductActionSuscess({result:res})),
+      catchError(msg => of(saveProductActionFail({ msg: msg.message })))
     ))
   ));
 
