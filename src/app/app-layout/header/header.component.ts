@@ -38,9 +38,9 @@ export class HeaderComponent implements OnInit {
         { label: 'Ordered Detail', route: '/shopping/order-detail' }
       ]
     },
-    {
-      label:"Message" , route: '/message',
-    }
+    // {
+    //   label:"Message" , route: '/message',
+    // }
 
   ];
 
@@ -61,7 +61,8 @@ export class HeaderComponent implements OnInit {
       this.menus.push({
         label: 'Administrator',
         items: [
-          { label: 'Add Product', route: '/shopping/addProduct' },
+          { label: 'Product Manager', route: '/shopping/addProduct' },
+          { label: 'Order Manager', route: '/shopping/addProduct' },
         ]
       })
     }

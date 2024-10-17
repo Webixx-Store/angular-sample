@@ -1,3 +1,4 @@
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ProductResponseModel } from './../../model/product-response.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -25,12 +26,18 @@ export class ProductDetailComponent implements OnInit {
   product : ProductModel = {} as ProductModel;
   constructor(private route: ActivatedRoute , private productStore: Store<ProductState>,
     private cartService : CartService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sanitizer: DomSanitizer
   ) {
     this.product$ = this.productStore.select(getProducts);
   }
   productId:string = "";
   apiUrl:string = environment.apiUrl;
+
+    description = '<p><strong>This is a product description</strong></p><p>This is another paragraph that should appear on a new line.</p>'
+    // các thuộc tính khác
+
+
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -59,6 +66,10 @@ export class ProductDetailComponent implements OnInit {
     this.toastr.success("Add Cart suscess")
 
 
+  }
+
+  getSanitizedDescription(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(this.product.description);
   }
 
 }

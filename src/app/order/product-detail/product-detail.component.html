@@ -56,7 +56,8 @@
 
 
 
-      <p class="description">{{product.description}}</p>
+
+
       <p class="text-muted">Stock: <strong>{{product.stock}}</strong></p>
       <p class="text-muted">Added On: <strong>{{product.createdAt}}</strong></p>
 
@@ -73,6 +74,10 @@
       <!-- Add to Cart Button -->
       <button class="btn btn-primary btn-lg" (click)="clickBuy(product)">Add to Cart</button>
     </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="description" [innerHTML]="getSanitizedDescription()"></div>
   </div>
 
   <app-product-rewiew [productid]="productId"></app-product-rewiew>

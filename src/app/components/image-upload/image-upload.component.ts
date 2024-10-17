@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-image-upload',
@@ -12,9 +12,9 @@ export class ImageUploadComponent {
 
   @Output() changeFile = new EventEmitter<File>();
 
-  
 
- 
+  @ViewChild('fileInput') fileInput: any;
+
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -34,5 +34,11 @@ export class ImageUploadComponent {
     console.log('Image uploaded:', this.imageUrl);
   }
 
-  
+  clearImage(): void {
+    this.imageUrl = null;
+    this.fileInput.nativeElement.value = null;
+    this.changeFile.emit({} as File);
+  }
+
+
 }

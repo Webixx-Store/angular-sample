@@ -1,6 +1,6 @@
 import { PageEvent } from '@angular/material/paginator';
 import { ResultModel } from './../../model/result.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/internal/Observable';
@@ -67,6 +67,8 @@ export class AddProductComponent implements OnInit {
   page = 0;
   len = 5;
   total = 0;
+
+  @ViewChild('descriptionContent', { static: false }) descriptionContent!: ElementRef;
 
 
 
@@ -173,6 +175,11 @@ export class AddProductComponent implements OnInit {
     }
     let params = {};
 
+
+    const description = this.descriptionContent.nativeElement.innerHTML;
+    this.product.description = description;
+
+
     if(ValidationUtil.isNotNullAndNotEmpty(this.product.id)){
 
        let slidersName : string [] = [];
@@ -188,6 +195,13 @@ export class AddProductComponent implements OnInit {
        if(ValidationUtil.isNotNullAndNotEmpty(this.sliderName4)){
         slidersName.push(this.sliderName4.replace(this.apiUrl + '/' ,'' ))
        }
+
+       let img = '';
+       if(ValidationUtil.isNotNullAndNotEmpty(this.imgName)){
+        img = this.imgName.replace(this.apiUrl + '/' , '' )
+       }else{
+        img = '';
+       }
        params = {
         id : this.product.id,
         name: this.product.name,
@@ -197,7 +211,7 @@ export class AddProductComponent implements OnInit {
         sale: this.product.sale,
         new: this.product.new,
         best: this.product.best ,
-        img : this.imgName.replace(this.apiUrl + '/' , '' ),
+        img : img,
         sliders : slidersName,
         rate:this.product.rate/100
 
@@ -298,8 +312,6 @@ export class AddProductComponent implements OnInit {
     }
 
     if(ValidationUtil.isNotNullAndNotEmpty(item.sliders)){
-      debugger;
-
       for (let i = 0; i < item.sliders.length; i++) {
         const sliderUrl = this.apiUrl + "/" + item.sliders[i];
         switch (i) {
@@ -320,6 +332,10 @@ export class AddProductComponent implements OnInit {
         }
       }
 
+    }
+
+    if (this.descriptionContent) {
+      this.descriptionContent.nativeElement.innerHTML = item.description || '';
     }
   }
 
