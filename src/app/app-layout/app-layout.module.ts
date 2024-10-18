@@ -20,6 +20,7 @@ import { CoinEffect } from '../effects/coin.effect';
 import { coinFeatureKey, coinReducer } from '../reducers/coin.reducer';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -38,6 +39,7 @@ import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     LoginModule,
     ReactiveFormsModule,
+    NgChartsModule,
     NgxLoadingModule.forRoot({fullScreenBackdrop: true}),
     StoreModule.forFeature(overlayLoadingFeatureKey, overlayLoadingReducer),
     StoreModule.forFeature(headerFeatureKey, headerReducer),

@@ -69,3 +69,4 @@ export class WebSocketService {
     this.stompClient.send('/app/startBroadcast', {}, subscriptionMessage);
   }
 }
+
