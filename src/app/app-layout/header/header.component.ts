@@ -62,7 +62,8 @@ export class HeaderComponent implements OnInit {
         label: 'Administrator',
         items: [
           { label: 'Product Manager', route: '/shopping/addProduct' },
-          { label: 'Order Manager', route: '/shopping/addProduct' },
+          { label: 'Order Tracking', route: '/shopping/order-tracking' },
+          { label: 'Order Analysic', route: '/shopping/order-analysic' },
         ]
       })
     }

@@ -19,7 +19,8 @@ export class WebSocketService {
   }
 
   initConnenctionSocket() {
-    const url = '//localhost:8888/ws';
+    //const url = '//localhost:8888/ws';
+    const url = 'https://spring-mongodb-sample.onrender.com/ws';
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
 

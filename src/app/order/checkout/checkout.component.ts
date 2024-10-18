@@ -263,10 +263,6 @@ export class CheckoutComponent implements OnInit {
       isValid = false;
     }
 
-    if (!this.orderRequest.userid) {
-      this.toastr.error('Username is required.');
-      isValid = false;
-    }
 
     if (!this.orderRequest.orderDeli.addr1) {
       this.toastr.error('Address Line 1 is required.');
@@ -275,16 +271,6 @@ export class CheckoutComponent implements OnInit {
 
     if (!this.orderRequest.orderDeli.country) {
       this.toastr.error('Country is required.');
-      isValid = false;
-    }
-
-    if (!this.orderRequest.orderDeli.state) {
-      this.toastr.error('State is required.');
-      isValid = false;
-    }
-
-    if (!this.orderRequest.orderDeli.post) {
-      this.toastr.error('Zip Code is required.');
       isValid = false;
     }
 

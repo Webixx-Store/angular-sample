@@ -1,0 +1,53 @@
+.tracking-container {
+  margin-top: 50px;
+}
+
+.order-status {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.order-status h5 {
+  font-weight: bold;
+}
+
+.step {
+  padding: 20px;
+  position: relative;
+}
+
+.step:not(:last-child)::after {
+  content: "";
+  width: 3px;
+  height: 100%;
+  background-color: #007bff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.step .icon {
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.step h6 {
+  margin-top: 0;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.product-img {
+  width: 50px;
+}

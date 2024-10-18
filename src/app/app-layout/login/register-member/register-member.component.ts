@@ -47,6 +47,9 @@ export class RegisterMemberComponent implements OnInit {
       if(ValidationUtil.isNotNullAndNotEmpty(res.code)){
          if(Number(res.code )== 200){
           this.toastr.success(String(res.msg))
+          setTimeout(() => {
+            location.href = "/auth/login"
+          }, 1500);
          }else{
           this.toastr.error(String(res.data))
          }

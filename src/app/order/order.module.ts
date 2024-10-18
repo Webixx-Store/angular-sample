@@ -18,11 +18,17 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { ProductDetailModule } from './product-detail/product-detail.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { AddProductComponent } from './add-product/add-product.component';
+import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
+import { OrderAnalysicComponent } from './order-analysic/order-analysic.component';
+import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     ShoesProductListComponent,
     OrderDetailComponent,
-    AddProductComponent
+    AddProductComponent,
+    OrderTrackingComponent,
+    OrderAnalysicComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +39,7 @@ import { AddProductComponent } from './add-product/add-product.component';
     ReactiveFormsModule,
     PipeModule,
     CheckoutModule,
+    NgChartsModule,
     StoreModule.forFeature(productFeatureKey,productReducer),
     EffectsModule.forFeature([ProductEffect]),
 

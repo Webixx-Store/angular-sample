@@ -4,5 +4,5 @@ export const environment = {
 
   production: true,
   //apiUrl: "https://shop-demo-bkp4.onrender.com"
-  apiUrl: 'http://localhost:8888'
+  apiUrl: 'https://spring-mongodb-sample.onrender.com'
 };
