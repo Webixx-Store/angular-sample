@@ -67,6 +67,7 @@ export class ChatTingComponent implements OnInit {
     } as ChatMessage;
 
     this.chatService.sendMessage(this.romId, chatMessage);
+    this.base64Image = '';
     this.messageInput = ''; // Reset trường input
   }
 
