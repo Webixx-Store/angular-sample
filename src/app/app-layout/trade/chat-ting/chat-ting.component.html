@@ -16,12 +16,26 @@
         <div class="avatar"></div>
         <div class="text_wrapper">
           <div class="name">{{ item.user }}</div>
-          <div class="text" >{{item.message}}</div>
+          <div class="text">{{item.message}}</div>
+
           <img
+            *ngIf="isImage(item.image)"
+            (click)="imgClick(apiUrl + '/' + item.image)"
             [src]="apiUrl + '/' + item.image"
-            *ngIf="item.image != null && item.image != ''"
             class="img-fluid rounded chat-image"
-            alt="Chat image">
+            alt="Chat image"
+          />
+
+          <a
+            *ngIf="!isImage(item.image) && item.image"
+            class="file-attachment"
+            [href]="apiUrl + '/' + item.image"
+            download="{{ apiUrl + '/' + item.image }}"
+          >
+            <i class="fas fa-file file-icon"></i>
+            <span class="file-name">{{item.image.replace("upload/product/", "")}}</span>
+            <i class="fas fa-download download-icon"></i>
+          </a>
         </div>
       </li>
 
@@ -56,3 +70,11 @@
   </app-popup>
 
   <audio #notificationSound src="../../../../assets/audio/notifiaction.mp3"></audio>
+  <app-popup [isOpen]="isPopupOpenImg" (close)="closePopupImg()">
+    <div class="promo-content p-4">
+      <div class="text-center my-3">
+        <img [src]="imageClick" class="img-fluid rounded" alt="Product Image"
+             style="max-width: 100%; max-height: 50vh; object-fit: contain;">
+      </div>
+    </div>
+  </app-popup>

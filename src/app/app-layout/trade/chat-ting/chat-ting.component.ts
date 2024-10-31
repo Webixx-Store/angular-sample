@@ -24,11 +24,13 @@ export class ChatTingComponent implements OnInit {
   messageList: any[] = [];
   romId:string = '';
   isPopupOpen: boolean = true;
+  isPopupOpenImg: boolean = false;
 
   base64Image: string  = "";
   img: any = '';
   imgName: any = '';
   apiUrl = environment.apiUrl;
+  imageClick:string = ''
 
   constructor(private chatService: WebSocketService,
     private route: ActivatedRoute , private toadstr : ToastrService ,private http: HttpClient
@@ -101,6 +103,12 @@ export class ChatTingComponent implements OnInit {
 
   }
 
+  closePopupImg():void{
+    this.isPopupOpenImg = false;
+
+  }
+
+
   private scrollToBottom(): void {
     try {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
@@ -151,6 +159,32 @@ export class ChatTingComponent implements OnInit {
         this.img = file;
         this.imgName = file.name;
 
+
+  }
+
+  isImage(fileName: string): boolean {
+    // Kiểm tra nếu fileName không hợp lệ
+    if (typeof fileName !== 'string' || fileName.trim() === '') {
+      return false;
+    }
+    // Tách phần mở rộng tệp
+    const parts = fileName.split('.');
+    // Kiểm tra nếu không có phần mở rộng tệp
+    if (parts.length < 2) {
+      return false; // Không có phần mở rộng
+    }
+    // Lấy phần mở rộng và chuyển đổi thành chữ thường
+    const extension = parts[parts.length - 1].toLowerCase();
+    const extensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp'];
+    return extensions.includes(extension);
+  }
+
+
+  imgClick(img:string){
+    if(ValidationUtil.isNotNullAndNotEmpty(img)){
+      this.imageClick =img;
+      this.isPopupOpenImg = true;
+    }
 
   }
 
