@@ -7,6 +7,7 @@ import { AuthGuardService } from '../service/auth-guard.service';
 import { ChatTingComponent } from './trade/chat-ting/chat-ting.component';
 import { AuthDetail } from '../common/util/auth-detail';
 import { OrderAnalysicComponent } from '../order/order-analysic/order-analysic.component';
+import { WeddingComponent } from '../wedding/wedding.component';
 const postModule = () => import ("../../app/app-layout/post/post.module").then(x => x.PostModule);
 const orderModule = () => import ("../../app/order/order.module").then(x => x.OrderModule);
 const authModule = () => import ("../../app/app-layout/login/login-routing.module").then(x=>x.LoginRoutingModule)
@@ -16,6 +17,7 @@ let role =  AuthDetail.getLoginedInfo()?.role;
 const routes: Routes = [
   {
     path: '', component: AppLayoutComponent, children: [
+
        { path: '', component: role == 'admin' ? OrderAnalysicComponent : HomePageComponent },
        { path: 'message', component: ChatTingComponent },
        { path: 'auth', loadChildren: authModule },
@@ -23,7 +25,8 @@ const routes: Routes = [
        { path: 'post', loadChildren: postModule },
        { path: 'trade',canActivate : [AuthGuardService]  , loadChildren: trade },
     ]
-  }
+  },
+  { path: 'wedding', component: WeddingComponent },
 ];
 
 @NgModule({

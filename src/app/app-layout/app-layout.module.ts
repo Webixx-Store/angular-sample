@@ -21,6 +21,8 @@ import { coinFeatureKey, coinReducer } from '../reducers/coin.reducer';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
+import { QRCodeModule } from 'angularx-qrcode';
+import { WeddingComponent } from '../wedding/wedding.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -29,6 +31,7 @@ import { NgChartsModule } from 'ng2-charts';
     AutoLoginComponent,
     PostComponent,
     HomePageComponent,
+    WeddingComponent
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,7 @@ import { NgChartsModule } from 'ng2-charts';
     LoginModule,
     ReactiveFormsModule,
     NgChartsModule,
+    QRCodeModule,
     NgxLoadingModule.forRoot({fullScreenBackdrop: true}),
     StoreModule.forFeature(overlayLoadingFeatureKey, overlayLoadingReducer),
     StoreModule.forFeature(headerFeatureKey, headerReducer),

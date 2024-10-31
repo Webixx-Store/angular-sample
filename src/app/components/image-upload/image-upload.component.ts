@@ -10,10 +10,14 @@ export class ImageUploadComponent {
   @Input()
   imageUrl: string | ArrayBuffer | null | undefined;
 
+  @Input() isShowImg:boolean = true
+
   @Output() changeFile = new EventEmitter<File>();
 
 
   @ViewChild('fileInput') fileInput: any;
+
+
 
 
   onFileChange(event: any) {
