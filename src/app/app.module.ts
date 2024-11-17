@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ComponentsModule } from './components/components.module';
 import { Interceptors } from './service/interceptors.service';
 
+
 @NgModule({
   declarations: [
     AppComponent
