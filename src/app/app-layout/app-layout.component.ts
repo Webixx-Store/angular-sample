@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-app-layout',
-  host: { class: 'contain d-flex flex-column my-5' },
+  host: { class: '' },
   templateUrl: './app-layout.component.html',
   styleUrls: ['./app-layout.component.css']
 })

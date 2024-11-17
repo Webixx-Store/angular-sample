@@ -1,451 +1,791 @@
-/*
-|-------------------------------------------------------------
-| File: main.js
-| Project: Webixx
-| License: Themeforest Licence
-| Themeforest JouveLab: https://themeforest.net/user/jouvelab
-| This file is part of Webixx.
-|-------------------------------------------------------------
-*/
-'use strict';
-jQuery(document).ready(function() {
-	jQuery(document).on('click', '.crypt-header i.menu-toggle', function(){
-		jQuery('.crypt-mobile-menu').toggleClass('show');
-		jQuery(this).toggleClass('open')
-	});
-	jQuery('[data-toggle="tooltip"]').tooltip();
-	jQuery(document).on('click', '.crypt-heading-menu-toggle', function (e) {
+// Main Js File
+
+function mobileInit(){
+    'use strict';
+
+    owlCarousels();
+    quantityInputs();
+
+    // Header Search Toggle
+
+    var $searchWrapper = $('.header-search-wrapper'),
+    	$body = $('body'),
+        $searchToggle = $('.search-toggle');
+
+	$searchToggle.on('click', function (e) {
+		$searchWrapper.toggleClass('show');
+		$(this).toggleClass('active');
+		$searchWrapper.find('input').focus();
 		e.preventDefault();
-		$(this).closest('.crypt-heading-menu-toggle').children('.crypt-nav-tab').toggleClass('active');
 	});
-	jQuery(document).on('click', '.crypt-buysell-cc-dropdown .dropdown-menu .crypt-buysell-cc-opt', function () {
-		let currency = $(this).attr("data-currency");
-		let data = $(this).html();
-		$("#crypt-buysell-cc-value").val(currency);
-		$(".crypt-buysell-cc-choosen").html(data);
-	});
-	jQuery(document).on('click', '.navi[role="i-tablist"] .navi-link', function (e) {
-		e.preventDefault();
-		$(this).closest('.navi').find('.navi-link.active.show').toggleClass('active show');
-		$(this).toggleClass('active show');
-		$(".tab-content[role='i-tablist']").find('.tab-pane.active.show').toggleClass('active show');
-		$(".tab-content[role='i-tablist'] " + $(this).attr("href")).toggleClass('active show');
-	});
-	jQuery('#crypt-tab a').on('click', function (e) {
-	  	e.preventDefault();
-		var x = jQuery(this).attr('href');
-		if(x !== "tabpanel"){
-			jQuery(this).parents().find('.crypt-tab-content .tab-pane').removeClass('active');
+
+	$body.on('click', function (e) {
+		if ( $searchWrapper.hasClass('show') ) {
+			$searchWrapper.removeClass('show');
+			$searchToggle.removeClass('active');
+			$body.removeClass('is-search-active');
 		}
-		jQuery(this).parents().find('.crypt-tab-content .tab-pane' + x).addClass('active');
 	});
-	jQuery(document).on( 'click', '.crypt-coin-select a', function(e){
+
+	$('.header-search').on('click', function (e) {
+		e.stopPropagation();
+	});
+
+	// Sticky header 
+    var catDropdown = $('.category-dropdown'),
+        catInitVal = catDropdown.data('visible');
+        
+	if ( $('.sticky-header').length && $(window).width() >= 992 ) {
+		var sticky = new Waypoint.Sticky({
+			element: $('.sticky-header')[0],
+			stuckClass: 'fixed',
+			offset: -300,
+            handler: function ( direction ) {
+                // Show category dropdown
+                if ( catInitVal &&  direction == 'up') {
+                    catDropdown.addClass('show').find('.dropdown-menu').addClass('show');
+                    catDropdown.find('.dropdown-toggle').attr('aria-expanded', 'true');
+                    return false;
+                }
+
+                // Hide category dropdown on fixed header
+                if ( catDropdown.hasClass('show') ) {
+                    catDropdown.removeClass('show').find('.dropdown-menu').removeClass('show');
+                    catDropdown.find('.dropdown-toggle').attr('aria-expanded', 'false');
+                } 
+            }
+		});
+	}
+
+    // Menu init with superfish plugin
+    if ( $.fn.superfish ) {
+        $('.menu, .menu-vertical').superfish({
+            popUpSelector: 'ul, .megamenu',
+            hoverClass: 'show',
+            delay: 0,
+            speed: 80,
+            speedOut: 80 ,
+            autoArrows: true
+        });
+    }
+
+	// Mobile Menu Toggle - Show & Hide
+    $('.mobile-menu-toggler').on('click', function (e) {
+		$body.toggleClass('mmenu-active');
+		$(this).toggleClass('active');
 		e.preventDefault();
-		var div = jQuery(this).attr('href');
-		jQuery('.crypt-dash-withdraw').removeClass('d-block').addClass('d-none');
-		jQuery(div).removeClass('d-none').addClass('d-block');
-	});
-	var path = window.location.href;
- 	jQuery('ul.crypt-heading-menu > li > a').each(function() {
-  		if (this.href === path) {
-   			jQuery(this).parent('li').addClass('active');
-  		}else{
-   			jQuery(this).parent('li').removeClass('active');
-  		}
-  		jQuery('.crypt-box-menu').removeClass('active');
- 	});
- 	if(document.getElementById('crypt-examplechart')){
- 		new TradingView.widget(
-		 	{
-		  		"autosize": true,
-			  	"symbol": "NASDAQ:AAPL",
-			  	"interval": "D",
-			  	"timezone": "Etc/UTC",
-			  	"theme": "Dark",
-			  	"style": "1",
-			  	"locale": "en",
-			  	"toolbar_bg": "rgba(0, 0, 0, 1)",
-			  	"enable_publishing": false,
-			  	"allow_symbol_change": true,
-			  	"container_id": "crypt-examplechart"
-			}
-	  	);
- 	}
-});
-if (document.getElementById('DARK_CHART_BTC')) {
-  am4core.ready(function () {
-    var chart = am4core.create('DARK_CHART_BTC', am4charts.XYChart);
-    chart.data = generateChartData();
-    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.baseInterval = {
-      timeUnit: 'minute',
-      count: 1,
-    };
-    dateAxis.tooltip.disabled = true;
-    dateAxis.renderer.grid.template.disabled = true;
-    dateAxis.renderer.labels.template.disabled = true;
-    dateAxis.renderer.ticks.template.disabled = true;
-    dateAxis.renderer.paddingBottom = 15;
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.tooltip.disabled = true;
-    valueAxis.renderer.grid.template.disabled = true;
-    valueAxis.renderer.labels.template.disabled = true;
-    valueAxis.renderer.ticks.template.disabled = true;
-    var series = chart.series.push(new am4charts.LineSeries());
-    series.dataFields.dateX = 'date';
-    series.dataFields.valueY = 'prices';
-    series.tooltipText = 'prices: [bold]{valueY}[/]';
-    series.fillOpacity = 0.1;
-    series.fill = am4core.color('#f74745');
-    series.stroke = am4core.color('#f74745');
-    series.tooltip.getFillFromObject = false;
-    series.tooltip.background.fill = am4core.color('#131722');
-    series.tooltip.background.stroke = am4core.color('#131722');
-    chart.cursor = new am4charts.XYCursor();
-    chart.cursor.lineY.opacity = 1;
-    dateAxis.start = 0;
-    dateAxis.keepSelection = true;
-    chart.zoomOutButton.background.fill = am4core.color(
-        'rgba(255, 255, 255, 0.11)'
-    );
-    chart.zoomOutButton.icon.stroke = am4core.color('#ebebeb');
-    chart.zoomOutButton.background.states.getKey(
-        'hover'
-    ).properties.fill = am4core.color('#f74745');
-    function generateChartData() {
-      var chartData = [];
-      var firstDate = new Date();
-      firstDate.setMinutes(firstDate.getDate() - 500);
-      var prices = 500;
-      for (var i = 0; i < 500; i++) {
-        var newDate = new Date(firstDate);
-        newDate.setMinutes(newDate.getMinutes() + i);
-        prices += Math.round(
-            (Math.random() < 0.5 ? 1 : -1) * Math.random() * 10
-        );
-        chartData.push({
-          date: newDate,
-          prices: prices,
+    });
+
+    $('.mobile-menu-overlay, .mobile-menu-close').on('click', function (e) {
+		$body.removeClass('mmenu-active');
+		$('.menu-toggler').removeClass('active');
+		e.preventDefault();
+    });
+
+	// Add Mobile menu icon arrows to items with children
+    $('.mobile-menu').find('li').each(function () {
+        var $this = $(this);
+
+        if ( $this.find('ul').length ) {
+            $('<span/>', {
+                'class': 'mmenu-btn'
+            }).appendTo($this.children('a'));
+        }
+    });
+
+    // Mobile Menu toggle children menu
+    $('.mmenu-btn').on('click', function (e) {
+        var $parent = $(this).closest('li'),
+            $targetUl = $parent.find('ul').eq(0);
+
+            if ( !$parent.hasClass('open') ) {
+                $targetUl.slideDown(300, function () {
+                    $parent.addClass('open');
+                });
+            } else {
+                $targetUl.slideUp(300, function () {
+                    $parent.removeClass('open');
+                });
+            }
+
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+}
+$(document).ready(function () {
+    
+	// Sidebar Filter - Show & Hide
+    var $sidebarToggler = $('.sidebar-toggler');
+    $sidebarToggler.on('click', function (e) {
+		$body.toggleClass('sidebar-filter-active');
+		$(this).toggleClass('active');
+		e.preventDefault();
+    });
+
+    $('.sidebar-filter-overlay').on('click', function (e) {
+		$body.removeClass('sidebar-filter-active');
+		$sidebarToggler.removeClass('active');
+		e.preventDefault();
+    });
+
+    // Clear All checkbox/remove filters in sidebar filter
+    $('.sidebar-filter-clear').on('click', function (e) {
+    	$('.sidebar-shop').find('input').prop('checked', false);
+
+    	e.preventDefault();
+    });
+
+    // Popup - Iframe Video - Map etc.
+    if ( $.fn.magnificPopup ) {
+        $('.btn-iframe').magnificPopup({
+            type: 'iframe',
+            removalDelay: 600,
+            preloader: false,
+            fixedContentPos: false,
+            closeBtnInside: false
         });
-      }
-      return chartData;
     }
-  });
-}
-if (document.getElementById('DARK_CHART_ETH')) {
-  am4core.ready(function () {
-    var chart = am4core.create('DARK_CHART_ETH', am4charts.XYChart);
-    chart.data = generateChartData();
-    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.baseInterval = {
-      timeUnit: 'minute',
-      count: 1,
-    };
-    dateAxis.tooltip.disabled = true;
-    dateAxis.renderer.grid.template.disabled = true;
-    dateAxis.renderer.labels.template.disabled = true;
-    dateAxis.renderer.ticks.template.disabled = true;
-    dateAxis.renderer.paddingBottom = 15;
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.tooltip.disabled = true;
-    valueAxis.renderer.grid.template.disabled = true;
-    valueAxis.renderer.labels.template.disabled = true;
-    valueAxis.renderer.ticks.template.disabled = true;
-    var series = chart.series.push(new am4charts.LineSeries());
-    series.dataFields.dateX = 'date';
-    series.dataFields.valueY = 'prices';
-    series.tooltipText = 'prices: [bold]{valueY}[/]';
-    series.fillOpacity = 0.1;
-    series.fill = am4core.color('#f74745');
-    series.stroke = am4core.color('#f74745');
-    series.tooltip.getFillFromObject = false;
-    series.tooltip.background.fill = am4core.color('#131722');
-    series.tooltip.background.stroke = am4core.color('#131722');
-    chart.cursor = new am4charts.XYCursor();
-    chart.cursor.lineY.opacity = 1;
-    dateAxis.start = 0;
-    dateAxis.keepSelection = true;
-    chart.zoomOutButton.background.fill = am4core.color(
-        'rgba(255, 255, 255, 0.11)'
-    );
-    chart.zoomOutButton.icon.stroke = am4core.color('#ebebeb');
-    chart.zoomOutButton.background.states.getKey(
-        'hover'
-    ).properties.fill = am4core.color('#f74745');
-    function generateChartData() {
-      var chartData = [];
-      var firstDate = new Date();
-      firstDate.setMinutes(firstDate.getDate() - 500);
-      var prices = 500;
-      for (var i = 0; i < 500; i++) {
-        var newDate = new Date(firstDate);
-        newDate.setMinutes(newDate.getMinutes() + i);
-        prices += Math.round(
-            (Math.random() < 0.5 ? 1 : -1) * Math.random() * 10
-        );
-        chartData.push({
-          date: newDate,
-          prices: prices,
+
+    // Product hover
+    if ( $.fn.hoverIntent ) {
+        $('.product-3').hoverIntent(function () {
+            var $this = $(this),
+                animDiff = ( $this.outerHeight() - ( $this.find('.product-body').outerHeight() + $this.find('.product-media').outerHeight()) ),
+                animDistance = ( $this.find('.product-footer').outerHeight() - animDiff );
+
+            $this.find('.product-footer').css({ 'visibility': 'visible', 'transform': 'translateY(0)' });
+            $this.find('.product-body').css('transform', 'translateY('+ -animDistance +'px)');
+
+        }, function () {
+            var $this = $(this);
+
+            $this.find('.product-footer').css({ 'visibility': 'hidden', 'transform': 'translateY(100%)' });
+            $this.find('.product-body').css('transform', 'translateY(0)');
         });
-      }
-      return chartData;
     }
-  });
-}
-if (document.getElementById('darkDepthChart')) {
-  function am4themes_dark(target) {
-    if (target instanceof am4core.InterfaceColorSet) {
-      target.setFor('stroke', am4core.color('#000000'));
-      target.setFor('fill', am4core.color('#2b2b2b'));
-      target.setFor('primaryButton', am4core.color('#6794dc'));
-      target.setFor('primaryButtonHover', am4core.color('#6771dc'));
-      target.setFor('primaryButtonDown', am4core.color('#68dc75'));
-      target.setFor('primaryButtonActive', am4core.color('#68dc75'));
-      target.setFor('primaryButtonText', am4core.color('#FFFFFF'));
-      target.setFor('primaryButtonStroke', am4core.color('#6794dc'));
-      target.setFor('secondaryButton', am4core.color('#3b3b3b'));
-      target.setFor('secondaryButtonHover', am4core.color('#3b3b3b'));
-      target.setFor('secondaryButtonDown', am4core.color('#3b3b3b'));
-      target.setFor('secondaryButtonText', am4core.color('#bbbbbb'));
-      target.setFor('secondaryButtonStroke', am4core.color('#3b3b3b'));
-      target.setFor('grid', am4core.color('#6DC0D5'));
-      target.setFor('background', am4core.color('#000000'));
-      target.setFor('alternativeBackground', am4core.color('#ffffff'));
-      target.setFor('text', am4core.color('#ffffff'));
-      target.setFor('alternativeText', am4core.color('#000000'));
-      target.setFor('disabledBackground', am4core.color('#bbbbbb'));
-    }
-  }
-  am4core.useTheme(am4themes_dark);
-  var chart = am4core.create('darkDepthChart', am4charts.XYChart);
-  chart.zoomOutButton.background.fill = am4core.color(
-      'rgba(255, 255, 255, 0.11)'
-  );
-  chart.zoomOutButton.icon.stroke = am4core.color('#ebebeb');
-  chart.zoomOutButton.background.states.getKey(
-      'hover'
-  ).properties.fill = am4core.color('#00cc93');
-  DepthChart();
-}
-if (document.getElementById('DARK_CHART_XRP')) {
-  am4core.ready(function () {
-    var chart = am4core.create('DARK_CHART_XRP', am4charts.XYChart);
-    chart.data = generateChartData();
-    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.baseInterval = {
-      timeUnit: 'minute',
-      count: 1,
-    };
-    dateAxis.tooltip.disabled = true;
-    dateAxis.renderer.grid.template.disabled = true;
-    dateAxis.renderer.labels.template.disabled = true;
-    dateAxis.renderer.ticks.template.disabled = true;
-    dateAxis.renderer.paddingBottom = 15;
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.tooltip.disabled = true;
-    valueAxis.renderer.grid.template.disabled = true;
-    valueAxis.renderer.labels.template.disabled = true;
-    valueAxis.renderer.ticks.template.disabled = true;
-    var series = chart.series.push(new am4charts.LineSeries());
-    series.dataFields.dateX = 'date';
-    series.dataFields.valueY = 'prices';
-    series.tooltipText = 'prices: [bold]{valueY}[/]';
-    series.fillOpacity = 0.1;
-    series.fill = am4core.color('#00cc93');
-    series.stroke = am4core.color('#00cc93');
-    series.tooltip.getFillFromObject = false;
-    series.tooltip.background.fill = am4core.color('#131722');
-    series.tooltip.background.stroke = am4core.color('#131722');
-    chart.cursor = new am4charts.XYCursor();
-    chart.cursor.lineY.opacity = 1;
-    dateAxis.start = 0;
-    dateAxis.keepSelection = true;
-    chart.zoomOutButton.background.fill = am4core.color(
-        'rgba(255, 255, 255, 0.11)'
-    );
-    chart.zoomOutButton.icon.stroke = am4core.color('#ebebeb');
-    chart.zoomOutButton.background.states.getKey(
-        'hover'
-    ).properties.fill = am4core.color('#00cc93');
-    function generateChartData() {
-      var chartData = [];
-      var firstDate = new Date();
-      firstDate.setMinutes(firstDate.getDate() - 500);
-      var prices = 500;
-      for (var i = 0; i < 500; i++) {
-        var newDate = new Date(firstDate);
-        newDate.setMinutes(newDate.getMinutes() + i);
-        prices += Math.round(
-            (Math.random() < 0.5 ? 1 : -1) * Math.random() * 10
-        );
-        chartData.push({
-          date: newDate,
-          prices: prices,
+
+    // Slider For category pages / filter price
+    if ( typeof noUiSlider === 'object' ) {
+		var priceSlider  = document.getElementById('price-slider');
+
+		// Check if #price-slider elem is exists if not return
+		// to prevent error logs
+		if (priceSlider == null) return;
+
+		noUiSlider.create(priceSlider, {
+			start: [ 0, 750 ],
+			connect: true,
+			step: 50,
+			margin: 200,
+			range: {
+				'min': 0,
+				'max': 1000
+			},
+			tooltips: true,
+			format: wNumb({
+		        decimals: 0,
+		        prefix: '$'
+		    })
+		});
+
+		// Update Price Range
+		priceSlider.noUiSlider.on('update', function( values, handle ){
+			$('#filter-price-range').text(values.join(' - '));
+		});
+	}
+
+	// Product countdown
+	if ( $.fn.countdown ) {
+		$('.product-countdown').each(function () {
+			var $this = $(this), 
+				untilDate = $this.data('until'),
+				compact = $this.data('compact'),
+                dateFormat = ( !$this.data('format') ) ? 'DHMS' : $this.data('format'),
+                newLabels = ( !$this.data('labels-short') ) ? 
+                                ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Minutes', 'Seconds'] :
+                                ['Years', 'Months', 'Weeks', 'Days', 'Hours', 'Mins', 'Secs'],
+                newLabels1 = ( !$this.data('labels-short') ) ? 
+                                ['Year', 'Month', 'Week', 'Day', 'Hour', 'Minute', 'Second'] :
+                                ['Year', 'Month', 'Week', 'Day', 'Hour', 'Min', 'Sec'];
+
+            var newDate;
+
+            // Split and created again for ie and edge 
+            if ( !$this.data('relative') ) {
+                var untilDateArr = untilDate.split(", "), // data-until 2019, 10, 8 - yy,mm,dd
+                    newDate = new Date(untilDateArr[0], untilDateArr[1] - 1, untilDateArr[2]);
+            } else {
+                newDate = untilDate;
+            }
+
+			$this.countdown({
+			    until: newDate,
+			    format: dateFormat,
+			    padZeroes: true,
+			    compact: compact,
+			    compactLabels: ['y', 'm', 'w', ' days,'],
+			    timeSeparator: ' : ',
+                labels: newLabels,
+                labels1: newLabels1
+
+			});
+		});
+
+		// Pause
+		// $('.product-countdown').countdown('pause');
+	}
+
+	
+    // Product Image Zoom plugin - product pages
+    if ( $.fn.elevateZoom ) {
+        $('#product-zoom').elevateZoom({
+            gallery:'product-zoom-gallery',
+            galleryActiveClass: 'active',
+            zoomType: "inner",
+            cursor: "crosshair",
+            zoomWindowFadeIn: 400,
+            zoomWindowFadeOut: 400,
+            responsive: true
         });
-      }
-      return chartData;
-    }
-  });
-}
-if (document.getElementById('DARK_CHART_LTC')) {
-  am4core.ready(function () {
-    var chart = am4core.create('DARK_CHART_LTC', am4charts.XYChart);
-    chart.data = generateChartData();
-    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-    dateAxis.baseInterval = {
-      timeUnit: 'minute',
-      count: 1,
-    };
-    dateAxis.tooltip.disabled = true;
-    dateAxis.renderer.grid.template.disabled = true;
-    dateAxis.renderer.labels.template.disabled = true;
-    dateAxis.renderer.ticks.template.disabled = true;
-    dateAxis.renderer.paddingBottom = 15;
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.tooltip.disabled = true;
-    valueAxis.renderer.grid.template.disabled = true;
-    valueAxis.renderer.labels.template.disabled = true;
-    valueAxis.renderer.ticks.template.disabled = true;
-    var series = chart.series.push(new am4charts.LineSeries());
-    series.dataFields.dateX = 'date';
-    series.dataFields.valueY = 'prices';
-    series.tooltipText = 'prices: [bold]{valueY}[/]';
-    series.fillOpacity = 0.1;
-    series.fill = am4core.color('#00cc93');
-    series.stroke = am4core.color('#00cc93');
-    series.tooltip.getFillFromObject = false;
-    series.tooltip.background.fill = am4core.color('#131722');
-    series.tooltip.background.stroke = am4core.color('#131722');
-    chart.cursor = new am4charts.XYCursor();
-    chart.cursor.lineY.opacity = 1;
-    dateAxis.start = 0;
-    dateAxis.keepSelection = true;
-    chart.zoomOutButton.background.fill = am4core.color(
-        'rgba(255, 255, 255, 0.11)'
-    );
-    chart.zoomOutButton.icon.stroke = am4core.color('#ebebeb');
-    chart.zoomOutButton.background.states.getKey(
-        'hover'
-    ).properties.fill = am4core.color('#00cc93');
-    function generateChartData() {
-      var chartData = [];
-      var firstDate = new Date();
-      firstDate.setMinutes(firstDate.getDate() - 500);
-      var prices = 500;
-      for (var i = 0; i < 500; i++) {
-        var newDate = new Date(firstDate);
-        newDate.setMinutes(newDate.getMinutes() + i);
-        prices += Math.round(
-            (Math.random() < 0.5 ? 1 : -1) * Math.random() * 10
-        );
-        chartData.push({
-          date: newDate,
-          prices: prices,
+
+        // On click change thumbs active item
+        $('.product-gallery-item').on('click', function (e) {
+            $('#product-zoom-gallery').find('a').removeClass('active');
+            $(this).addClass('active');
+
+            e.preventDefault();
         });
-      }
-      return chartData;
+
+        var ez = $('#product-zoom').data('elevateZoom');
+
+        // Open popup - product images
+        $('#btn-product-gallery').on('click', function (e) {
+            if ( $.fn.magnificPopup ) {
+                $.magnificPopup.open({
+                    items: ez.getGalleryList(),
+                    type: 'image',
+                    gallery:{
+                        enabled:true
+                    },
+                    fixedContentPos: false,
+                    removalDelay: 600,
+                    closeBtnInside: false
+                }, 0);
+
+                e.preventDefault();
+            }
+        });
     }
-  });
-}
-function DepthChart() {
-  chart.dataSource.url =
-      'https://poloniex.com/public?command=returnOrderBook&currencyPair=BUSD_BTC&depth=50';
-  chart.dataSource.reloadFrequency = 25000;
-  chart.dataSource.adapter.add('parsedData', function (data) {
-    function processData(list, type, desc) {
-      for (var i = 0; i < list.length; i++) {
-        list[i] = {
-          value: Number(list[i][0]),
-          volume: Number(list[i][1]),
-        };
-      }
-      list.sort(function (a, b) {
-        if (a.value > b.value) {
-          return 1;
-        } else if (a.value < b.value) {
-          return -1;
+
+    // Product Gallery - product-gallery.html 
+    if ( $.fn.owlCarousel && $.fn.elevateZoom ) {
+        var owlProductGallery = $('.product-gallery-carousel');
+
+        owlProductGallery.on('initialized.owl.carousel', function () {
+            owlProductGallery.find('.active img').elevateZoom({
+                zoomType: "inner",
+                cursor: "crosshair",
+                zoomWindowFadeIn: 400,
+                zoomWindowFadeOut: 400,
+                responsive: true
+            });
+        });
+
+        owlProductGallery.owlCarousel({
+            loop: false,
+            margin: 0,
+            responsiveClass: true,
+            nav: true,
+            navText: ['<i class="icon-angle-left">', '<i class="icon-angle-right">'],
+            dots: false,
+            smartSpeed: 400,
+            autoplay: false,
+            autoplayTimeout: 15000,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                560: {
+                    items: 2
+                },
+                992: {
+                    items: 3
+                },
+                1200: {
+                    items: 3
+                }
+            }
+        });
+
+        owlProductGallery.on('change.owl.carousel', function () {
+            $('.zoomContainer').remove();
+        });
+
+        owlProductGallery.on('translated.owl.carousel', function () {
+            owlProductGallery.find('.active img').elevateZoom({
+                zoomType: "inner",
+                cursor: "crosshair",
+                zoomWindowFadeIn: 400,
+                zoomWindowFadeOut: 400,
+                responsive: true
+            });
+        });
+    }
+
+     // Product Gallery Separeted- product-sticky.html 
+    if ( $.fn.elevateZoom ) {
+        $('.product-separated-item').find('img').elevateZoom({
+            zoomType: "inner",
+            cursor: "crosshair",
+            zoomWindowFadeIn: 400,
+            zoomWindowFadeOut: 400,
+            responsive: true
+        });
+
+        // Create Array for gallery popup
+        var galleryArr = [];
+        $('.product-gallery-separated').find('img').each(function () {
+            var $this = $(this),
+                imgSrc = $this.attr('src'),
+                imgTitle= $this.attr('alt'),
+                obj = {'src': imgSrc, 'title': imgTitle };
+
+            galleryArr.push(obj);
+        })
+
+        $('#btn-separated-gallery').on('click', function (e) {
+            if ( $.fn.magnificPopup ) {
+                $.magnificPopup.open({
+                    items: galleryArr,
+                    type: 'image',
+                    gallery:{
+                        enabled:true
+                    },
+                    fixedContentPos: false,
+                    removalDelay: 600,
+                    closeBtnInside: false
+                }, 0);
+
+                e.preventDefault();
+            }
+        });
+    }
+
+    // Checkout discount input - toggle label if input is empty etc...
+    $('#checkout-discount-input').on('focus', function () {
+        // Hide label on focus
+        $(this).parent('form').find('label').css('opacity', 0);
+    }).on('blur', function () {
+        // Check if input is empty / toggle label
+        var $this = $(this);
+
+        if( $this.val().length !== 0 ) {
+            $this.parent('form').find('label').css('opacity', 0);
         } else {
-          return 0;
+            $this.parent('form').find('label').css('opacity', 1);
         }
-      });
-      if (desc) {
-        for (var i = list.length - 1; i >= 0; i--) {
-          if (i < list.length - 1) {
-            list[i].totalvolume = list[i + 1].totalvolume + list[i].volume;
-          } else {
-            list[i].totalvolume = list[i].volume;
-          }
-          var dp = {};
-          dp['value'] = list[i].value;
-          dp[type + 'volume'] = list[i].volume;
-          dp[type + 'totalvolume'] = list[i].totalvolume;
-          res.unshift(dp);
-        }
-      } else {
-        for (var i = 0; i < list.length; i++) {
-          if (i > 0) {
-            list[i].totalvolume = list[i - 1].totalvolume + list[i].volume;
-          } else {
-            list[i].totalvolume = list[i].volume;
-          }
-          var dp = {};
-          dp['value'] = list[i].value;
-          dp[type + 'volume'] = list[i].volume;
-          dp[type + 'totalvolume'] = list[i].totalvolume;
-          res.push(dp);
-        }
-      }
+    });
+
+    // Dashboard Page Tab Trigger
+    $('.tab-trigger-link').on('click', function (e) {
+    	var targetHref = $(this).attr('href');
+
+    	$('.nav-dashboard').find('a[href="'+targetHref+'"]').trigger('click');
+
+    	e.preventDefault();
+    });
+
+  
+
+    /* Masonry / Grid Layout & Isotope Filter for blog/portfolio etc... */
+    if ( typeof imagesLoaded === 'function' && $.fn.isotope) {
+        // Portfolio
+        $('.portfolio-container').imagesLoaded(function () {
+            // Portfolio Grid/Masonry
+            layoutInit( '.portfolio-container', '.portfolio-item' ); // container - selector
+            // Portfolio Filter
+            isotopeFilter( '.portfolio-filter',  '.portfolio-container'); //filterNav - .container
+        });
+
+        // Blog
+        $('.entry-container').imagesLoaded(function () {
+            // Blog Grid/Masonry
+            layoutInit( '.entry-container', '.entry-item' ); // container - selector
+            // Blog Filter
+            isotopeFilter( '.entry-filter',  '.entry-container'); //filterNav - .container
+        });
+
+        // Product masonry product-masonry.html
+        $('.product-gallery-masonry').imagesLoaded(function () {
+            // Products Grid/Masonry
+            layoutInit( '.product-gallery-masonry', '.product-gallery-item' ); // container - selector
+        });
+
+        // Products - Demo 11
+        $('.products-container').imagesLoaded(function () {
+            // Products Grid/Masonry
+            layoutInit( '.products-container', '.product-item' ); // container - selector
+            // Product Filter
+            isotopeFilter( '.product-filter',  '.products-container'); //filterNav - .container
+        });
     }
-    var res = [];
-    processData(data.bids, 'bids', true);
-    processData(data.asks, 'asks', false);
-    return res;
-  });
-  chart.numberFormatter.numberFormat = '#,###.####';
-  var xAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-  xAxis.dataFields.category = 'value';
-  xAxis.renderer.minGridDistance = 50;
-  xAxis.tooltip.disabled = true;
-  xAxis.renderer.grid.template.disabled = true;
-  xAxis.renderer.paddingBottom = 10;
-  var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
-  yAxis.tooltip.disabled = true;
-  yAxis.renderer.grid.template.disabled = true;
-  var series = chart.series.push(new am4charts.StepLineSeries());
-  series.dataFields.categoryX = 'value';
-  series.dataFields.valueY = 'bidstotalvolume';
-  series.strokeWidth = 1;
-  series.stroke = am4core.color('#26de81');
-  series.fill = series.stroke;
-  series.fillOpacity = 0.5;
-  series.tooltip.getFillFromObject = false;
-  series.tooltip.background.fill = am4core.color('#26de81');
-  series.tooltip.background.stroke = am4core.color('#26de81');
-  series.tooltipText =
-      'Ask: [bold]{categoryX}[/]\nTotal volume: [bold]{valueY}[/]\nVolume: [bold]{bidsvolume}[/]';
-  var series2 = chart.series.push(new am4charts.StepLineSeries());
-  series2.dataFields.categoryX = 'value';
-  series2.dataFields.valueY = 'askstotalvolume';
-  series2.strokeWidth = 1;
-  series2.stroke = am4core.color('#ff231f');
-  series2.fill = series2.stroke;
-  series2.fillOpacity = 0.5;
-  series2.tooltip.getFillFromObject = false;
-  series2.tooltip.background.fill = am4core.color('#ff231f');
-  series2.tooltip.background.stroke = am4core.color('#ff231f');
-  series2.tooltipText =
-      'Ask: [bold]{categoryX}[/]\nTotal volume: [bold]{valueY}[/]\nVolume: [bold]{asksvolume}[/]';
-  var series3 = chart.series.push(new am4charts.ColumnSeries());
-  series3.dataFields.categoryX = 'value';
-  series3.dataFields.valueY = 'bidsvolume';
-  series3.strokeWidth = 0;
-  series3.fill = am4core.color('#2a2e39');
-  series3.fillOpacity = 0.1;
-  var series4 = chart.series.push(new am4charts.ColumnSeries());
-  series4.dataFields.categoryX = 'value';
-  series4.dataFields.valueY = 'asksvolume';
-  series4.strokeWidth = 0;
-  series4.fill = am4core.color('#2a2e39');
-  series4.fillOpacity = 0.1;
-  chart.cursor = new am4charts.XYCursor();
+
+	// Count
+    var $countItem = $('.count');
+	if ( $.fn.countTo ) {
+        if ($.fn.waypoint) {
+            $countItem.waypoint( function () {
+                $(this.element).countTo();
+            }, {
+                offset: '90%',
+                triggerOnce: true 
+            });
+        } else {
+            $countItem.countTo();
+        }    
+    } else { 
+        // fallback
+        // Get the data-to value and add it to element
+        $countItem.each(function () {
+            var $this = $(this),
+                countValue = $this.data('to');
+            $this.text(countValue);
+        });
+    }
+
+    // Scroll To button
+    var $scrollTo = $('.scroll-to');
+    // If button scroll elements exists
+    if ( $scrollTo.length ) {
+        // Scroll to - Animate scroll
+        $scrollTo.on('click', function(e) {
+            var target = $(this).attr('href'),
+                $target = $(target);
+            if ($target.length) {
+                // Add offset for sticky menu
+                var scrolloffset = ( $(window).width() >= 992 ) ? ($target.offset().top - 52) : $target.offset().top
+                $('html, body').animate({
+                    'scrollTop': scrolloffset
+                }, 600);
+                e.preventDefault();
+            }
+        });
+    }
+
+    // Review tab/collapse show + scroll to tab
+    $('#review-link').on('click', function (e) {
+        var target = $(this).attr('href'),
+            $target = $(target);
+
+        if ( $('#product-accordion-review').length ) {
+            $('#product-accordion-review').collapse('show');
+        }
+
+        if ($target.length) {
+            // Add offset for sticky menu
+            var scrolloffset = ( $(window).width() >= 992 ) ? ($target.offset().top - 72) : ( $target.offset().top - 10 )
+            $('html, body').animate({
+                'scrollTop': scrolloffset
+            }, 600);
+
+            $target.tab('show');
+        }
+
+    	e.preventDefault();
+    });
+
+	// Scroll Top Button - Show
+    var $scrollTop = $('#scroll-top');
+
+    $(window).on('load scroll', function() {
+        if ( $(window).scrollTop() >= 400 ) {
+            $scrollTop.addClass('show');
+        } else {
+            $scrollTop.removeClass('show');
+        }
+    });
+
+    // On click animate to top
+    $scrollTop.on('click', function (e) {
+        $('html, body').animate({
+            'scrollTop': 0
+        }, 800);
+        e.preventDefault();
+    });
+
+    // Google Map api v3 - Map for contact pages
+    if ( document.getElementById("map") && typeof google === "object" ) {
+
+        var content =   '<address>' +
+                            '88 Pine St,<br>' +
+                            'New York, NY 10005, USA<br>'+
+                            '<a href="#" class="direction-link" target="_blank">Get Directions <i class="icon-angle-right"></i></a>'+
+                        '</address>';
+
+        var latLong = new google.maps.LatLng(40.8127911,-73.9624553);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: latLong, // Map Center coordinates
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+
+        });
+
+        var infowindow = new google.maps.InfoWindow({
+            content: content,
+            maxWidth: 360
+        });
+
+        var marker;
+        marker = new google.maps.Marker({
+            position: latLong,
+            map: map,
+            animation: google.maps.Animation.DROP
+        });
+
+        google.maps.event.addListener(marker, 'click', (function (marker) {
+            return function() {
+              infowindow.open(map, marker);
+            }
+        })(marker));
+    }
+
+    var $viewAll = $('.view-all-demos');
+    $viewAll.on('click', function (e) {
+        e.preventDefault();
+        $('.demo-item.hidden').addClass('show');
+        $(this).addClass('disabled-hidden');
+    })
+
+    var $megamenu = $('.megamenu-container .sf-with-ul');
+    $megamenu.hover(function() {
+        $('.demo-item.show').addClass('hidden');
+        $('.demo-item.show').removeClass('show');
+        $viewAll.removeClass('disabled-hidden');
+    });
+
+    // Product quickView popup
+    $('.btn-quickview').on('click', function (e) {
+        var ajaxUrl = $(this).attr('href');
+        if ( $.fn.magnificPopup ) {
+            setTimeout(function () {
+                $.magnificPopup.open({
+                    type: 'ajax',
+                    mainClass: "mfp-ajax-product",
+                    tLoading: '',
+                    preloader: false,
+                    removalDelay: 350,
+                    items: {
+                      src: ajaxUrl
+                    },
+                    callbacks: {
+                        ajaxContentAdded: function () {
+                            owlCarousels($('.quickView-content'), {
+                                onTranslate: function(e) {
+                                    var $this = $(e.target),
+                                        currentIndex = ($this.data('owl.carousel').current() + e.item.count - Math.ceil(e.item.count / 2)) % e.item.count;
+                                    $('.quickView-content .carousel-dot').eq(currentIndex).addClass('active').siblings().removeClass('active');
+                                }
+                            });
+                            quantityInputs();
+                        },
+                        open: function() {
+                            $('body').css('overflow-x', 'visible');
+                            $('.sticky-header.fixed').css('padding-right', '1.7rem');
+                        },
+                        close: function() {
+                            $('body').css('overflow-x', 'hidden');
+                            $('.sticky-header.fixed').css('padding-right', '0');
+                        }
+                    },
+
+                    ajax: {
+                        tError: '',
+                    }
+                }, 0);
+            }, 500);
+
+            e.preventDefault();
+        }
+    });
+    $('body').on('click', '.carousel-dot', function () {
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $('body').on('click', '.btn-fullscreen', function(e) {
+        var galleryArr = [];
+        $(this).parents('.owl-stage-outer').find('.owl-item:not(.cloned)').each(function() {
+            var $this = $(this).find('img'),
+                imgSrc = $this.attr('src'),
+                imgTitle= $this.attr('alt'),
+                obj = {'src': imgSrc, 'title': imgTitle };
+            galleryArr.push(obj);
+        });
+
+        var ajaxUrl = $(this).attr('href');
+
+        var mpInstance = $.magnificPopup.instance;
+        if (mpInstance.isOpen)
+            mpInstance.close();
+
+        setTimeout(function () {
+            $.magnificPopup.open({
+                type: 'ajax',
+                mainClass: "mfp-ajax-product",
+                tLoading: '',
+                preloader: false,
+                removalDelay: 350,
+                items: {
+                  src: ajaxUrl
+                },
+                callbacks: {
+                    ajaxContentAdded: function () {
+                        owlCarousels($('.quickView-content'), {
+                            onTranslate: function(e) {
+                                var $this = $(e.target),
+                                    currentIndex = ($this.data('owl.carousel').current() + e.item.count - Math.ceil(e.item.count / 2)) % e.item.count;
+                                $('.quickView-content .carousel-dot').eq(currentIndex).addClass('active').siblings().removeClass('active');
+                                $('.curidx').html(currentIndex + 1);
+                            }
+                        });
+                        quantityInputs();
+                    },
+                    open: function() {
+                        $('body').css('overflow-x', 'visible');
+                        $('.sticky-header.fixed').css('padding-right', '1.7rem');
+                    },
+                    close: function() {
+                        $('body').css('overflow-x', 'hidden');
+                        $('.sticky-header.fixed').css('padding-right', '0');
+                    }
+                },
+
+                ajax: {
+                    tError: '',
+                }
+            }, 0);
+        }, 500);
+        
+        e.preventDefault();
+    });
+
+    if(document.getElementById('newsletter-popup-form')) {
+        setTimeout(function() {
+            var mpInstance = $.magnificPopup.instance;
+            if (mpInstance.isOpen) {
+                mpInstance.close();
+            }
+
+            setTimeout(function() {
+                $.magnificPopup.open({
+                    items: {
+                        src: '#newsletter-popup-form'
+                    },
+                    type: 'inline',
+                    removalDelay: 350,
+                    callbacks: {
+                        open: function() {
+                            $('body').css('overflow-x', 'visible');
+                            $('.sticky-header.fixed').css('padding-right', '1.7rem');
+                        },
+                        close: function() {
+                            $('body').css('overflow-x', 'hidden');
+                            $('.sticky-header.fixed').css('padding-right', '0');
+                        }
+                    }
+                });
+            }, 500)
+        }, 10000)
+    }
+});
+
+
+  // Masonry / Grid layout fnction
+  function layoutInit( container, selector) {
+    $(container).each(function () {
+        var $this = $(this);
+
+        $this.isotope({
+            itemSelector: selector,
+            layoutMode: ( $this.data('layout') ? $this.data('layout'): 'masonry' )
+        });
+    });
+}
+
+function isotopeFilter ( filterNav, container) {
+    $(filterNav).find('a').on('click', function(e) {
+        var $this = $(this),
+            filter = $this.attr('data-filter');
+
+        // Remove active class
+        $(filterNav).find('.active').removeClass('active');
+
+        // Init filter
+        $(container).isotope({
+            filter: filter,
+            transitionDuration: '0.7s'
+        });
+        
+        // Add active class
+        $this.closest('li').addClass('active');
+        e.preventDefault();
+    });
+}
+
+
+// Quantity Input - Cart page - Product Details pages
+function quantityInputs() {
+    if ( $.fn.inputSpinner ) {
+        $("input[type='number']").inputSpinner({
+            decrementButton: '<i class="icon-minus"></i>',
+            incrementButton: '<i class="icon-plus"></i>',
+            groupClass: 'input-spinner',
+            buttonsClass: 'btn-spinner',
+            buttonsWidth: '26px'
+        });
+    }
+}
+
+// Sticky Content - Sidebar - Social Icons etc..
+// Wrap elements with <div class="sticky-content"></div> if you want to make it sticky
+if ( $.fn.stick_in_parent && $(window).width() >= 992 ) {
+    $('.sticky-content').stick_in_parent({
+        offset_top: 80,
+        inner_scrolling: false
+    });
+}
+
+function owlCarousels($wrap, options) {
+    if ( $.fn.owlCarousel ) {
+        var owlSettings = {
+            items: 1,
+            loop: true,
+            margin: 0,
+            responsiveClass: true,
+            nav: true,
+            navText: ['<i class="icon-angle-left">', '<i class="icon-angle-right">'],
+            dots: true,
+            smartSpeed: 400,
+            autoplay: false,
+            autoplayTimeout: 15000
+        };
+        if (typeof $wrap == 'undefined') {
+            $wrap = $('body');
+        }
+        if (options) {
+            owlSettings = $.extend({}, owlSettings, options);
+        }
+
+        // Init all carousel
+        $wrap.find('[data-toggle="owl"]').each(function () {
+            var $this = $(this),
+                newOwlSettings = $.extend({}, owlSettings, $this.data('owl-options'));
+
+            $this.owlCarousel(newOwlSettings);
+            
+        });   
+    }
 }

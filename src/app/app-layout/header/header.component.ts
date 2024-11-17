@@ -13,6 +13,7 @@ import { CoinState, getTestConnect } from 'src/app/selectors/coin.selector';
 import { HeaderState, getIsHeader } from 'src/app/selectors/header.selector';
 import { CartService } from 'src/app/service/cart-service.service';
 
+declare var mobileInit: any;  // Khai báo jQuery
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -54,7 +55,10 @@ export class HeaderComponent implements OnInit {
     this.quantityCart$ = this.authStore.select(getCartNumber)
   }
   ngOnInit(): void {
-
+    
+    setTimeout(() => {
+      mobileInit()
+    }, 500);
 
     let role  = String(AuthDetail.getLoginedInfo()?.role);
     if(role == 'admin'){

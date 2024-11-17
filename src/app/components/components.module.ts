@@ -9,7 +9,7 @@ import { PopupComponent } from './popup/popup.component';
 import { ProductComponent } from './product/product.component';
 import { PipeModule } from '../pipe/pipe.module';
 import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
-
+import { SliderComponent } from './slider/slider.component';
 @NgModule({
   declarations: [
     TableTemplateComponent,
@@ -18,7 +18,8 @@ import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
     PageNotFoundComponent,
     PopupComponent,
     ProductComponent,
-    CustomDialogComponent
+    CustomDialogComponent,
+    SliderComponent
 
 
   ],
@@ -34,7 +35,8 @@ import { CustomDialogComponent } from './custom-dialog/custom-dialog.component';
     ImageUploadComponent,
     PagingComponent,
     PopupComponent,
-    ProductComponent
+    ProductComponent,
+    SliderComponent
   ],
 })
 export class ComponentsModule { }

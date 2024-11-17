@@ -4,6 +4,7 @@ import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import { ChatMessage } from '../model/chatMessage.model';
 import { Data } from '../model/data.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class WebSocketService {
 
   initConnenctionSocket() {
     //const url = '//localhost:8888/ws';
-    const url = 'https://spring-mongodb-sample.onrender.com/ws';
+    const url = environment.apiUrl + "/" + "ws";
     const socket = new SockJS(url);
     this.stompClient = Stomp.over(socket);
 
