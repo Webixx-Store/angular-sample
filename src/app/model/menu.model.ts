@@ -1,11 +1,9 @@
-export interface MenuItem {
-  label: string;
-  route?: string;
-  href?: string;
-}
+
 
 export interface Menu {
   label: string;
-  items?: MenuItem[];
+  items?: Menu[];
   route?: string;
+  kind?:string;
+  icon?:string;
 }

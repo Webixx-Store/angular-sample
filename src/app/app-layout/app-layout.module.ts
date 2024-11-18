@@ -23,6 +23,7 @@ import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { QRCodeModule } from 'angularx-qrcode';
 import { WeddingComponent } from '../wedding/wedding.component';
+import { PageHeadingComponent } from './page-heading/page-heading.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -31,7 +32,8 @@ import { WeddingComponent } from '../wedding/wedding.component';
     AutoLoginComponent,
     PostComponent,
     HomePageComponent,
-    WeddingComponent
+    WeddingComponent,
+    PageHeadingComponent
   ],
   imports: [
     CommonModule,

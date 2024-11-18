@@ -12,6 +12,7 @@ const postModule = () => import ("../../app/app-layout/post/post.module").then(x
 const orderModule = () => import ("../../app/order/order.module").then(x => x.OrderModule);
 const authModule = () => import ("../../app/app-layout/login/login-routing.module").then(x=>x.LoginRoutingModule)
 const trade = () => import ("../../app/app-layout/trade/trade.module").then(x=>x.TradeModule)
+const about = () => import ("../../app/app-layout/about/about.module").then(x=>x.AboutModule)
 
 let role =  AuthDetail.getLoginedInfo()?.role;
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
        { path: 'shopping',canActivate : [AuthGuardService]  , loadChildren: orderModule },
        { path: 'post', loadChildren: postModule },
        { path: 'trade',canActivate : [AuthGuardService]  , loadChildren: trade },
+       { path: 'about'  , loadChildren: about },
     ]
   },
   { path: 'wedding', component: WeddingComponent },

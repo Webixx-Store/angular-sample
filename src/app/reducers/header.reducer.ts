@@ -1,18 +1,19 @@
 import { createReducer, on } from '@ngrx/store';
-import { DateUtils } from '../common/util/date.util';
-import { ConvertUtil } from '../common/util/convert.util';
 import { HeaderState } from '../selectors/header.selector';
-import { setIsHeader } from '../actions/header.action';
+import { setIsHeader, setPageHeading } from '../actions/header.action';
+import { PageHeading } from '../model/page-heading';
 
 
 export const headerFeatureKey = 'headerKey';
 
 export const initialState: HeaderState = {
   items : [] as [],
-  isHeader: {} as Boolean
+  isHeader: {} as Boolean,
+  pageHeading:{} as PageHeading
 }
 
 export const headerReducer = createReducer(
   initialState,
   on(setIsHeader, (state, { isHeader }) => ({...state, isHeader:isHeader })),
+  on(setPageHeading, (state, { pageHeading }) => ({...state, pageHeading:pageHeading })),
 );
