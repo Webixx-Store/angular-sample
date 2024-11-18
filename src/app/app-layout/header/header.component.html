@@ -232,20 +232,20 @@
               <div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel" aria-labelledby="mobile-menu-link">
                 <nav class="mobile-nav">
                   <ul class="mobile-menu">
-                    <li *ngFor="let menu of menus" (click)="onMenuClick(menu)">
+                    <li *ngFor="let menu of menus">
                       <ng-container *ngIf="menu.kind != 'mt'" >
-                        <a [routerLink]="menu.route ? [menu.route] : []" class="sf-with-ul">
+                        <a [routerLink]="menu.route ? [menu.route] : []" class="sf-with-ul"  (click)="onMenuClick(menu)">
                           {{ menu.label }}
                         </a>
                         <ul *ngIf="menu.items?.length">
-                          <li *ngFor="let item of menu.items" (click)="onMenuClick(item)">
-                            <a [routerLink]="item.route ? [item.route] : []" class="sf-with-ul">
+                          <li *ngFor="let item of menu.items" >
+                            <a [routerLink]="item.route ? [item.route] : []" class="sf-with-ul" (click)="onMenuClick(item)">
                               {{ item.label }}
                             </a>
                             <!-- Handle third-level submenus -->
                             <ul *ngIf="item.items?.length">
-                              <li *ngFor="let subItem of item.items" (click)="onMenuClick(subItem)">
-                                <a [routerLink]="subItem.route ? [subItem.route] : []" class="sf-with-ul">
+                              <li *ngFor="let subItem of item.items">
+                                <a [routerLink]="subItem.route ? [subItem.route] : []" class="sf-with-ul"  (click)="onMenuClick(subItem)">
                                   {{ subItem.label }}
                                 </a>
                               </li>
