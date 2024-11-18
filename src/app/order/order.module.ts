@@ -51,6 +51,9 @@ import { ProductListComponent } from './product-list/product-list.component';
 
     StoreModule.forFeature(orderFeatureKey, orderReducer),
     EffectsModule.forFeature([OrderEffect]),
+  ],
+  exports:[
+    OrderTrackingComponent
   ]
 })
 export class OrderModule { }

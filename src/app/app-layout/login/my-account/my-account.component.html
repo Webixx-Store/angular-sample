@@ -14,6 +14,10 @@
                 aria-controls="tab-orders" aria-selected="false">Orders</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders-traking" role="tab"
+                aria-controls="tab-orders-traking" aria-selected="false">Orders traking</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab"
                 aria-controls="tab-downloads" aria-selected="false">Downloads</a>
             </li>
@@ -50,6 +54,9 @@
               <a href="category.html" class="btn btn-outline-primary-2"><span>GO SHOP</span><i
                   class="icon-long-arrow-right"></i></a>
             </div><!-- .End .tab-pane -->
+            <div class="tab-pane fade" id="tab-orders-traking" role="tabpanel" aria-labelledby="tab-orders-link">
+                <app-order-tracking></app-order-tracking>
+            </div>
 
             <div class="tab-pane fade" id="tab-downloads" role="tabpanel" aria-labelledby="tab-downloads-link">
               <p>No downloads available yet.</p>

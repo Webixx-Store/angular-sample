@@ -9,6 +9,7 @@ import { authFeatureKey, authReducer } from 'src/app/reducers/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffect } from 'src/app/effects/auth.effect';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { OrderModule } from 'src/app/order/order.module';
 @NgModule({
   declarations: [
     LoginPageComponent,
@@ -22,9 +23,10 @@ import { MyAccountComponent } from './my-account/my-account.component';
     ReactiveFormsModule,
     StoreModule.forFeature(authFeatureKey, authReducer),
     EffectsModule.forFeature([AuthEffect]),
+    OrderModule
   ],
   exports:[
-    
+
   ]
 })
 export class LoginModule { }
