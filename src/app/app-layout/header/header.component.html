@@ -50,7 +50,7 @@
                   <span class="sr-only">Toggle mobile menu</span>
                   <i class="icon-bars"></i>
               </button>
-              
+
               <a href="index.html" class="logo">
                   <img src="assets/images/demos/demo-2/logo.png" alt="Molla Logo" width="105" height="25">
               </a>
@@ -71,7 +71,7 @@
 
           <div class="header-right">
               <div class="account">
-                  <a href="dashboard.html" title="My account">
+                  <a routerLink="/auth/my-account" title="My account">
                       <div class="icon">
                           <i class="icon-user"></i>
                       </div>
@@ -80,7 +80,7 @@
               </div><!-- End .compare-dropdown -->
 
               <div class="wishlist">
-                  <a href="wishlist.html" title="Wishlist">
+                  <a routerLink="/shopping/wishlist" title="Wishlist">
                       <div class="icon">
                           <i class="icon-heart-o"></i>
                           <span class="wishlist-count badge">3</span>
@@ -148,8 +148,8 @@
                       </div><!-- End .dropdown-cart-total -->
 
                       <div class="dropdown-cart-action">
-                          <a href="cart.html" class="btn btn-primary">View Cart</a>
-                          <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                          <a routerLink="/shopping/cart" class="btn btn-primary">View Cart</a>
+                          <a routerLink="/shopping/checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                       </div><!-- End .dropdown-cart-total -->
                   </div><!-- End .dropdown-menu -->
               </div><!-- End .cart-dropdown -->
@@ -405,10 +405,10 @@
                                                   </ul>
                                                   <div class="menu-title">Shop Pages</div><!-- End .menu-title -->
                                                   <ul>
-                                                      <li><a href="cart.html">Cart</a></li>
+                                                      <li><a routerLink="/shopping/cart">Cart</a></li>
                                                       <li><a href="checkout.html">Checkout</a></li>
-                                                      <li><a href="wishlist.html">Wishlist</a></li>
-                                                      <li><a href="dashboard.html">My Account</a></li>
+                                                      <li><a routerLink="/shopping/wishlist">Wishlist</a></li>
+                                                      <li><a routerLink="/auth/my-account">My Account</a></li>
                                                       <li><a href="#">Lookbook</a></li>
                                                   </ul>
                                               </div><!-- End .col-md-6 -->
@@ -569,7 +569,7 @@
 <div class="mobile-menu-container mobile-menu-light">
         <div class="mobile-menu-wrapper">
             <span class="mobile-menu-close"><i class="icon-close"></i></span>
-            
+
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
                 <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search product ..." required="">
@@ -630,7 +630,7 @@
                                     <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
                                     <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
                                     <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
-                                    <li><a href="cart.html">Cart</a></li>
+                                    <li><a routerLink="/shopping/cart">Cart</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="#">Lookbook</a></li>

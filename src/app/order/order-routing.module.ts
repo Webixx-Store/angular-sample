@@ -7,9 +7,12 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
 import { OrderAnalysicComponent } from './order-analysic/order-analysic.component';
+import { WishListComponent } from './wish-list/wish-list.component';
 
 const routes: Routes = [
   {path:'checkout' , component:CheckoutComponent},
+  {path:'wishlist' , component:WishListComponent},
+  {path:'cart' , component:WishListComponent},
   {path:'addProduct' , component:AddProductComponent},
   {path:'detail/:product' , component:ProductDetailComponent},
   {path:'order-detail' , component:OrderDetailComponent},

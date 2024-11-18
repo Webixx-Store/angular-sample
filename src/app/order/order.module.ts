@@ -21,6 +21,8 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
 import { OrderAnalysicComponent } from './order-analysic/order-analysic.component';
 import { NgChartsModule } from 'ng2-charts';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { NgChartsModule } from 'ng2-charts';
     OrderDetailComponent,
     AddProductComponent,
     OrderTrackingComponent,
-    OrderAnalysicComponent
+    OrderAnalysicComponent,
+    WishListComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
