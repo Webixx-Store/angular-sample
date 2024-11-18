@@ -16,7 +16,7 @@
         <div class="avatar"></div>
         <div class="text_wrapper">
           <div class="name">{{ item.user }}</div>
-          <div class="text">{{item.message}}</div>
+          <div class="text" [innerHTML] = "item.message" ></div>
 
           <img
             *ngIf="isImage(item.image)"
@@ -43,10 +43,10 @@
     <div class="bottom_wrapper clearfix">
       <div class="message_input_wrapper">
         <input class="message_input" placeholder="Message..." [(ngModel)]="messageInput"
-        (keyup.enter)="sendMessage()"/>
+        (keyup.enter)="sendMessage(false)"/>
       </div>
 
-      <div class="send_message" (click)="sendMessage()">
+      <div class="send_message" (click)="sendMessage(false)">
         <div class="icon"></div>
         <div class="text">Send</div>
       </div>
