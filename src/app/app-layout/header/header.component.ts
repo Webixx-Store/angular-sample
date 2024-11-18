@@ -65,12 +65,13 @@ export class HeaderComponent implements OnInit {
       label: 'About',
       items: [
         { label: 'About Company', route: '/about/about-company' ,
-          items: [{
-            label:"About Chirent" , route : ''
-          }]
         },
         { label: 'About Story', route: '/about/about-story' },
       ]
+    },
+    {
+      label: 'Shop',
+      route:"/shopping/product-list"
     },
     {
       label:'Contact',
