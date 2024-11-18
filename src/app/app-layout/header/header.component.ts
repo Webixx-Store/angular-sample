@@ -94,18 +94,23 @@ export class HeaderComponent implements OnInit {
     setTimeout(() => {
       mobileInit()
     }, 500);
-    this.initMenu(window.location.pathname );
+
     let role  = String(AuthDetail.getLoginedInfo()?.role);
-    if(role == 'admin'){
-      this.menus.push({
-        label: 'Administrator',
-        items: [
-          { label: 'Product Manager', route: '/shopping/addProduct' },
-          { label: 'Order Tracking', route: '/shopping/order-tracking' },
-          { label: 'Order Analysic', route: '/shopping/order-analysic' },
-        ]
-      })
-    }
+
+    this.menus.push({
+      label: 'Administrator',
+      items: [
+        { label: 'Product Manager', route: '',  items : [
+          {label : "Edit Product" , route: '/shopping/addProduct' },
+          {label : "New Product" , route: '/shopping/newProduct' }
+        ] },
+        { label: 'Order Tracking', route: '/shopping/order-tracking' },
+        { label: 'Order Analysic', route: '/shopping/order-analysic' },
+      ]
+    })
+
+    this.initMenu(window.location.pathname );
+
 
     if(Number(AuthDetail.getLoginedInfo()?.logoutDate) <= Number(DateUtils.getCurrFullDateTimeStrBlank(new Date()))){
       AuthDetail.actionLogOut();
