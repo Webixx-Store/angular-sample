@@ -57,7 +57,7 @@
 
           <div class="header-right">
               <ng-container *ngFor="let menu of menus">
-                <ng-container *ngIf="menu.kind == 'mt'">
+                <ng-container *ngIf="menu.kind == 'mt' && menu.icon != null">
                   <div [ngClass]="menu.label == 'Account' ? 'account' : 'wishlist'" (click)="onMenuClick(menu)">
                     <a [routerLink]="menu.route" title="My account">
                         <div class="icon">
@@ -129,8 +129,8 @@
                       </div><!-- End .dropdown-cart-total -->
 
                       <div class="dropdown-cart-action">
-                          <a routerLink="/shopping/cart" class="btn btn-primary">View Cart</a>
-                          <a routerLink="/shopping/checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                          <a routerLink="/shopping/cart" class="btn btn-primary" (click)="initMenu('/shopping/cart')">View Cart</a>
+                          <a routerLink="/shopping/checkout" class="btn btn-outline-primary-2" (click)="initMenu('/shopping/checkout')"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                       </div><!-- End .dropdown-cart-total -->
                   </div><!-- End .dropdown-menu -->
               </div><!-- End .cart-dropdown -->
@@ -171,7 +171,7 @@
               <ul class="menu sf-arrows">
                 <li *ngFor="let menu of menus">
                    <ng-container *ngIf="menu.kind != 'mt'" >
-                    <a [routerLink]="menu.route || '#'" class="sf-with-ul">
+                    <a [routerLink]="menu.route ? [menu.route] : []" class="sf-with-ul" (click)="onMenuClick(menu)">
                       {{ menu.label }}
                     </a>
                     <!-- First level submenu (items) -->
@@ -229,33 +229,34 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel" aria-labelledby="mobile-menu-link">
-                    <nav class="mobile-nav">
-                      <ul class="mobile-menu">
-                        <li *ngFor="let menu of menus">
-                          <a [routerLink]="menu.route || '#'" class="sf-with-ul">
-                            {{ menu.label }}
-                          </a>
-                          <ul *ngIf="menu.items?.length">
-                            <li *ngFor="let item of menu.items">
-                              <a [routerLink]="item.route || '#'" class="sf-with-ul">
-                                {{ item.label }}
-                              </a>
-                              <!-- Handle third-level submenus -->
-                              <ul *ngIf="item.items?.length">
-                                <li *ngFor="let subItem of item.items">
-                                  <a [routerLink]="subItem.route || '#'" class="sf-with-ul">
-                                    {{ subItem.label }}
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-
-                    </nav><!-- End .mobile-nav -->
-                </div><!-- .End .tab-pane -->
+              <div class="tab-pane fade show active" id="mobile-menu-tab" role="tabpanel" aria-labelledby="mobile-menu-link">
+                <nav class="mobile-nav">
+                  <ul class="mobile-menu">
+                    <li *ngFor="let menu of menus" (click)="onMenuClick(menu)">
+                      <ng-container *ngIf="menu.kind != 'mt'" >
+                        <a [routerLink]="menu.route ? [menu.route] : []" class="sf-with-ul">
+                          {{ menu.label }}
+                        </a>
+                        <ul *ngIf="menu.items?.length">
+                          <li *ngFor="let item of menu.items" (click)="onMenuClick(item)">
+                            <a [routerLink]="item.route ? [item.route] : []" class="sf-with-ul">
+                              {{ item.label }}
+                            </a>
+                            <!-- Handle third-level submenus -->
+                            <ul *ngIf="item.items?.length">
+                              <li *ngFor="let subItem of item.items" (click)="onMenuClick(subItem)">
+                                <a [routerLink]="subItem.route ? [subItem.route] : []" class="sf-with-ul">
+                                  {{ subItem.label }}
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </ng-container>
+                    </li>
+                  </ul>
+                </nav><!-- End .mobile-nav -->
+              </div><!-- .End .tab-pane -->
                 <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
                     <nav class="mobile-cats-nav">
                         <ul class="mobile-cats-menu">

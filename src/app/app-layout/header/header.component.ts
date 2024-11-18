@@ -46,6 +46,22 @@ export class HeaderComponent implements OnInit {
       icon:'icon-heart-o'
     },
     {
+      label:'View Cart',
+      route:'/shopping/cart',
+      kind:'mt'
+    },
+    {
+      label:'Checkout',
+      route:'/shopping/checkout',
+      kind:'mt'
+    },
+    {
+      label:'Account',
+      route:'/auth/my-account',
+      kind:'mt',
+      icon:'icon-user'
+    },
+    {
       label: 'About',
       items: [
         { label: 'About Company', route: '/about/about-company' ,
@@ -77,7 +93,7 @@ export class HeaderComponent implements OnInit {
     setTimeout(() => {
       mobileInit()
     }, 500);
-    this.initMenu(window.location.pathname , this.menus);
+    this.initMenu(window.location.pathname );
     let role  = String(AuthDetail.getLoginedInfo()?.role);
     if(role == 'admin'){
       this.menus.push({
@@ -191,7 +207,8 @@ export class HeaderComponent implements OnInit {
     this.headerStore.dispatch(setPageHeading({pageHeading:pageHeading}))
   }
 
-  initMenu(url: string, menus: Menu[]){
+  initMenu(url:string){
+    const menus = this.menus;
     let result: Menu | undefined;
 
     // Hàm đệ quy để duyệt qua các menu và items
@@ -216,6 +233,8 @@ export class HeaderComponent implements OnInit {
 
 
   }
+
+
 
 
 
