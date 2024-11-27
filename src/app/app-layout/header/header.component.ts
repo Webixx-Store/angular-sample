@@ -32,35 +32,12 @@ export class HeaderComponent implements OnInit {
   quantityCart$ = new Observable<number>();
   quantityCart :number = 0;
 
+  isPopupOpen = false;
+
+
+
   menus: Menu[] = [
-    {
-      label:'Account',
-      route:'/auth/my-account',
-      kind:'mt',
-      icon:'icon-user'
-    },
-    {
-      label:'Wishlist',
-      route:'/shopping/wishlist',
-      kind:'mt',
-      icon:'icon-heart-o'
-    },
-    {
-      label:'View Cart',
-      route:'/shopping/cart',
-      kind:'mt'
-    },
-    {
-      label:'Checkout',
-      route:'/shopping/checkout',
-      kind:'mt'
-    },
-    {
-      label:'Account',
-      route:'/auth/my-account',
-      kind:'mt',
-      icon:'icon-user'
-    },
+
     {
       label: 'About',
       items: [
@@ -69,10 +46,7 @@ export class HeaderComponent implements OnInit {
         { label: 'About Story', route: '/about/about-story' },
       ]
     },
-    {
-      label: 'Shop',
-      route:"/shopping/product-list"
-    },
+
     {
       label:'Contact',
       route:'/about/contact',
@@ -90,24 +64,65 @@ export class HeaderComponent implements OnInit {
     this.quantityCart$ = this.authStore.select(getCartNumber)
   }
   ngOnInit(): void {
-
     setTimeout(() => {
       mobileInit()
     }, 500);
-
     let role  = String(AuthDetail.getLoginedInfo()?.role);
 
-    this.menus.push({
-      label: 'Administrator',
-      items: [
-        { label: 'Product Manager', route: '',  items : [
-          {label : "Edit Product" , route: '/shopping/addProduct' },
-          {label : "New Product" , route: '/shopping/newProduct' }
-        ] },
-        { label: 'Order Tracking', route: '/shopping/order-tracking' },
-        { label: 'Order Analysic', route: '/shopping/order-analysic' },
-      ]
-    })
+    if(this.isLogin){
+      this.menus.push(    {
+        label:'Account',
+        route:'/auth/my-account',
+        kind:'mt',
+        icon:'icon-user'
+      },
+      {
+        label:'Wishlist',
+        route:'/shopping/wishlist',
+        kind:'mt',
+        icon:'icon-heart-o'
+      },
+      {
+        label:'View Cart',
+        route:'/shopping/cart',
+        kind:'mt'
+      },
+      {
+        label:'Checkout',
+        route:'/shopping/checkout',
+        kind:'mt'
+      },
+      {
+        label:'Account',
+        route:'/auth/my-account',
+        kind:'mt',
+        icon:'icon-user'
+      },
+      {
+        label: 'Shop',
+        route:"/shopping/product-list"
+      },)
+    }
+
+
+    if(role == 'admin'){
+      this.menus.push({
+        label: 'Administrator',
+        items: [
+          { label: 'Product Manager', route: '',  items : [
+            {label : "Edit Product" , route: '/shopping/addProduct' },
+            {label : "New Product" , route: '/shopping/newProduct' }
+          ] },
+          {
+            label: 'Order Manager' , route: '' , items : [
+             {label: 'Order Tracking', route: '/shopping/order-tracking' },
+             {label: 'Order Analysic', route: '/shopping/order-analysic' },
+             {label: 'Order Detail', route: '/shopping/order-detail' },
+            ]
+          }
+        ]
+      })
+    }
 
     this.initMenu(window.location.pathname );
 
@@ -184,7 +199,6 @@ export class HeaderComponent implements OnInit {
               path.push(subItem.label);  // Add third-level menu label
               return true;
             }
-
             // Search recursively within the submenu
             if (subItem.items && subItem.items.length > 0) {
               if (searchMenu(subItem.items, subItem.label)) {
@@ -239,6 +253,15 @@ export class HeaderComponent implements OnInit {
 
 
   }
+
+  openPopup(): void {
+    this.isPopupOpen = true;
+  }
+
+  closePopup(): void {
+    this.isPopupOpen = false;
+  }
+
 
 
 

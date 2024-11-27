@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -24,6 +25,9 @@ import { NgChartsModule } from 'ng2-charts';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
+
 
 @NgModule({
   declarations: [
@@ -46,6 +50,7 @@ import { ProductListComponent } from './product-list/product-list.component';
     PipeModule,
     CheckoutModule,
     NgChartsModule,
+    CarouselModule,
     StoreModule.forFeature(productFeatureKey,productReducer),
     EffectsModule.forFeature([ProductEffect]),
 

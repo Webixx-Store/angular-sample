@@ -26,9 +26,7 @@ export class ProductService{
     }
     // Add page and len as query parameters
     const queryParams = `?page=${page}&len=${len}`;
-    return this._http.get<ProductResponseModel>(`${url}${queryParams}`, {
-        headers: headers
-    });
+    return this._http.get<ProductResponseModel>(`${url}${queryParams}`);
   }
 
   getProductRewiew(params:any): Observable<ProductRewiewResponseModel> {

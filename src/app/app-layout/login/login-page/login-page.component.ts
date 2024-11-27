@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -38,6 +38,12 @@ export class LoginPageComponent implements OnInit {
 
   googleUser: any;
 
+  @Input()
+  isOpenPopup:string  = '';
+  currentTab: string = 'signin';  // Mặc định là tab 'signin'
+
+
+
 
   constructor(private _auth_state: Store<AuthState>
     , private _router: Router
@@ -46,14 +52,17 @@ export class LoginPageComponent implements OnInit {
     private toastr: ToastrService) {
     this.userAuth$ = this._auth_state.select(getUser);
     this.err$ = this._auth_state.select(getErr);
-    AuthDetail.actionLogOut();
+    //AuthDetail.actionLogOut();
   }
+
+
+
 
 
 
   ngOnInit(): void {
     this.initGoogle()
-    AuthDetail.actionLogOut();
+    //AuthDetail.actionLogOut();
     localStorage.removeItem(Common.GOOGLE_USER);
 
     this.clearAuth$ = this.userAuth$.subscribe(
@@ -77,7 +86,8 @@ export class LoginPageComponent implements OnInit {
           Common.GOOGLE_USER,
           JSON.stringify(this.googleUser)
         );
-        location.href = "/auth/register"
+       // location.href = "/auth/register"
+       this.currentTab = 'register';
       }else{
 
         if(this.countSub != 0){
@@ -192,6 +202,10 @@ export class LoginPageComponent implements OnInit {
 
 		console.log('Second Google Sign-In button2 clicked!');
 	}
+
+  selectTab(tab: string) {
+    this.currentTab = tab;
+  }
 
 
 }

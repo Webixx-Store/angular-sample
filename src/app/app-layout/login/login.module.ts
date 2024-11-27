@@ -26,6 +26,7 @@ import { OrderModule } from 'src/app/order/order.module';
     OrderModule
   ],
   exports:[
+    LoginPageComponent
 
   ]
 })

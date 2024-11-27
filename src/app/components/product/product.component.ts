@@ -14,7 +14,7 @@ import { ProductModel } from 'src/app/model/product.model';
 export class ProductComponent implements OnInit {
 
   @Input() product:ProductModel = {} as ProductModel
-  reviewCount:number = 10;
+  @Input() reviewCount:number = 0;
   apiUrl = environment.apiUrl;
   constructor(private cartService : CartService
     , private toastr: ToastrService

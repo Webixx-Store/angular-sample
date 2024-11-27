@@ -20,7 +20,8 @@
                                   </div><!-- End .header-menu -->
                               </div>
                           </li>
-                          <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                          <li *ngIf="!isLogin"><a href="javascript:void(0)" (click)="openPopup()">Sign in / Sign up</a></li>
+                          <li *ngIf="isLogin"><a href="javascript:void(0)" (click)="logOut()">Log Out</a></li>
                       </ul>
                   </li>
               </ul><!-- End .top-menu -->
@@ -284,3 +285,8 @@
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
 </div>
+
+
+<app-popup [isOpen]="isPopupOpen" (close)="closePopup()" [title]="'Login/SignIn'">
+  <app-login-page [isOpenPopup]="isPopupOpen ? 'Y': ''"></app-login-page>
+</app-popup>
