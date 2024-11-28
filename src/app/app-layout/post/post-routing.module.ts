@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PostFormComponent } from './post-form/post-form.component';
 
 const routes: Routes = [
-  {path:'post-form' , component:PostFormComponent}
+  {path:'edit-blog' , component:PostFormComponent}
 ];
 
 @NgModule({

@@ -70,12 +70,7 @@ export class HeaderComponent implements OnInit {
     let role  = String(AuthDetail.getLoginedInfo()?.role);
 
     if(this.isLogin){
-      this.menus.push(    {
-        label:'Account',
-        route:'/auth/my-account',
-        kind:'mt',
-        icon:'icon-user'
-      },
+      this.menus.push(
       {
         label:'Wishlist',
         route:'/shopping/wishlist',
@@ -118,6 +113,11 @@ export class HeaderComponent implements OnInit {
              {label: 'Order Tracking', route: '/shopping/order-tracking' },
              {label: 'Order Analysic', route: '/shopping/order-analysic' },
              {label: 'Order Detail', route: '/shopping/order-detail' },
+            ]
+          }, 
+          {
+            label: 'Blog Manager' , route: '' , items : [
+             {label: 'Edit Blog', route: '/blog/edit-blog' },
             ]
           }
         ]
