@@ -20,7 +20,6 @@ const routes: Routes = [
     path: '', component: AppLayoutComponent, children: [
 
        { path: '', component: role == 'admin' ? OrderAnalysicComponent : HomePageComponent },
-       { path: 'message', component: ChatTingComponent },
        { path: 'auth', loadChildren: authModule },
        { path: 'shopping',canActivate : [AuthGuardService]  , loadChildren: orderModule },
        { path: 'post', loadChildren: postModule },
