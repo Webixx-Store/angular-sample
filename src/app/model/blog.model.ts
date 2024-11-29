@@ -1,10 +1,10 @@
-  
+
   export interface BlogModel {
+    id:string
     title: string,
     category: string,
     content: string,
     author:string,
-    createAt:string,
+    createdAt:string,
     updateAt:string,
   }
-  

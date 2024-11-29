@@ -50,6 +50,11 @@ export class HeaderComponent implements OnInit {
     {
       label:'Contact',
       route:'/about/contact',
+    },
+
+    {
+      label:'Blog',
+      route:'/blog/blogs',
     }
   ];
   currentPath: string = '';
@@ -117,7 +122,7 @@ export class HeaderComponent implements OnInit {
           },
           {
             label: 'Blog Manager' , route: '' , items : [
-             {label: 'Edit Blog', route: '/blog/blog-edit' },
+             {label: 'New Blog', route: '/blog/blog-edit' },
             ]
           }
         ]

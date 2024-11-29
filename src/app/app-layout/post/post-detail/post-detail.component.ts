@@ -1,5 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loadBlogById, loadBlogByIdSuccess } from 'src/app/actions/blog.actions';
+import { ValidationUtil } from 'src/app/common/util/validation.util';
+import { BlogModel } from 'src/app/model/blog.model';
+import { BlogState, selectSelectedBlog } from 'src/app/selectors/blog.selectors';
 
 @Component({
   selector: 'app-post-detail',
@@ -9,34 +16,34 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PostDetailComponent implements OnInit {
 
-  constructor(private sanitizer: DomSanitizer) { }
-
-  content: string = `
-  <h3 style="text-align:center;">
-    <span style="font-family:'Times New Roman';">
-      <strong>CÁC CHIẾN SĨ VNCH ĐÃ CHIẾN ĐẤU QUẢ CẢM Ở HOÀNG SA NHƯ THẾ NÀO</strong>
-    </span>
-  </h3>
-  <p style="text-align:center;">&nbsp;</p>
-  <figure class="image image_resized" style="width:625px;">
-    <img style="aspect-ratio:500/340;" src="http://localhost:8888/upload/product/hoang-sa-(3)20241129_095150.jpg" width="500" height="340">
-  </figure>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-  <p>&nbsp;</p>
-`;
-
+  blog: BlogModel = {} as BlogModel;
+  blog$ = new Observable<BlogModel>();
+  constructor(private sanitizer: DomSanitizer , private route: ActivatedRoute , private blogStore : Store<BlogState>) {
+    this.blog$ = this.blogStore.select(selectSelectedBlog)
+   }
   ngOnInit(): void {
+    const id  = this.route.snapshot.paramMap.get('id');
+    this.blogStore.dispatch(loadBlogById({id:String(id)}))
+    this.blog$.subscribe(res =>{
+      if(ValidationUtil.isNotNullAndNotEmpty(res.id)){
+        this.blog = res;
+        this.addLazyLoadingToImages();
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.blogStore.dispatch(loadBlogByIdSuccess({blog: {} as BlogModel}))
   }
 
   get sanitizedContent() {
     this.addLazyLoadingToImages();
-    return this.sanitizer.bypassSecurityTrustHtml(this.content);
+    return this.sanitizer.bypassSecurityTrustHtml(this.blog.content);
   }
 
   addLazyLoadingToImages() {
     const imgRegex = /<img\s+([^>]+)>/g;
-    this.content = this.content.replace(imgRegex, (match: string, group: string) => {
+    this.blog.content = this.blog.content .replace(imgRegex, (match: string, group: string) => {
       // Thêm hoặc thay đổi thuộc tính "loading" thành "lazy"
       if (!group.includes('loading="lazy"')) {
         return `<img ${group} loading="lazy">`;

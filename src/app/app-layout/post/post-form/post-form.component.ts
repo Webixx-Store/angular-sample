@@ -5,16 +5,28 @@ import { BlogModel } from 'src/app/model/blog.model';
 import { environment } from 'src/environments/environment';
 
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
+import { Observable } from 'rxjs';
+import { State, Store } from '@ngrx/store';
+import { BlogState, selectSelectedBlog, selectSelectedSaveBlog } from 'src/app/selectors/blog.selectors';
+import { ValidationUtil } from 'src/app/common/util/validation.util';
+import { ToastrService } from 'ngx-toastr';
+import { createBlog, createBlogSuccess, loadBlogById } from 'src/app/actions/blog.actions';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.css']
 })
 export class PostFormComponent implements OnInit {
-  ngOnInit(): void {}
+
 
   public Editor = DecoupledEditor as any;
   blog: BlogModel = {} as BlogModel;
+
+  blog$ = new Observable<BlogModel>();
+  blogDetail$ = new Observable<BlogModel>();
+
+
 
   public editorConfig = {
     toolbar: {
@@ -97,9 +109,32 @@ export class PostFormComponent implements OnInit {
     }
   };
 
+  constructor(private blogStore : Store<BlogState> , private toastr: ToastrService   , private route: ActivatedRoute){
+    this.blog$ = this.blogStore.select(selectSelectedSaveBlog);
+    this.blogDetail$ = this.blogStore.select(selectSelectedBlog);
+
+  }
+  ngOnInit(): void {
+
+    const id  = this.route.snapshot.paramMap.get('id');
+    if(id != null){
+      this.blogStore.dispatch(loadBlogById({id:String(id)}))
+    }
+    this.blogDetail$.subscribe(res =>{
+      if(ValidationUtil.isNotNullAndNotEmpty(res.id)){
+        this.blog = res;
+      }
+    })
+    this.blog$.subscribe(res => {
+      if(ValidationUtil.isNotNullAndNotEmpty(res.id)){
+        this.toastr.info("save post susccess")
+      }
+    })
+  }
+
   submitForm() {
+    this.blogStore.dispatch(createBlog({blog : this.blog}))
     console.log('Dữ liệu bài viết:', this.blog);
-    alert('Bài viết đã được gửi!');
   }
 
   onReady(editor: any): void {
@@ -108,6 +143,10 @@ export class PostFormComponent implements OnInit {
 
     // Thêm toolbar vào DOM
     editableElement.parentElement.insertBefore(toolbarElement, editableElement);
+  }
+
+  ngOnDestroy(): void {
+    this.blogStore.dispatch(createBlogSuccess({blog: {} as BlogModel}))
   }
 }
 

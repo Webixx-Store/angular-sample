@@ -27,3 +27,10 @@
 .product-description strong {
   color: #2c3e50;
 }
+
+.blog-title {
+  font-size: 2rem; /* Kích thước chữ cho tiêu đề */
+  font-weight: bold; /* Đậm */
+  margin-bottom: 1rem; /* Khoảng cách dưới tiêu đề */
+  color: #333; /* Màu chữ */
+}
