@@ -51,31 +51,37 @@ export class PostFormComponent implements OnInit {
     image: {
       upload: {
         types: ['jpeg', 'png', 'gif', 'jpg']
-      }
+      },
+      resizeUnit: 'px',  // Đơn vị thay đổi kích thước là pixel
+      resizeOptions: [
+        { name: 'resizeImage:original', value: null, icon: 'original' },
+        { name: 'resizeImage:50', value: '50', icon: 'small' },
+        { name: 'resizeImage:75', value: '75', icon: 'medium' },
+        { name: 'resizeImage:100', value: '100', icon: 'large' }]
     },
     ckfinder: {
       uploadUrl: environment.apiUrl + '/api/products/upload-editor',
     },
     fontFamily: {
       options: [
-        'default',
         'Arial',
         'Times New Roman',
         'Helvetica',
         'Courier New',
         'Roboto'
-      ]
+      ],
+      default: 'Times New Roman'
     },
     fontSize: {
       options: [
         9,
         11,
         13,
-        'default',
         17,
         19,
         21
-      ]
+      ],
+      default: 13
     },
     alignment: {
       options: ['left', 'right', 'center', 'justify'] // Đảm bảo bạn có các tùy chọn căn chỉnh

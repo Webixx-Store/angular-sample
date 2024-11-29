@@ -114,10 +114,10 @@ export class HeaderComponent implements OnInit {
              {label: 'Order Analysic', route: '/shopping/order-analysic' },
              {label: 'Order Detail', route: '/shopping/order-detail' },
             ]
-          }, 
+          },
           {
             label: 'Blog Manager' , route: '' , items : [
-             {label: 'Edit Blog', route: '/blog/edit-blog' },
+             {label: 'Edit Blog', route: '/blog/blog-edit' },
             ]
           }
         ]
