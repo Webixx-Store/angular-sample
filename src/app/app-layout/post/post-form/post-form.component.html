@@ -45,11 +45,12 @@
             </div>
             <div class="mb-4">
               <label for="content" class="form-label fw-bold">Content</label>
-              <ckeditor 
+              <ckeditor
                 [(ngModel)]="blog.content"
                 name="content"
                 [editor]="Editor"
                 [config]="editorConfig"
+                (ready)="onReady($event)"
               ></ckeditor>
             </div>
             <button type="submit" class="btn btn-primary btn-lg w-100">Save Blog</button>

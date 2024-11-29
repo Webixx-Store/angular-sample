@@ -3,9 +3,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'; // Sử dụng Cl
 import '@ckeditor/ckeditor5-alignment/build/translations/vi';
 import { BlogModel } from 'src/app/model/blog.model';
 import { environment } from 'src/environments/environment';
-import CustomEditor from 'src/assets/js/ckeditor.js';
 
-
+import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
@@ -14,14 +13,11 @@ import CustomEditor from 'src/assets/js/ckeditor.js';
 export class PostFormComponent implements OnInit {
   ngOnInit(): void {}
 
-  public Editor = CustomEditor; // Sử dụng ClassicEditor
+  public Editor = DecoupledEditor as any;
   blog: BlogModel = {} as BlogModel;
 
   public editorConfig = {
     toolbar: {
-      plugins:[
-        'PasteFromOffice',
-      ],
       items: [
         'heading',
         '|',
@@ -99,4 +95,14 @@ export class PostFormComponent implements OnInit {
     console.log('Dữ liệu bài viết:', this.blog);
     alert('Bài viết đã được gửi!');
   }
+
+  onReady(editor: any): void {
+    const toolbarElement = editor.ui.view.toolbar.element;
+    const editableElement = editor.ui.getEditableElement();
+
+    // Thêm toolbar vào DOM
+    editableElement.parentElement.insertBefore(toolbarElement, editableElement);
+  }
 }
+
+
