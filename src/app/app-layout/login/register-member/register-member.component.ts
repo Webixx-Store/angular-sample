@@ -48,7 +48,7 @@ export class RegisterMemberComponent implements OnInit {
          if(Number(res.code )== 200){
           this.toastr.success(String(res.msg))
           setTimeout(() => {
-            location.href = "/auth/login"
+            location.href = "/login"
           }, 1500);
          }else{
           this.toastr.error(String(res.data))
