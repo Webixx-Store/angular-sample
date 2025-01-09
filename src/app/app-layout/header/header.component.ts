@@ -259,9 +259,7 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  openPopup(): void {
-    this.isPopupOpen = true;
-  }
+
 
   closePopup(): void {
     this.isPopupOpen = false;

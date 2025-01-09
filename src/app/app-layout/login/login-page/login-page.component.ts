@@ -86,8 +86,7 @@ export class LoginPageComponent implements OnInit {
           Common.GOOGLE_USER,
           JSON.stringify(this.googleUser)
         );
-       // location.href = "/auth/register"
-       this.currentTab = 'register';
+       location.href = "/register"
       }else{
 
         if(this.countSub != 0){
@@ -131,7 +130,7 @@ export class LoginPageComponent implements OnInit {
       this.clearErr$.unsubscribe();
       location.href ="/";
     }else{
-      this._router.navigate(["/auth/login"]);
+      this._router.navigate(["/login"]);
     }
   }
 
@@ -188,12 +187,7 @@ export class LoginPageComponent implements OnInit {
         }
         this._auth_state.dispatch(authAction({params:param}))
       }else{
-
       }
-
-
-
-
 		}
 	}
 

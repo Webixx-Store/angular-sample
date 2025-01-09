@@ -5,8 +5,8 @@ import { RegisterMemberComponent } from './register-member/register-member.compo
 import { MyAccountComponent } from './my-account/my-account.component';
 
 const routes: Routes = [
-  {path:'login' , component:LoginPageComponent},
-  {path:'register' , component:RegisterMemberComponent},
+  // {path:'login' , component:LoginPageComponent},
+  // {path:'register' , component:RegisterMemberComponent},
   {path:'my-account' , component:MyAccountComponent},
 
 ];

@@ -8,6 +8,8 @@ import { ChatTingComponent } from './trade/chat-ting/chat-ting.component';
 import { AuthDetail } from '../common/util/auth-detail';
 import { OrderAnalysicComponent } from '../order/order-analysic/order-analysic.component';
 import { WeddingComponent } from '../wedding/wedding.component';
+import { LoginPageComponent } from './login/login-page/login-page.component';
+import { RegisterMemberComponent } from './login/register-member/register-member.component';
 const postModule = () => import ("../../app/app-layout/post/post.module").then(x => x.PostModule);
 const orderModule = () => import ("../../app/order/order.module").then(x => x.OrderModule);
 const authModule = () => import ("../../app/app-layout/login/login-routing.module").then(x=>x.LoginRoutingModule)
@@ -28,6 +30,8 @@ const routes: Routes = [
     ]
   },
   { path: 'wedding', component: WeddingComponent },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'register', component: RegisterMemberComponent },
 ];
 
 @NgModule({
