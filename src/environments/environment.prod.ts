@@ -4,5 +4,6 @@ export const environment = {
 
   production: true,
   //apiUrl: "https://shop-demo-bkp4.onrender.com"
-  apiUrl: 'https://spring-mongodb-sample.onrender.com'
+  apiUrl: 'https://spring-mongodb-sample.onrender.com',
+  comId : 'webixx'
 };

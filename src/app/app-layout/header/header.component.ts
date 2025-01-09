@@ -111,7 +111,8 @@ export class HeaderComponent implements OnInit {
         items: [
           { label: 'Product Manager', route: '',  items : [
             {label : "Edit Product" , route: '/shopping/addProduct' },
-            {label : "New Product" , route: '/shopping/newProduct' }
+            {label : "New Product" , route: '/shopping/newProduct' },
+            {label : "Edit Cate" , route: '/product/regcate' }
           ] },
           {
             label: 'Order Manager' , route: '' , items : [

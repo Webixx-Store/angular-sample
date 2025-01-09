@@ -12,6 +12,7 @@ import { LoginPageComponent } from './login/login-page/login-page.component';
 import { RegisterMemberComponent } from './login/register-member/register-member.component';
 const postModule = () => import ("../../app/app-layout/post/post.module").then(x => x.PostModule);
 const orderModule = () => import ("../../app/order/order.module").then(x => x.OrderModule);
+const productModule = () => import ("../../app/product/product.module").then(x => x.ProductModule);
 const authModule = () => import ("../../app/app-layout/login/login-routing.module").then(x=>x.LoginRoutingModule)
 const trade = () => import ("../../app/app-layout/trade/trade.module").then(x=>x.TradeModule)
 const about = () => import ("../../app/app-layout/about/about.module").then(x=>x.AboutModule)
@@ -24,6 +25,7 @@ const routes: Routes = [
        { path: '', component: role == 'admin' ? OrderAnalysicComponent : HomePageComponent },
        { path: 'auth', loadChildren: authModule },
        { path: 'shopping',canActivate : [AuthGuardService]  , loadChildren: orderModule },
+       { path: 'product',canActivate : [AuthGuardService]  , loadChildren: productModule },
        { path: 'blog', loadChildren: postModule },
        { path: 'trade',canActivate : [AuthGuardService]  , loadChildren: trade },
        { path: 'about'  , loadChildren: about },
