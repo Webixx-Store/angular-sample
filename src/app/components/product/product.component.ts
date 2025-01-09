@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit {
     , private router: Router) {
 
   }
+  private isNavigating = false; // Thêm flag kiểm tra
 
   ngOnInit(): void {
 
@@ -36,8 +37,31 @@ export class ProductComponent implements OnInit {
 
   }
 
-  handleLink(){
-    this.router.navigateByUrl("/shopping/detail/" +this.product.id);
+
+
+  async handleLink() {
+    // Kiểm tra nếu đang trong quá trình điều hướng thì return
+    if (this.isNavigating) {
+      return;
+    }
+
+    try {
+      this.isNavigating = true; // Đặt flag
+
+      if (!this.product?.id) {
+        this.toastr.error('Không tìm thấy thông tin sản phẩm');
+        return;
+      }
+
+      // Sử dụng Promise để handle navigation
+      await this.router.navigate(["/shopping/detail", this.product.id]);
+
+    } catch (error) {
+      console.error('Navigation error:', error);
+      this.toastr.error('Có lỗi xảy ra khi chuyển trang');
+    } finally {
+      this.isNavigating = false; // Reset flag
+    }
   }
 
 
