@@ -77,6 +77,23 @@ export class ProductService{
       headers: headers,
     });
   }
+
+
+  saveCategory(params:any , file:any):Observable<ResultModel>{
+    let url = `${environment.apiUrl}/api/products/saveRewiew`;
+
+    const formData = new FormData();
+    if (file) {
+      formData.append('fileData', file);
+    }
+    formData.append('category', new Blob([JSON.stringify(params)], { type: 'application/json' }));
+    const headers: HttpHeaders = new HttpHeaders({
+      'Authorization': `Bearer ${AuthDetail.getLoginedInfo()?.jwt}`
+    });
+    return this._http.post<ResultModel>(url, formData, {
+      headers: headers,
+    });
+  }
 }
 
 

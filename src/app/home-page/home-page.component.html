@@ -1,50 +1,26 @@
-
-  <div class="intro-slider-container">
-      <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{"nav": false}'>
-          <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/slide-1.jpg);">
-              <div class="container intro-content">
-                  <h3 class="intro-subtitle">Bedroom Furniture</h3><!-- End .h3 intro-subtitle -->
-                  <h1 class="intro-title">Find Comfort <br>That Suits You.</h1><!-- End .intro-title -->
-
-                  <a href="category.html" class="btn btn-primary">
-                      <span>Shop Now</span>
-                      <i class="icon-long-arrow-right"></i>
-                  </a>
-              </div><!-- End .container intro-content -->
-          </div><!-- End .intro-slide -->
-
-          <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/slide-2.jpg);">
-              <div class="container intro-content">
-                  <h3 class="intro-subtitle">Deals and Promotions</h3><!-- End .h3 intro-subtitle -->
-                  <h1 class="intro-title">Ypperlig <br>Coffee Table <br><span class="text-primary"><sup>$</sup>49,99</span></h1><!-- End .intro-title -->
-
-                  <a href="category.html" class="btn btn-primary">
-                      <span>Shop Now</span>
-                      <i class="icon-long-arrow-right"></i>
-                  </a>
-              </div><!-- End .container intro-content -->
-          </div><!-- End .intro-slide -->
-
-          <div class="intro-slide" style="background-image: url(assets/images/demos/demo-2/slider/slide-3.jpg);">
-              <div class="container intro-content">
-                  <h3 class="intro-subtitle">Living Room</h3><!-- End .h3 intro-subtitle -->
-                  <h1 class="intro-title">
-                      Make Your Living Room <br>Work For You.<br>
-                      <span class="text-primary">
-                          <sup class="text-white font-weight-light">from</sup><sup>$</sup>9,99
-                      </span>
-                  </h1><!-- End .intro-title -->
-
-                  <a href="category.html" class="btn btn-primary">
-                      <span>Shop Now</span>
-                      <i class="icon-long-arrow-right"></i>
-                  </a>
-              </div><!-- End .container intro-content -->
-          </div><!-- End .intro-slide -->
-      </div><!-- End .owl-carousel owl-simple -->
-
-      <span class="slider-loader text-white"></span><!-- End .slider-loader -->
-  </div><!-- End .intro-slider-container -->
+<div class="mainVisual position-relative mb-5">
+  <div class="swiper-container">
+    <div class="swiper reviewSwiper">
+      <div class="swiper-wrapper">
+        <ng-container *ngFor="let item of brands; index as i">
+          <div class="swiper-slide">
+            <div class="slider-content position-relative">
+              <img [src]="item.img" [alt]="item.alt" class="swiper-slide-img w-100" style="height: 600px; object-fit: cover;">
+              <div class="slider-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(0,0,0,0.4);">
+                <div class="container text-white">
+                  <h1 class="display-4 fw-bold">Khám phá Bất Động Sản</h1>
+                  <p class="lead">Tìm kiếm ngôi nhà mơ ước của bạn</p>
+                  <a href="#search" class="btn btn-primary btn-lg">Tìm kiếm ngay</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</div>
 
   <div class="brands-border owl-carousel owl-simple" data-toggle="owl"
       data-owl-options='{

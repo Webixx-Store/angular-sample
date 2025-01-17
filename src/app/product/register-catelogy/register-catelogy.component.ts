@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
+import { OverlayLoadingState } from 'src/app/selectors/overlay-loading.selector';
+import { ProductState } from 'src/app/selectors/product.selector';
 
 @Component({
   selector: 'app-category-register',
@@ -9,7 +13,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterCategoryComponent implements OnInit {
   categoryForm: FormGroup = {} as FormGroup;
   submitted = false;
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder ,
+         private toastr: ToastrService ,
+        private productStore: Store<ProductState>,
+        private overlayLoadingStore: Store<OverlayLoadingState>,
+  ) {}
 
   ngOnInit() {
     this.categoryForm = this.formBuilder.group({
@@ -18,11 +26,9 @@ export class RegisterCategoryComponent implements OnInit {
       parentCategory: [''],
       status: ['active'],
       imageUrl: [''],
-      displayOrder: ['', [Validators.required, Validators.min(0)]]
+      sortNo: ['', [Validators.required, Validators.min(0)]]
     });
   }
-
-  // Getter để dễ dàng truy cập form controls trong template
   get f() {
     return this.categoryForm.controls;
   }
@@ -30,13 +36,11 @@ export class RegisterCategoryComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
+
     if (this.categoryForm.valid) {
       console.log(this.categoryForm.value);
-      // Add your API call here
     }
   }
-
-  // Trong component class thêm method này
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {

@@ -86,17 +86,17 @@
             </div>
 
             <div class="mb-3">
-              <label for="displayOrder" class="form-label">Thứ Tự Hiển Thị *</label>
+              <label for="sortNo" class="form-label">Thứ Tự Hiển Thị *</label>
               <input
                 type="number"
                 class="form-control"
-                id="displayOrder"
-                formControlName="displayOrder"
-                [ngClass]="{ 'is-invalid': submitted && f['displayOrder'].errors }"
+                id="sortNo"
+                formControlName="sortNo"
+                [ngClass]="{ 'is-invalid': submitted && f['sortNo'].errors }"
               >
-              <div class="invalid-feedback" *ngIf="submitted && f['displayOrder'].errors">
-                <div *ngIf="f['displayOrder'].errors['required']">Vui lòng nhập thứ tự hiển thị</div>
-                <div *ngIf="f['displayOrder'].errors['min']">Thứ tự hiển thị phải lớn hơn hoặc bằng 0</div>
+              <div class="invalid-feedback" *ngIf="submitted && f['sortNo'].errors">
+                <div *ngIf="f['sortNo'].errors['required']">Vui lòng nhập thứ tự hiển thị</div>
+                <div *ngIf="f['sortNo'].errors['min']">Thứ tự hiển thị phải lớn hơn hoặc bằng 0</div>
               </div>
             </div>
 
